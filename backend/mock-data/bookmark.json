@@ -1,0 +1,402 @@
+[
+  {
+    "url": "https://en.wikipedia.org",
+    "description": "wikipedia"
+  },
+  {
+    "url": "https://youtube.com",
+    "description": "youtube"
+  },
+  {
+    "url": "https://amazon.com",
+    "description": "amazon"
+  },
+  {
+    "url": "https://facebook.com",
+    "description": "facebook"
+  },
+  {
+    "url": "https://twitter.com",
+    "description": "twitter"
+  },
+  {
+    "url": "https://fandom.com",
+    "description": "fandom"
+  },
+  {
+    "url": "https://pinterest.com",
+    "description": "pinterest"
+  },
+  {
+    "url": "https://imdb.com",
+    "description": "imdb"
+  },
+  {
+    "url": "https://reddit.com",
+    "description": "reddit"
+  },
+  {
+    "url": "https://yelp.com",
+    "description": "yelp"
+  },
+  {
+    "url": "https://instagram.com",
+    "description": "instagram"
+  },
+  {
+    "url": "https://ebay.com",
+    "description": "ebay"
+  },
+  {
+    "url": "https://walmart.com",
+    "description": "walmart"
+  },
+  {
+    "url": "https://craigslist.org",
+    "description": "craigslist"
+  },
+  {
+    "url": "https://healthline.com",
+    "description": "healthline"
+  },
+  {
+    "url": "https://tripadvisor.com",
+    "description": "tripadvisor"
+  },
+  {
+    "url": "https://linkedin.com",
+    "description": "linkedin"
+  },
+  {
+    "url": "https://webmd.com",
+    "description": "webmd"
+  },
+  {
+    "url": "https://netflix.com",
+    "description": "netflix"
+  },
+  {
+    "url": "https://apple.com",
+    "description": "apple"
+  },
+  {
+    "url": "https://homedepot.com",
+    "description": "homedepot"
+  },
+  {
+    "url": "https://mail.yahoo.com",
+    "description": "mail.yahoo"
+  },
+  {
+    "url": "https://cnn.com",
+    "description": "cnn"
+  },
+  {
+    "url": "https://etsy.com",
+    "description": "etsy"
+  },
+  {
+    "url": "https://google.com",
+    "description": "google"
+  },
+  {
+    "url": "https://yahoo.com",
+    "description": "yahoo"
+  },
+  {
+    "url": "https://indeed.com",
+    "description": "indeed"
+  },
+  {
+    "url": "https://target.com",
+    "description": "target"
+  },
+  {
+    "url": "https://microsoft.com",
+    "description": "microsoft"
+  },
+  {
+    "url": "https://nytimes.com",
+    "description": "nytimes"
+  },
+  {
+    "url": "https://mayoclinic.org",
+    "description": "mayoclinic"
+  },
+  {
+    "url": "https://espn.com",
+    "description": "espn"
+  },
+  {
+    "url": "https://usps.com",
+    "description": "usps"
+  },
+  {
+    "url": "https://quizlet.com",
+    "description": "quizlet"
+  },
+  {
+    "url": "https://gamepedia.com",
+    "description": "gamepedia"
+  },
+  {
+    "url": "https://lowes.com",
+    "description": "lowes"
+  },
+  {
+    "url": "https://irs.gov",
+    "description": "irs"
+  },
+  {
+    "url": "https://nih.gov",
+    "description": "nih"
+  },
+  {
+    "url": "https://merriam-webster.com",
+    "description": "merriam-webster"
+  },
+  {
+    "url": "https://steampowered.com",
+    "description": "steampowered"
+  },
+  {
+    "url": "https://mapquest.com",
+    "description": "mapquest"
+  },
+  {
+    "url": "https://foxnews.com",
+    "description": "foxnews"
+  },
+  {
+    "url": "https://allrecipes.com",
+    "description": "allrecipes"
+  },
+  {
+    "url": "https://quora.com",
+    "description": "quora"
+  },
+  {
+    "url": "https://aol.com",
+    "description": "aol"
+  },
+  {
+    "url": "https://britannica.com",
+    "description": "britannica"
+  },
+  {
+    "url": "https://live.com",
+    "description": "live"
+  },
+  {
+    "url": "https://bestbuy.com",
+    "description": "bestbuy"
+  },
+  {
+    "url": "https://rottentomatoes.com",
+    "description": "rottentomatoes"
+  },
+  {
+    "url": "https://ca.gov",
+    "description": "ca"
+  },
+  {
+    "url": "https://play.google.com",
+    "description": "play.google"
+  },
+  {
+    "url": "https://cnet.com",
+    "description": "cnet"
+  },
+  {
+    "url": "https://roblox.com",
+    "description": "roblox"
+  },
+  {
+    "url": "https://usnews.com",
+    "description": "usnews"
+  },
+  {
+    "url": "https://zillow.com",
+    "description": "zillow"
+  },
+  {
+    "url": "https://businessinsider.com",
+    "description": "businessinsider"
+  },
+  {
+    "url": "https://bulbagarden.net",
+    "description": "bulbagarden"
+  },
+  {
+    "url": "https://paypal.com",
+    "description": "paypal"
+  },
+  {
+    "url": "https://finance.yahoo.com",
+    "description": "finance.yahoo"
+  },
+  {
+    "url": "https://genius.com",
+    "description": "genius"
+  },
+  {
+    "url": "https://usatoday.com",
+    "description": "usatoday"
+  },
+  {
+    "url": "https://realtor.com",
+    "description": "realtor"
+  },
+  {
+    "url": "https://medicalnewstoday.com",
+    "description": "medicalnewstoday"
+  },
+  {
+    "url": "https://fedex.com",
+    "description": "fedex"
+  },
+  {
+    "url": "https://bankofamerica.com",
+    "description": "bankofamerica"
+  },
+  {
+    "url": "https://washingtonpost.com",
+    "description": "washingtonpost"
+  },
+  {
+    "url": "https://investopedia.com",
+    "description": "investopedia"
+  },
+  {
+    "url": "https://speedtest.net",
+    "description": "speedtest"
+  },
+  {
+    "url": "https://spotify.com",
+    "description": "spotify"
+  },
+  {
+    "url": "https://cdc.gov",
+    "description": "cdc"
+  },
+  {
+    "url": "https://chase.com",
+    "description": "chase"
+  },
+  {
+    "url": "https://hulu.com",
+    "description": "hulu"
+  },
+  {
+    "url": "https://xfinity.com",
+    "description": "xfinity"
+  },
+  {
+    "url": "https://msn.com",
+    "description": "msn"
+  },
+  {
+    "url": "https://dictionary.com",
+    "description": "dictionary"
+  },
+  {
+    "url": "https://weather.com",
+    "description": "weather"
+  },
+  {
+    "url": "https://ups.com",
+    "description": "ups"
+  },
+  {
+    "url": "https://verizon.com",
+    "description": "verizon"
+  },
+  {
+    "url": "https://forbes.com",
+    "description": "forbes"
+  },
+  {
+    "url": "https://wowhead.com",
+    "description": "wowhead"
+  },
+  {
+    "url": "https://expedia.com",
+    "description": "expedia"
+  },
+  {
+    "url": "https://urbandictionary.com",
+    "description": "urbandictionary"
+  },
+  {
+    "url": "https://foodnetwork.com",
+    "description": "foodnetwork"
+  },
+  {
+    "url": "https://nbcnews.com",
+    "description": "nbcnews"
+  },
+  {
+    "url": "https://macys.com",
+    "description": "macys"
+  },
+  {
+    "url": "https://apartments.com",
+    "description": "apartments"
+  },
+  {
+    "url": "https://ign.com",
+    "description": "ign"
+  },
+  {
+    "url": "https://capitalone.com",
+    "description": "capitalone"
+  },
+  {
+    "url": "https://costco.com",
+    "description": "costco"
+  },
+  {
+    "url": "https://theguardian.com",
+    "description": "theguardian"
+  },
+  {
+    "url": "https://cnbc.com",
+    "description": "cnbc"
+  },
+  {
+    "url": "https://glassdoor.com",
+    "description": "glassdoor"
+  },
+  {
+    "url": "https://yellowpages.com",
+    "description": "yellowpages"
+  },
+  {
+    "url": "https://att.com",
+    "description": "att"
+  },
+  {
+    "url": "https://bbc.com",
+    "description": "bbc"
+  },
+  {
+    "url": "https://khanacademy.org",
+    "description": "khanacademy"
+  },
+  {
+    "url": "https://ny.gov",
+    "description": "ny"
+  },
+  {
+    "url": "https://twitch.tv",
+    "description": "twitch"
+  },
+  {
+    "url": "https://adobe.com",
+    "description": "adobe"
+  },
+  {
+    "url": "https://cbssports.com",
+    "description": "cbssports"
+  }
+]

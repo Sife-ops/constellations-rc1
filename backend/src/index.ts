@@ -17,21 +17,16 @@ import { User } from "./entities/user";
 import { UserResolver } from "./resolvers/user";
 
 (async function main() {
-  const db = await createConnection({
+  await createConnection({
     type: "sqlite",
     database: "./db.sqlite3",
-    dropSchema: env.dev,
-    entities: [
-      //
-      Bookmark,
-      Category,
-      User,
-    ],
+    dropSchema: env.seed,
+    entities: [Bookmark, Category, User],
     synchronize: true,
     logging: false,
   });
 
-  if (env.dev) {
+  if (env.seed) {
     await seed();
   }
 

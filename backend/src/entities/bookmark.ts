@@ -34,8 +34,7 @@ export class Bookmark extends BaseEntity {
   @TypeormLoader()
   categories: Category[];
 
-  @Field(() => User)
-  @ManyToOne(() => User, (user) => user.bookmarks)
+  @ManyToOne(() => User, (user) => user.bookmarks, { onDelete: "CASCADE" })
   @TypeormLoader()
   user: User;
 }

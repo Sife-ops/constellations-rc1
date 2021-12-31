@@ -63,13 +63,13 @@ export const Home: React.FC = () => {
       <Form className="d-flex mb-1">
         <FormControl
           //
-          className="mx-2"
+          className="ms-2 me-1"
           type="search"
           placeholder="Filter"
         />
         <Button
           //
-          className="mx-2"
+          className="ms-1 me-2"
         >
           Search
         </Button>

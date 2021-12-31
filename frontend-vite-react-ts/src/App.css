@@ -1,7 +1,10 @@
-header h1 {
-  text-align: center;
-}
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Comforter&family=Gloria+Hallelujah&family=Press+Start+2P&family=Twinkle+Star&display=swap");
 
-nav li {
-  display: inline;
+#id1 {
+  text-align: center;
+  /* font-family: "Gloria Hallelujah", cursive; */
+  /* font-family: "Press Start 2P", cursive; */
+  /* font-family: 'Audiowide', cursive; */
+  /* font-family: 'Comforter', cursive; */
+  font-family: 'Twinkle Star', cursive;
 }

@@ -1,7 +1,8 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import logo from "./logo.svg";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import { About } from "./components/about";
 import { Home } from "./components/home";
@@ -9,13 +10,11 @@ import { Home } from "./components/home";
 function App() {
   return (
     <div>
-      <header>
-        <h1>Constellations</h1>
-      </header>
-
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">LOGO</Navbar.Brand>
+          <Navbar.Brand id="id1" href="/">
+            <img src={logo} width="30" height="30" /> Constellations
+          </Navbar.Brand>
 
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>

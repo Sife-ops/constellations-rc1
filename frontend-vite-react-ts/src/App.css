@@ -1,3 +1,7 @@
-.aaa {
+header h1 {
   text-align: center;
+}
+
+nav li {
+  display: inline;
 }

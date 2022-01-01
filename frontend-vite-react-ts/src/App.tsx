@@ -1,6 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./logo.svg";
+import userData from "./mock-data/user.json";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
 
@@ -30,7 +31,7 @@ function App() {
       </Navbar>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home data={userData} />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </div>

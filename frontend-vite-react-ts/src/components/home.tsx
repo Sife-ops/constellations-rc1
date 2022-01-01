@@ -1,64 +1,20 @@
 import React from "react";
 import {
   Badge,
-  ToggleButton,
   Button,
   Form,
   FormControl,
   Table,
 } from "react-bootstrap";
 
-export const Home: React.FC = () => {
+import { Categories } from "./categories";
+
+export const Home: React.FC<{ data: any }> = ({ data }) => {
   const [checked, setChecked] = React.useState<boolean>(false);
 
   return (
     <div>
-      <div
-        //
-        className="mt-2 mx-1"
-      >
-        <ToggleButton
-          className="mb-2 mx-1"
-          id="toggle-check"
-          type="checkbox"
-          variant="outline-primary"
-          checked={checked}
-          value="1"
-          onChange={(e) => setChecked(e.currentTarget.checked)}
-        >
-          Search
-          {' '}
-          <Badge>1</Badge>
-        </ToggleButton>
-
-        <ToggleButton
-          className="mb-2 mx-1"
-          id="toggle-check"
-          type="checkbox"
-          variant="outline-primary"
-          checked={checked}
-          value="1"
-          onChange={(e) => setChecked(e.currentTarget.checked)}
-        >
-          Shopping
-          {' '}
-          <Badge>2</Badge>
-        </ToggleButton>
-
-        <ToggleButton
-          className="mb-2 mx-1"
-          id="toggle-check"
-          type="checkbox"
-          variant="outline-primary"
-          checked={checked}
-          value="1"
-          onChange={(e) => setChecked(e.currentTarget.checked)}
-        >
-          Linux
-          {' '}
-          <Badge>2</Badge>
-        </ToggleButton>
-      </div>
+      <Categories bookmarks={data.data.user.bookmarks}></Categories>
 
       <Form className="d-flex mb-1">
         <FormControl

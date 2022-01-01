@@ -1,11 +1,12 @@
 export interface Category {
-  id?: number;
+  id: string;
   name: string;
   count?: number;
+  selected?: boolean;
 }
 
 export interface Bookmark {
-  id?: number;
+  id: string;
   url: string;
   description: string;
   categories: Category[];

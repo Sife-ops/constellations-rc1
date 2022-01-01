@@ -1,14 +1,21 @@
 // todo: favicon
+// todo: add category button
+// todo: clear button
+// todo: compute user bookmark count on backend
+// todo: filter criteria dropdown button
+// todo: filter on click
+// todo: filter on description or url
+// todo: handle empty bookmarks
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./logo.svg";
 import userData from "./mock-data/user.json";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { Routes, Route } from "react-router-dom";
-
 import { About } from "./components/about";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Home } from "./components/home";
+import { Routes, Route } from "react-router-dom";
+import { Bookmark } from "./utility/types";
 
 function App() {
   return (
@@ -33,7 +40,10 @@ function App() {
       </Navbar>
 
       <Routes>
-        <Route path="/" element={<Home data={userData} />} />
+        <Route
+          path="/"
+          element={<Home bookmarks={userData.data.user.bookmarks} />}
+        />
         <Route path="/about" element={<About />} />
       </Routes>
     </div>

@@ -42,23 +42,13 @@
           "id": "8",
           "url": "https://imdb.com",
           "description": "imdb",
-          "categories": [
-            {
-              "id": "5",
-              "name": "News"
-            }
-          ]
+          "categories": []
         },
         {
           "id": "10",
           "url": "https://yelp.com",
           "description": "yelp",
-          "categories": [
-            {
-              "id": "5",
-              "name": "News"
-            }
-          ]
+          "categories": []
         },
         {
           "id": "15",

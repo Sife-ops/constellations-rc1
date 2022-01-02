@@ -1,6 +1,4 @@
 // todo: favicon
-// todo: add category button
-// todo: clear button
 // todo: compute user bookmark count on backend
 // todo: filter criteria dropdown button
 // todo: filter on click
@@ -20,7 +18,7 @@ import { Bookmark } from "./utility/types";
 function App() {
   return (
     <div>
-      <Navbar bg="dark" variant="dark">
+      <Navbar className="mb-2" bg="primary" variant="dark">
         <Container>
           <Navbar.Brand id="id1" href="/">
             <img src={logo} width="30" height="30" /> Constellations
@@ -39,13 +37,15 @@ function App() {
         </Container>
       </Navbar>
 
-      <Routes>
-        <Route
-          path="/"
-          element={<Home bookmarks={userData.data.user.bookmarks} />}
-        />
-        <Route path="/about" element={<About />} />
-      </Routes>
+      <div className="mx-2">
+        <Routes>
+          <Route
+            path="/"
+            element={<Home bookmarks={userData.data.user.bookmarks} />}
+          />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </div>
     </div>
   );
 }

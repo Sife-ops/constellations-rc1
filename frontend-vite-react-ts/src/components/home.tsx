@@ -10,7 +10,11 @@ import {
 
 import { Bookmark, Category } from "../utility/types";
 
-export const Home: React.FC<{ bookmarks: Bookmark[] }> = ({ bookmarks }) => {
+interface Props {
+  bookmarks: Bookmark[];
+}
+
+export const Home: React.FC<Props> = ({ bookmarks }) => {
   const [categories, setCategories] = React.useState<Category[]>(
     reduceBookmarks(bookmarks).map((e) => ({
       ...e,
@@ -49,7 +53,7 @@ export const Home: React.FC<{ bookmarks: Bookmark[] }> = ({ bookmarks }) => {
 
   const categoryClearButton = (
     <Button
-      className="mb-2 mx-1"
+      className="mb-2 me-2"
       variant="secondary"
       onClick={() => {
         setCategories(
@@ -66,9 +70,11 @@ export const Home: React.FC<{ bookmarks: Bookmark[] }> = ({ bookmarks }) => {
     </Button>
   );
 
+  // todo: "None" category button
+
   const categoryButtons = categories.map((e1) => (
     <ToggleButton
-      className="mb-2 mx-1"
+      className="mb-2 me-2"
       key={e1.id}
       type="checkbox"
       value="1"
@@ -92,25 +98,24 @@ export const Home: React.FC<{ bookmarks: Bookmark[] }> = ({ bookmarks }) => {
     </ToggleButton>
   ));
 
+  // todo: onClick
   const categoryAddButton = (
-    <Button className="mb-2 mx-1" variant="success">
-      New
+    <Button className="mb-2 me-2" variant="success">
+      Add Category
     </Button>
   );
 
   return (
     <div>
-      <div className="mt-2 mx-1">
-        {categoryClearButton}
-        {categoryButtons}
-        {categoryAddButton}
-      </div>
+      {categoryClearButton}
+      {categoryButtons}
+      {categoryAddButton}
       <Filter bookmarks={bookmarks} />
     </div>
   );
 };
 
-const Filter: React.FC<{ bookmarks: Bookmark[] }> = ({ bookmarks }) => {
+const Filter: React.FC<Props> = ({ bookmarks }) => {
   const [filter, setFilter] = React.useState<string>("");
 
   const filtered: Bookmark[] = bookmarks.filter((e) => {
@@ -122,26 +127,31 @@ const Filter: React.FC<{ bookmarks: Bookmark[] }> = ({ bookmarks }) => {
 
   return (
     <div>
-      <Form className="d-flex mb-1 mx-1">
-        <FormControl
-          className="mx-1"
-          type="search"
-          placeholder="Filter"
-          onChange={(e) => {
-            setFilter(e.target.value);
-          }}
-        />
-      </Form>
+      <FormControl
+        className="mb-2"
+        type="search"
+        placeholder="Filter"
+        onChange={(e) => {
+          setFilter(e.target.value);
+        }}
+      />
+      <div className="d-grid gap-2">
+        <Button variant="success">Add Bookmark</Button>
+      </div>
       <FilterTable bookmarks={filtered} />
     </div>
   );
 };
 
-const FilterTable: React.FC<{ bookmarks: Bookmark[] }> = ({ bookmarks }) => {
+const FilterTable: React.FC<Props> = ({ bookmarks }) => {
   const rows = bookmarks.map((e) => (
     <tr key={e.id}>
       <td>{e.description}</td>
-      <td>{e.url}</td>
+      <td>
+        <a href={e.url} target="_blank">
+          {e.url}
+        </a>
+      </td>
       <td>
         {e.categories.map((e) => (
           <Badge bg="primary" className="me-2" key={e.id} pill>
@@ -153,14 +163,14 @@ const FilterTable: React.FC<{ bookmarks: Bookmark[] }> = ({ bookmarks }) => {
   ));
 
   return (
-    <Table striped className="mt-1">
-      <thead>
+    <Table>
+      {/* <thead>
         <tr>
           <th>Description</th>
           <th>URL</th>
           <th>Categories</th>
         </tr>
-      </thead>
+      </thead> */}
       <tbody>{rows}</tbody>
     </Table>
   );

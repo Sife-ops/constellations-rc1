@@ -1,9 +1,5 @@
 // todo: favicon
-// todo: compute user bookmark count on backend
-// todo: filter criteria dropdown button
-// todo: filter on click
-// todo: filter on description or url
-// todo: handle empty bookmarks
+// todo: handle empty bookmarks or categories
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,7 +9,6 @@ import { About } from "./components/about";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Home } from "./components/home";
 import { Routes, Route } from "react-router-dom";
-import { Bookmark } from "./utility/types";
 
 function App() {
   return (

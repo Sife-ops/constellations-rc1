@@ -2,7 +2,6 @@ import React from "react";
 import {
   Badge,
   Button,
-  Form,
   FormControl,
   Table,
   ToggleButton,
@@ -118,6 +117,7 @@ export const Home: React.FC<Props> = ({ bookmarks }) => {
 const Filter: React.FC<Props> = ({ bookmarks }) => {
   const [filter, setFilter] = React.useState<string>("");
 
+  // todo: filter on description and url text
   const filtered: Bookmark[] = bookmarks.filter((e) => {
     if (filter === "") {
       return e;
@@ -125,6 +125,7 @@ const Filter: React.FC<Props> = ({ bookmarks }) => {
     return e.description.includes(filter);
   });
 
+  // todo: filter criteria dropdown button
   return (
     <div>
       <FormControl
@@ -176,6 +177,7 @@ const FilterTable: React.FC<Props> = ({ bookmarks }) => {
   );
 };
 
+// todo: compute user bookmark count on backend
 const reduceBookmarks = (bookmarks: Bookmark[]): Category[] => {
   return bookmarks
     .reduce((previous: Category[], current: Bookmark) => {

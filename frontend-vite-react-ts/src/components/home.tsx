@@ -54,7 +54,7 @@ export const Home: React.FC<Props> = ({ bookmarks }) => {
         );
       }}
     >
-      Clear
+      Reset
     </Button>
   );
 

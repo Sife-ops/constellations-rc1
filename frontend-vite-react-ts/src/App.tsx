@@ -1,5 +1,9 @@
 // todo: favicon
-// todo: handle empty bookmarks or categories
+// todo: handle empty bookmarks
+// todo: category colors
+// todo: edit/delete bookmarks
+// todo: edit/delete categories
+// todo: donate tab
 // todo: modal
 
 import "./App.css";

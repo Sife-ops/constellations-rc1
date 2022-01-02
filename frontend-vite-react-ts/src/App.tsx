@@ -1,5 +1,6 @@
 // todo: favicon
 // todo: handle empty bookmarks or categories
+// todo: modal
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";

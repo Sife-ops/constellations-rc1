@@ -23,31 +23,20 @@ export const Home: React.FC<Props> = ({ bookmarks }) => {
 
   const selectedCategories = categories.filter((e) => e.selected);
   if (selectedCategories.length > 0) {
-    bookmarks = bookmarks.reduce((previous: Bookmark[], current: Bookmark) => {
-      if (selectedCategories.length < 2) {
-        for (let i = 0; i < current.categories.length; i++) {
-          if (current.categories[i].id === selectedCategories[0].id) {
-            return [...previous, current];
-          }
-        }
-        return previous;
-      }
-
+    bookmarks = bookmarks.filter((e) => {
       let matched = 0;
-      for (let i1 = 0; i1 < current.categories.length; i1++) {
+      for (let i1 = 0; i1 < e.categories.length; i1++) {
         for (let i2 = 0; i2 < selectedCategories.length; i2++) {
-          if (selectedCategories[i2].id === current.categories[i1].id) {
+          if (selectedCategories[i2].id === e.categories[i1].id) {
             matched++;
           }
         }
       }
-
       if (matched === selectedCategories.length) {
-        return [...previous, current];
+        return true;
       }
-
-      return previous;
-    }, []);
+      return false;
+    });
   }
 
   const categoryClearButton = (
@@ -69,7 +58,18 @@ export const Home: React.FC<Props> = ({ bookmarks }) => {
     </Button>
   );
 
-  // todo: "None" category button
+  // todo: onClick
+  const categoryNoneButton = (
+    <ToggleButton
+      className="mb-2 me-2"
+      type="checkbox"
+      value="1"
+      variant="outline-primary"
+      checked={false}
+    >
+      No Category <Badge>0</Badge>
+    </ToggleButton>
+  );
 
   const categoryButtons = categories.map((e1) => (
     <ToggleButton
@@ -107,6 +107,7 @@ export const Home: React.FC<Props> = ({ bookmarks }) => {
   return (
     <div>
       {categoryClearButton}
+      {categoryNoneButton}
       {categoryButtons}
       {categoryAddButton}
       <Filter bookmarks={bookmarks} />

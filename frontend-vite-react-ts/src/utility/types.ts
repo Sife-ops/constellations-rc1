@@ -1,6 +1,6 @@
 export interface Category {
   id: string;
-  name: string;
+  name?: string;
   count?: number;
   selected?: boolean;
 }

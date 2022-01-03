@@ -15,15 +15,16 @@ interface Props {
 
 export const Home: React.FC<Props> = ({ bookmarks }) => {
   const [categories, setCategories] = React.useState<Category[]>(
-    reduceBookmarks(bookmarks).map((e) => ({
-      ...e,
-      selected: false,
-    }))
+    reduceCategories(bookmarks)
   );
 
+  // todo: "No Category" category is ANDed with others
   const selectedCategories = categories.filter((e) => e.selected);
   if (selectedCategories.length > 0) {
     bookmarks = bookmarks.filter((e) => {
+      if (e.categories.length < 1) {
+        e.categories = [categoryNone];
+      }
       let matched = 0;
       for (let i1 = 0; i1 < e.categories.length; i1++) {
         for (let i2 = 0; i2 < selectedCategories.length; i2++) {
@@ -56,19 +57,6 @@ export const Home: React.FC<Props> = ({ bookmarks }) => {
     >
       Reset
     </Button>
-  );
-
-  // todo: onClick
-  const categoryNoneButton = (
-    <ToggleButton
-      className="mb-2 me-2"
-      type="checkbox"
-      value="1"
-      variant="outline-primary"
-      checked={false}
-    >
-      No Category <Badge>0</Badge>
-    </ToggleButton>
   );
 
   const categoryButtons = categories.map((e1) => (
@@ -107,7 +95,6 @@ export const Home: React.FC<Props> = ({ bookmarks }) => {
   return (
     <div>
       {categoryClearButton}
-      {categoryNoneButton}
       {categoryButtons}
       {categoryAddButton}
       <Filter bookmarks={bookmarks} />
@@ -155,11 +142,16 @@ const FilterTable: React.FC<Props> = ({ bookmarks }) => {
         </a>
       </td>
       <td>
-        {e.categories.map((e) => (
-          <Badge bg="primary" className="me-2" key={e.id} pill>
-            {e.name}
-          </Badge>
-        ))}
+        {e.categories.map((e) => {
+          if (e.id !== "0") {
+            return (
+              <Badge bg="primary" className="me-2" key={e.id} pill>
+                {e.name}
+              </Badge>
+            );
+          }
+          return null;
+        })}
       </td>
     </tr>
   ));
@@ -178,10 +170,21 @@ const FilterTable: React.FC<Props> = ({ bookmarks }) => {
   );
 };
 
-// todo: compute user bookmark count on backend
-const reduceBookmarks = (bookmarks: Bookmark[]): Category[] => {
+const categoryNone: Category = {
+  id: "0",
+  name: "No Category",
+  count: 0,
+  selected: false,
+};
+
+// todo: compute category count on backend
+// todo: "No Category" category before others
+const reduceCategories = (bookmarks: Bookmark[]): Category[] => {
   return bookmarks
     .reduce((previous: Category[], current: Bookmark) => {
+      if (current.categories.length < 1) {
+        return [...previous, categoryNone];
+      }
       return [...previous, ...current.categories];
     }, [])
     .reduce((previous: Category[], current: Category) => {
@@ -204,6 +207,7 @@ const reduceBookmarks = (bookmarks: Bookmark[]): Category[] => {
       return returns.concat({
         ...current,
         count: 1,
+        selected: false,
       });
     }, []);
 };

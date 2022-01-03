@@ -17,11 +17,7 @@ import { Routes, Route } from "react-router-dom";
 import { ModalState } from "./utility/types";
 
 function App() {
-  const [modal, setModal] = React.useState<ModalState>({
-    show: false,
-    heading: "default",
-    body: <div>default</div>,
-  });
+  const [modal, setModal] = React.useState<ModalState>({ show: false });
 
   return (
     <div>
@@ -38,14 +34,16 @@ function App() {
         </Modal.Header>
         <Modal.Body>{modal.body}</Modal.Body>
         <Modal.Footer>
+          {modal.footer}
           <Button
+            variant="secondary"
             onClick={() =>
               setModal({
                 show: false,
               })
             }
           >
-            Close
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>

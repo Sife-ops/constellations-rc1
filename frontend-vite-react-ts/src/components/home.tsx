@@ -86,7 +86,7 @@ export const Home: React.FC<HomeProps> = ({ bookmarks, setModal }) => {
     </ToggleButton>
   ));
 
-  // todo: add category onClick
+  // todo: finish add category modal
   const categoryAddButton = (
     <Button
       className="mb-2 me-2"
@@ -94,8 +94,20 @@ export const Home: React.FC<HomeProps> = ({ bookmarks, setModal }) => {
       onClick={() =>
         setModal({
           show: true,
-          heading: "add category",
+          heading: "Add Category",
           body: <div>add category</div>,
+          footer: (
+            <Button
+              variant="success"
+              onClick={() =>
+                setModal({
+                  show: false,
+                })
+              }
+            >
+              Confirm
+            </Button>
+          ),
         })
       }
     >
@@ -131,7 +143,7 @@ const Filter: React.FC<FilterProps> = ({ bookmarks, setModal }) => {
   });
 
   // todo: filter criteria dropdown button
-  // todo: add bookmark onClick
+  // todo: finish add bookmark modal
   return (
     <div>
       <FormControl
@@ -149,8 +161,20 @@ const Filter: React.FC<FilterProps> = ({ bookmarks, setModal }) => {
           onClick={() =>
             setModal({
               show: true,
-              heading: "add bookmark",
+              heading: "Add Bookmark",
               body: <div>add bookmark</div>,
+              footer: (
+                <Button
+                  variant="success"
+                  onClick={() =>
+                    setModal({
+                      show: false,
+                    })
+                  }
+                >
+                  Confirm
+                </Button>
+              ),
             })
           }
         >

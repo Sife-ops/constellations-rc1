@@ -16,4 +16,5 @@ export interface ModalState {
     show: boolean;
     heading?: string;
     body?: JSX.Element;
+    footer?: JSX.Element;
 }

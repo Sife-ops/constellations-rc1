@@ -11,59 +11,20 @@ import React from "react";
 import logo from "./logo.svg";
 import userData from "./mock-data/user.json";
 import { About } from "./components/about";
-import { Button, Container, Modal, Nav, Navbar } from "react-bootstrap";
 import { Home } from "./components/home";
-import { Routes, Route } from "react-router-dom";
 import { ModalState } from "./utility/types";
+import { ModalWindow } from "./components/modal";
+import { NavBar } from "./components/navbar";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [modal, setModal] = React.useState<ModalState>({ show: false });
 
   return (
     <div>
-      <Modal
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={modal.show}
-        size="lg"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {modal.heading}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{modal.body}</Modal.Body>
-        <Modal.Footer>
-          {modal.footer}
-          <Button
-            variant="secondary"
-            onClick={() =>
-              setModal({
-                show: false,
-              })
-            }
-          >
-            Cancel
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <ModalWindow modalState={[modal, setModal]} />
 
-      <Navbar className="mb-2" bg="primary" variant="dark">
-        <Container>
-          <Navbar.Brand id="id1" href="/">
-            <img src={logo} width="30" height="30" /> Constellations
-          </Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
-          </Nav>
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
-              Signed in as: <a href="/login">USER</a>
-            </Navbar.Text>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <NavBar logo={logo} />
 
       <div className="mx-2">
         <Routes>

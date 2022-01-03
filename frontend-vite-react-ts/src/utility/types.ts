@@ -11,3 +11,9 @@ export interface Bookmark {
   description: string;
   categories: Category[];
 }
+
+export interface ModalState {
+    show: boolean;
+    heading?: string;
+    body?: JSX.Element;
+}

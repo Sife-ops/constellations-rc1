@@ -1,4 +1,6 @@
 import React from "react";
+import { Bookmark, Category, ModalState } from "../utility/types";
+
 import {
   Badge,
   Button,
@@ -7,13 +9,12 @@ import {
   ToggleButton,
 } from "react-bootstrap";
 
-import { Bookmark, Category } from "../utility/types";
-
-interface Props {
+interface HomeProps {
   bookmarks: Bookmark[];
+  setModal: React.Dispatch<React.SetStateAction<ModalState>>;
 }
 
-export const Home: React.FC<Props> = ({ bookmarks }) => {
+export const Home: React.FC<HomeProps> = ({ bookmarks, setModal }) => {
   const [categories, setCategories] = React.useState<Category[]>(
     reduceCategories(bookmarks)
   );
@@ -85,9 +86,19 @@ export const Home: React.FC<Props> = ({ bookmarks }) => {
     </ToggleButton>
   ));
 
-  // todo: onClick
+  // todo: add category onClick
   const categoryAddButton = (
-    <Button className="mb-2 me-2" variant="success">
+    <Button
+      className="mb-2 me-2"
+      variant="success"
+      onClick={() =>
+        setModal({
+          show: true,
+          heading: "add category",
+          body: <div>add category</div>,
+        })
+      }
+    >
       Add Category
     </Button>
   );
@@ -97,12 +108,18 @@ export const Home: React.FC<Props> = ({ bookmarks }) => {
       {categoryClearButton}
       {categoryButtons}
       {categoryAddButton}
-      <Filter bookmarks={bookmarks} />
+
+      <Filter bookmarks={bookmarks} setModal={setModal} />
     </div>
   );
 };
 
-const Filter: React.FC<Props> = ({ bookmarks }) => {
+interface FilterProps {
+  bookmarks: Bookmark[];
+  setModal: React.Dispatch<React.SetStateAction<ModalState>>;
+}
+
+const Filter: React.FC<FilterProps> = ({ bookmarks, setModal }) => {
   const [filter, setFilter] = React.useState<string>("");
 
   // todo: filter on description and url text
@@ -114,6 +131,7 @@ const Filter: React.FC<Props> = ({ bookmarks }) => {
   });
 
   // todo: filter criteria dropdown button
+  // todo: add bookmark onClick
   return (
     <div>
       <FormControl
@@ -124,15 +142,32 @@ const Filter: React.FC<Props> = ({ bookmarks }) => {
           setFilter(e.target.value);
         }}
       />
+
       <div className="d-grid gap-2">
-        <Button variant="success">Add Bookmark</Button>
+        <Button
+          variant="success"
+          onClick={() =>
+            setModal({
+              show: true,
+              heading: "add bookmark",
+              body: <div>add bookmark</div>,
+            })
+          }
+        >
+          Add Bookmark
+        </Button>
       </div>
+
       <FilterTable bookmarks={filtered} />
     </div>
   );
 };
 
-const FilterTable: React.FC<Props> = ({ bookmarks }) => {
+interface FilterTableProps {
+  bookmarks: Bookmark[];
+}
+
+const FilterTable: React.FC<FilterTableProps> = ({ bookmarks }) => {
   const rows = bookmarks.map((e) => (
     <tr key={e.id}>
       <td>{e.description}</td>
@@ -199,11 +234,9 @@ const reduceCategories = (bookmarks: Bookmark[]): Category[] => {
         }
         return e;
       });
-
       if (found) {
         return returns;
       }
-
       return returns.concat({
         ...current,
         count: 1,

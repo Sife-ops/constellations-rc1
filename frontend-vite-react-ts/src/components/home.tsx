@@ -4,6 +4,7 @@ import { Bookmark, Category, ModalState } from "../utility/types";
 import {
   Badge,
   Button,
+  Form,
   FormControl,
   Table,
   ToggleButton,
@@ -86,7 +87,8 @@ export const Home: React.FC<HomeProps> = ({ bookmarks, setModal }) => {
     </ToggleButton>
   ));
 
-  // todo: finish add category modal
+  // todo: add category input validation
+  // todo: add category modal confirm onClick
   const categoryAddButton = (
     <Button
       className="mb-2 me-2"
@@ -95,7 +97,14 @@ export const Home: React.FC<HomeProps> = ({ bookmarks, setModal }) => {
         setModal({
           show: true,
           heading: "Add Category",
-          body: <div>add category</div>,
+          body: (
+            <Form>
+              <Form.Group>
+                <Form.Label>Category Name</Form.Label>
+                <Form.Control placeholder="New Category" />
+              </Form.Group>
+            </Form>
+          ),
           footer: (
             <Button
               variant="success"
@@ -142,8 +151,9 @@ const Filter: React.FC<FilterProps> = ({ bookmarks, setModal }) => {
     return e.description.includes(filter);
   });
 
-  // todo: filter criteria dropdown button
-  // todo: finish add bookmark modal
+  // todo: add bookmark modal input validation
+  // todo: add bookmark modal confirm onClick
+  // todo: add bookmark modal populate select options
   return (
     <div>
       <FormControl
@@ -162,7 +172,26 @@ const Filter: React.FC<FilterProps> = ({ bookmarks, setModal }) => {
             setModal({
               show: true,
               heading: "Add Bookmark",
-              body: <div>add bookmark</div>,
+              body: (
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control placeholder="Krusty Krab" />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>URL</Form.Label>
+                    <Form.Control placeholder="https://krustykrab.com" />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Category</Form.Label>
+                    <Form.Select>
+                      <option>No Category</option>
+                      <option>option1</option>
+                      <option>option2</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Form>
+              ),
               footer: (
                 <Button
                   variant="success"

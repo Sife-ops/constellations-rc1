@@ -17,15 +17,20 @@ import { ModalWindow } from "./components/modal";
 import { NavBar } from "./components/navbar";
 import { Routes, Route } from "react-router-dom";
 
+import { GlobalProvider } from "./context/global-provider";
+import { C1 } from "./components/c1";
+
 function App() {
   const [modal, setModal] = React.useState<ModalState>({ show: false });
 
   return (
-    <div>
+    <>
+      <GlobalProvider>
+        <C1 />
+      </GlobalProvider>
+
       <ModalWindow modalState={[modal, setModal]} />
-
       <NavBar logo={logo} />
-
       <div className="mx-2">
         <Routes>
           <Route
@@ -40,7 +45,7 @@ function App() {
           <Route path="/about" element={<About />} />
         </Routes>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Bookmark, Category, ModalState } from "../utility/types";
+import { BookmarkType, CategoryType, ModalType } from "../utility/types";
 
 import {
   Badge,
@@ -11,12 +11,12 @@ import {
 } from "react-bootstrap";
 
 interface HomeProps {
-  bookmarks: Bookmark[];
-  setModal: React.Dispatch<React.SetStateAction<ModalState>>;
+  bookmarks: BookmarkType[];
+  setModal: React.Dispatch<React.SetStateAction<ModalType>>;
 }
 
 export const Home: React.FC<HomeProps> = ({ bookmarks, setModal }) => {
-  const [categories, setCategories] = React.useState<Category[]>(
+  const [categories, setCategories] = React.useState<CategoryType[]>(
     reduceCategories(bookmarks)
   );
 
@@ -136,15 +136,15 @@ export const Home: React.FC<HomeProps> = ({ bookmarks, setModal }) => {
 };
 
 interface FilterProps {
-  bookmarks: Bookmark[];
-  setModal: React.Dispatch<React.SetStateAction<ModalState>>;
+  bookmarks: BookmarkType[];
+  setModal: React.Dispatch<React.SetStateAction<ModalType>>;
 }
 
 const Filter: React.FC<FilterProps> = ({ bookmarks, setModal }) => {
   const [filter, setFilter] = React.useState<string>("");
 
   // todo: filter on description and url text
-  const filtered: Bookmark[] = bookmarks.filter((e) => {
+  const filtered: BookmarkType[] = bookmarks.filter((e) => {
     if (filter === "") {
       return e;
     }
@@ -217,7 +217,7 @@ const Filter: React.FC<FilterProps> = ({ bookmarks, setModal }) => {
 };
 
 interface FilterTableProps {
-  bookmarks: Bookmark[];
+  bookmarks: BookmarkType[];
 }
 
 const FilterTable: React.FC<FilterTableProps> = ({ bookmarks }) => {
@@ -258,7 +258,7 @@ const FilterTable: React.FC<FilterTableProps> = ({ bookmarks }) => {
   );
 };
 
-const categoryNone: Category = {
+const categoryNone: CategoryType = {
   id: "0",
   name: "No Category",
   count: 0,
@@ -267,15 +267,15 @@ const categoryNone: Category = {
 
 // todo: compute category count on backend
 // todo: "No Category" category before others
-const reduceCategories = (bookmarks: Bookmark[]): Category[] => {
+const reduceCategories = (bookmarks: BookmarkType[]): CategoryType[] => {
   return bookmarks
-    .reduce((previous: Category[], current: Bookmark) => {
+    .reduce((previous: CategoryType[], current: BookmarkType) => {
       if (current.categories.length < 1) {
         return [...previous, categoryNone];
       }
       return [...previous, ...current.categories];
     }, [])
-    .reduce((previous: Category[], current: Category) => {
+    .reduce((previous: CategoryType[], current: CategoryType) => {
       let found = false;
       const returns = previous.map((e) => {
         if (e.id === current.id) {

@@ -8,21 +8,21 @@ export interface GlobalContextType {
   setGlobalState: React.Dispatch<React.SetStateAction<GlobalStateType>>;
 }
 
-export interface Category {
+export interface CategoryType {
   id: string;
   name?: string;
   count?: number;
   selected?: boolean;
 }
 
-export interface Bookmark {
+export interface BookmarkType {
   id: string;
   url: string;
   description: string;
-  categories: Category[];
+  categories: CategoryType[];
 }
 
-export interface ModalState {
+export interface ModalType {
   show: boolean;
   heading?: string;
   body?: JSX.Element;

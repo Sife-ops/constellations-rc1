@@ -5,7 +5,7 @@ import { GlobalContext } from "../utility/context";
 export const ModalWindow: React.FC = () => {
   const {
     globalState: { modal },
-    setGlobalState,
+    hideModal,
   } = React.useContext(GlobalContext);
 
   return (
@@ -16,7 +16,8 @@ export const ModalWindow: React.FC = () => {
         show={modal.show}
         size="lg"
       >
-        <Modal.Header closeButton>
+        {/* todo: customize modal closeButton */}
+        <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
             {modal.heading}
           </Modal.Title>
@@ -24,17 +25,7 @@ export const ModalWindow: React.FC = () => {
         <Modal.Body>{modal.body}</Modal.Body>
         <Modal.Footer>
           {modal.footer}
-          <Button
-            variant="secondary"
-            onClick={() =>
-              setGlobalState((state) => ({
-                ...state,
-                modal: {
-                  show: false,
-                },
-              }))
-            }
-          >
+          <Button variant="secondary" onClick={() => hideModal()}>
             Cancel
           </Button>
         </Modal.Footer>

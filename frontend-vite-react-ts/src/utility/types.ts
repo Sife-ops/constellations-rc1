@@ -1,6 +1,4 @@
 export interface GlobalStateType {
-  state1: number;
-  state2: string;
   modal: ModalType;
 }
 

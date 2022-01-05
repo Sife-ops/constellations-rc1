@@ -6,5 +6,18 @@
   /* font-family: "Press Start 2P", cursive; */
   /* font-family: 'Audiowide', cursive; */
   /* font-family: 'Comforter', cursive; */
-  font-family: 'Twinkle Star', cursive;
+  font-family: "Twinkle Star", cursive;
+}
+
+.bookmarkRow__edit,
+.bookmarkRow__delete {
+  color: lightgray;
+}
+
+.bookmarkRow__edit--hover {
+  color: grey;
+}
+
+.bookmarkRow__delete--hover {
+  color: firebrick;
 }

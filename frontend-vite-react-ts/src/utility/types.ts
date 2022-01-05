@@ -1,3 +1,13 @@
+export interface GlobalStateType {
+  state1: number;
+  state2: string;
+}
+
+export interface GlobalContextType {
+  globalState: GlobalStateType;
+  setGlobalState: React.Dispatch<React.SetStateAction<GlobalStateType>>;
+}
+
 export interface Category {
   id: string;
   name?: string;

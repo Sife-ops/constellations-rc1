@@ -1,9 +1,5 @@
 import React from "react";
-
-interface GlobalStateType {
-  state1: number;
-  state2: string;
-}
+import { GlobalStateType, GlobalContextType } from "./types";
 
 const initialState: GlobalStateType = {
   state1: 33,
@@ -16,11 +12,6 @@ const useGlobalState = () => {
 
   return { globalState, setGlobalState };
 };
-
-interface GlobalContextType {
-  globalState: GlobalStateType;
-  setGlobalState: React.Dispatch<React.SetStateAction<GlobalStateType>>;
-}
 
 export const GlobalContext = React.createContext<GlobalContextType>(
   {} as GlobalContextType

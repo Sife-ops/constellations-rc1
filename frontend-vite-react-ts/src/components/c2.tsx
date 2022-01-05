@@ -1,5 +1,5 @@
 import React from "react";
-import { GlobalContext } from "../context/global-context";
+import { GlobalContext } from "../utility/context";
 
 export const C2: React.FC = () => {
   const { globalState, setGlobalState } = React.useContext(GlobalContext);

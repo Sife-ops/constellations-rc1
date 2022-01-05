@@ -4,6 +4,8 @@
 // todo: edit/delete bookmarks
 // todo: edit/delete categories
 // todo: donate tab
+// todo: category accordion
+// todo: bookmark title and description popover
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";

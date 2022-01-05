@@ -18,7 +18,7 @@ export const Filter: React.FC<FilterProps> = ({ bookmarks }) => {
     if (filter === "") {
       return e;
     }
-    return e.description.includes(filter);
+    return e.description.toLowerCase().includes(filter.toLowerCase());
   });
 
   // todo: add bookmark modal input validation

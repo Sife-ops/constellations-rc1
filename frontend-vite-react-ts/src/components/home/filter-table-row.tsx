@@ -51,7 +51,7 @@ export const FilterTableRow: React.FC<FilterTableRowProps> = ({ bookmark }) => {
           {bookmark.url}
         </a>
       </td>
-      <td>{bookmark.categories.map(mapCategory)}</td>
+      <td>{bookmark.categories.map(mapCategoryBadge)}</td>
       <td align="right">
         <i
           className={
@@ -72,7 +72,7 @@ export const FilterTableRow: React.FC<FilterTableRowProps> = ({ bookmark }) => {
   );
 };
 
-const mapCategory = (e: CategoryType) => {
+const mapCategoryBadge = (e: CategoryType) => {
   if (e.id !== "0") {
     return (
       <Badge bg="primary" className="me-2" key={e.id} pill>

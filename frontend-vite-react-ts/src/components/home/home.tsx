@@ -14,6 +14,7 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
   const [categories, setCategories] = React.useState<CategoryType[]>(
     reduceCategories(bookmarks)
   );
+  const [categoryEdit, setCategoryEdit] = React.useState<boolean>(false);
 
   // todo: "No Category" category is ANDed with others
   const selectedCategories = categories.filter((e) => e.selected);
@@ -37,20 +38,40 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
     });
   }
 
+  const handleClearCategory = () =>
+    setCategories(
+      categories.map((e) => {
+        return {
+          ...e,
+          selected: false,
+        };
+      })
+    );
+
+  const handleAddCategory = () =>
+    setModal({
+      show: true,
+      heading: "Add Category",
+      body: (
+        <Form>
+          <Form.Group>
+            <Form.Label>Category Name</Form.Label>
+            <Form.Control placeholder="New Category" />
+          </Form.Group>
+        </Form>
+      ),
+      footer: (
+        <Button variant="success" onClick={() => hideModal()}>
+          Confirm
+        </Button>
+      ),
+    });
+
   const categoryClearButton = (
     <Button
       className="mb-2 me-2"
       variant="secondary"
-      onClick={() => {
-        setCategories(
-          categories.map((e) => {
-            return {
-              ...e,
-              selected: false,
-            };
-          })
-        );
-      }}
+      onClick={handleClearCategory}
     >
       Reset
     </Button>
@@ -78,37 +99,47 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
         );
       }}
     >
-      {e1.name} <Badge>{e1.count}</Badge>
+      {e1.name}{" "}
+      {categoryEdit ? (
+        //
+        <i className="fas fa-cog" />
+      ) : (
+        <Badge>{e1.count}</Badge>
+      )}
     </ToggleButton>
   ));
 
   // todo: add category input validation
-  // todo: add category modal confirm onClick
-  const categoryAddButton = (
+  const categoryEditButton = (
     <Button
       className="mb-2 me-2"
-      variant="success"
-      onClick={() =>
-        setModal({
-          show: true,
-          heading: "Add Category",
-          body: (
-            <Form>
-              <Form.Group>
-                <Form.Label>Category Name</Form.Label>
-                <Form.Control placeholder="New Category" />
-              </Form.Group>
-            </Form>
-          ),
-          footer: (
-            <Button variant="success" onClick={() => hideModal()}>
-              Confirm
-            </Button>
-          ),
-        })
-      }
+      variant="secondary"
+      onClick={() => setCategoryEdit(true)}
     >
-      Add Category
+      <i className="fas fa-cog" />
+    </Button>
+  );
+
+  const categoryAddButton = (
+    <Button
+      //
+      className="mb-2 me-2"
+      variant="success"
+      onClick={handleAddCategory}
+    >
+      {/* todo: use plus sign */}
+      Add
+    </Button>
+  );
+
+  const categoryEditDoneButton = (
+    <Button
+      className="mb-2 me-2"
+      variant="primary"
+      onClick={() => setCategoryEdit(false)}
+    >
+      {/* todo: use checkmark */}
+      Done
     </Button>
   );
 
@@ -116,7 +147,14 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
     <div>
       {categoryClearButton}
       {categoryButtons}
-      {categoryAddButton}
+      {categoryEdit ? (
+        <>
+          {categoryAddButton}
+          {categoryEditDoneButton}
+        </>
+      ) : (
+        categoryEditButton
+      )}
 
       <Filter bookmarks={bookmarks} />
     </div>

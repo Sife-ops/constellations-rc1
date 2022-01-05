@@ -6,6 +6,7 @@
 // todo: donate tab
 // todo: category accordion
 // todo: bookmark title and description popover
+// todo: context menus
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";

@@ -10,7 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./logo.svg";
 import userData from "./mock-data/user.json";
 import { About } from "./components/about";
-import { Home } from "./components/home";
+import { Home } from "./components/home/home";
 import { ModalWindow } from "./components/modal";
 import { NavBar } from "./components/navbar";
 import { Routes, Route } from "react-router-dom";

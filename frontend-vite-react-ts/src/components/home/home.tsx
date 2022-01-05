@@ -1,15 +1,8 @@
 import React from "react";
-import { BookmarkType, CategoryType } from "../utility/types";
-import { GlobalContext } from "../utility/context";
-
-import {
-  Badge,
-  Button,
-  Form,
-  FormControl,
-  Table,
-  ToggleButton,
-} from "react-bootstrap";
+import { Badge, Button, Form, ToggleButton } from "react-bootstrap";
+import { BookmarkType, CategoryType } from "../../utility/types";
+import { Filter } from "./filter";
+import { GlobalContext } from "../../utility/context";
 
 interface HomeProps {
   bookmarks: BookmarkType[];
@@ -127,123 +120,6 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
 
       <Filter bookmarks={bookmarks} />
     </div>
-  );
-};
-
-interface FilterProps {
-  bookmarks: BookmarkType[];
-}
-
-const Filter: React.FC<FilterProps> = ({ bookmarks }) => {
-  const { setModal, hideModal } = React.useContext(GlobalContext);
-
-  const [filter, setFilter] = React.useState<string>("");
-
-  // todo: filter on description and url text
-  const filtered: BookmarkType[] = bookmarks.filter((e) => {
-    if (filter === "") {
-      return e;
-    }
-    return e.description.includes(filter);
-  });
-
-  // todo: add bookmark modal input validation
-  // todo: add bookmark modal confirm onClick
-  // todo: add bookmark modal populate select options
-  return (
-    <div>
-      <FormControl
-        className="mb-2"
-        type="search"
-        placeholder="Filter"
-        onChange={(e) => {
-          setFilter(e.target.value);
-        }}
-      />
-
-      <div className="d-grid gap-2">
-        <Button
-          variant="success"
-          onClick={() =>
-            setModal({
-              show: true,
-              heading: "Add Bookmark",
-              body: (
-                <Form>
-                  <Form.Group>
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control placeholder="Krusty Krab" />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>URL</Form.Label>
-                    <Form.Control placeholder="https://krustykrab.com" />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Category</Form.Label>
-                    <Form.Select>
-                      <option>No Category</option>
-                      <option>option1</option>
-                      <option>option2</option>
-                    </Form.Select>
-                  </Form.Group>
-                </Form>
-              ),
-              footer: (
-                <Button variant="success" onClick={() => hideModal()}>
-                  Confirm
-                </Button>
-              ),
-            })
-          }
-        >
-          Add Bookmark
-        </Button>
-      </div>
-
-      <FilterTable bookmarks={filtered} />
-    </div>
-  );
-};
-
-interface FilterTableProps {
-  bookmarks: BookmarkType[];
-}
-
-const FilterTable: React.FC<FilterTableProps> = ({ bookmarks }) => {
-  const rows = bookmarks.map((e) => (
-    <tr key={e.id}>
-      <td>{e.description}</td>
-      <td>
-        <a href={e.url} target="_blank">
-          {e.url}
-        </a>
-      </td>
-      <td>
-        {e.categories.map((e) => {
-          if (e.id !== "0") {
-            return (
-              <Badge bg="primary" className="me-2" key={e.id} pill>
-                {e.name}
-              </Badge>
-            );
-          }
-          return null;
-        })}
-      </td>
-    </tr>
-  ));
-
-  return (
-    <Table>
-      {/* <thead>
-        <tr>
-          <th>Description</th>
-          <th>URL</th>
-          <th>Categories</th>
-        </tr>
-      </thead> */}
-      <tbody>{rows}</tbody>
-    </Table>
   );
 };
 

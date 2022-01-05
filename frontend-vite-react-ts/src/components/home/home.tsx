@@ -1,15 +1,25 @@
 import React from "react";
-import { Badge, Button, Form, ToggleButton } from "react-bootstrap";
-import { BookmarkType, CategoryType, ModalType } from "../../utility/types";
+import { Badge, Button, ToggleButton } from "react-bootstrap";
+import { BookmarkType, CategoryType } from "../../utility/types";
 import { Filter } from "./filter";
 import { GlobalContext } from "../../utility/context";
+
+import {
+  EditCategoryBody,
+  EditCategoryFooter,
+} from "../modal/variant/edit-category";
+
+import {
+  AddCategoryBody,
+  AddCategoryFooter,
+} from "../modal/variant/add-category";
 
 interface HomeProps {
   bookmarks: BookmarkType[];
 }
 
 export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
-  const { hideModal, setModal } = React.useContext(GlobalContext);
+  const { setModal } = React.useContext(GlobalContext);
 
   const [categories, setCategories] = React.useState<CategoryType[]>(
     reduceCategories(bookmarks)
@@ -49,54 +59,19 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
     setModal({
       show: true,
       heading: "Add Category",
-      body: (
-        <Form>
-          <Form.Group>
-            <Form.Label>Category Name</Form.Label>
-            <Form.Control placeholder="New Category" />
-          </Form.Group>
-        </Form>
-      ),
-      footer: (
-        <Button variant="success" onClick={() => hideModal()}>
-          Confirm
-        </Button>
-      ),
+      body: <AddCategoryBody />,
+      footer: <AddCategoryFooter />,
     });
 
   const mapCategoryButtons = (e1: CategoryType) => {
-    const categoryEditModal: ModalType = {
-      show: true,
-      heading: "Edit Category",
-      body: <p>{e1.name}</p>,
-      footer: (
-        <>
-          <Button
-            variant="danger"
-            onClick={() => setModal(categoryDeleteModal)}
-          >
-            Delete
-          </Button>
-          <Button variant="success" onClick={() => hideModal()}>
-            Save
-          </Button>
-        </>
-      ),
-    };
-
-    const categoryDeleteModal: ModalType = {
-      heading: "Delete Category",
-      body: <p>Are you sure you want to delete this category?</p>,
-      footer: (
-        <Button variant="danger" onClick={() => hideModal()}>
-          Delete
-        </Button>
-      ),
-    } as ModalType;
-
     const handleSelectCategory = () => {
       if (categoryEdit) {
-        setModal(categoryEditModal);
+        setModal({
+          show: true,
+          heading: "Edit Category",
+          body: <EditCategoryBody category={e1} />,
+          footer: <EditCategoryFooter />,
+        });
         return;
       }
       setCategories(
@@ -201,10 +176,7 @@ const reduceCategories = (bookmarks: BookmarkType[]): CategoryType[] => {
       const returns = previous.map((e) => {
         if (e.id === current.id) {
           found = true;
-          return {
-            ...e,
-            count: e.count ? e.count + 1 : 1,
-          };
+          return { ...e, count: e.count ? e.count + 1 : 1 };
         }
         return e;
       });

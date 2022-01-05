@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import { GlobalContext } from "../utility/context";
+import { GlobalContext } from "../../utility/context";
 
 export const ModalWindow: React.FC = () => {
   const {

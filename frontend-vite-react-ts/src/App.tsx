@@ -14,7 +14,7 @@ import logo from "./logo.svg";
 import userData from "./mock-data/user.json";
 import { About } from "./components/about";
 import { Home } from "./components/home/home";
-import { ModalWindow } from "./components/modal";
+import { ModalWindow } from "./components/modal/modal";
 import { NavBar } from "./components/navbar";
 import { Routes, Route } from "react-router-dom";
 

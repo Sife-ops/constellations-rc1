@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge, Button, Form, ToggleButton } from "react-bootstrap";
-import { BookmarkType, CategoryType } from "../../utility/types";
+import { BookmarkType, CategoryType, ModalType } from "../../utility/types";
 import { Filter } from "./filter";
 import { GlobalContext } from "../../utility/context";
 
@@ -41,10 +41,7 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
   const handleClearCategory = () =>
     setCategories(
       categories.map((e) => {
-        return {
-          ...e,
-          selected: false,
-        };
+        return { ...e, selected: false };
       })
     );
 
@@ -67,93 +64,114 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
       ),
     });
 
-  const categoryClearButton = (
-    <Button
-      className="mb-2 me-2"
-      variant="secondary"
-      onClick={handleClearCategory}
-    >
-      Reset
-    </Button>
-  );
+  const mapCategoryButtons = (e1: CategoryType) => {
+    const categoryEditModal: ModalType = {
+      show: true,
+      heading: "Edit Category",
+      body: <p>{e1.name}</p>,
+      footer: (
+        <>
+          <Button
+            variant="danger"
+            onClick={() => setModal(categoryDeleteModal)}
+          >
+            Delete
+          </Button>
+          <Button variant="success" onClick={() => hideModal()}>
+            Save
+          </Button>
+        </>
+      ),
+    };
 
-  const categoryButtons = categories.map((e1) => (
-    <ToggleButton
-      className="mb-2 me-2"
-      key={e1.id}
-      type="checkbox"
-      value="1"
-      variant="outline-primary"
-      checked={e1.selected}
-      onClick={() => {
-        setCategories(
-          categories.map((e2) => {
-            if (e2.id === e1.id) {
-              return {
-                ...e2,
-                selected: !e2.selected,
-              };
-            }
-            return e2;
-          })
-        );
-      }}
-    >
-      {e1.name}{" "}
-      {categoryEdit ? (
-        //
-        <i className="fas fa-cog" />
-      ) : (
-        <Badge>{e1.count}</Badge>
-      )}
-    </ToggleButton>
-  ));
+    const categoryDeleteModal: ModalType = {
+      heading: "Delete Category",
+      body: <p>Are you sure you want to delete this category?</p>,
+      footer: (
+        <Button variant="danger" onClick={() => hideModal()}>
+          Delete
+        </Button>
+      ),
+    } as ModalType;
 
-  // todo: add category input validation
-  const categoryEditButton = (
-    <Button
-      className="mb-2 me-2"
-      variant="secondary"
-      onClick={() => setCategoryEdit(true)}
-    >
-      <i className="fas fa-cog" />
-    </Button>
-  );
+    const handleSelectCategory = () => {
+      if (categoryEdit) {
+        setModal(categoryEditModal);
+        return;
+      }
+      setCategories(
+        categories.map((e2) => {
+          if (e2.id === e1.id) {
+            return { ...e2, selected: !e2.selected };
+          }
+          return e2;
+        })
+      );
+    };
 
-  const categoryAddButton = (
-    <Button
-      //
-      className="mb-2 me-2"
-      variant="success"
-      onClick={handleAddCategory}
-    >
-      {/* todo: use plus sign */}
-      Add
-    </Button>
-  );
-
-  const categoryEditDoneButton = (
-    <Button
-      className="mb-2 me-2"
-      variant="primary"
-      onClick={() => setCategoryEdit(false)}
-    >
-      {/* todo: use checkmark */}
-      Done
-    </Button>
-  );
+    return (
+      <ToggleButton
+        className="mb-2 me-2"
+        key={e1.id}
+        type="checkbox"
+        value="1"
+        variant="outline-primary"
+        checked={e1.selected}
+        onClick={handleSelectCategory}
+      >
+        {e1.name}{" "}
+        {categoryEdit ? (
+          //
+          <i className="fas fa-cog" />
+        ) : (
+          <Badge>{e1.count}</Badge>
+        )}
+      </ToggleButton>
+    );
+  };
 
   return (
     <div>
-      {categoryClearButton}
-      {categoryButtons}
+      <Button
+        className="mb-2 me-2"
+        variant="secondary"
+        onClick={handleClearCategory}
+      >
+        Reset
+      </Button>
+
+      {categories.map(mapCategoryButtons)}
+
       {categoryEdit ? (
         <>
-          {categoryAddButton}
-          {categoryEditDoneButton}
+          <Button
+            //
+            className="mb-2 me-2"
+            variant="success"
+            onClick={handleAddCategory}
+          >
+            {/* todo: use plus sign */}
+            Add
+          </Button>
+
+          <Button
+            className="mb-2 me-2"
+            variant="primary"
+            onClick={() => setCategoryEdit(false)}
+          >
+            {/* todo: use checkmark */}
+            Done
+          </Button>
         </>
       ) : (
-        categoryEditButton
+        // todo: category input validation
+        <Button
+          className="mb-2 me-2"
+          variant="secondary"
+          onClick={() => setCategoryEdit(true)}
+        >
+          <i className="fas fa-cog" />
+        </Button>
       )}
 
       <Filter bookmarks={bookmarks} />

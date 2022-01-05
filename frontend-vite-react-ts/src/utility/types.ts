@@ -18,13 +18,3 @@ export interface ModalState {
   body?: JSX.Element;
   footer?: JSX.Element;
 }
-
-export interface GlobalStateType {
-  state1: number;
-  state2: string;
-}
-
-export interface GlobalContextType {
-  globalState: GlobalStateType;
-  setGlobalState: React.Dispatch<React.SetStateAction<GlobalStateType>>;
-}

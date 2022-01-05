@@ -1,18 +1,13 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import { ModalState } from "../utility/types";
+import { GlobalContext } from "../utility/context";
 
-interface Props {
-  modalState: [
-    //
-    ModalState,
-    React.Dispatch<React.SetStateAction<ModalState>>
-  ];
-}
+export const ModalWindow: React.FC = () => {
+  const {
+    globalState: { modal },
+    setGlobalState,
+  } = React.useContext(GlobalContext);
 
-export const ModalWindow: React.FC<Props> = ({
-  modalState: [modal, setModal],
-}) => {
   return (
     <div>
       <Modal
@@ -32,9 +27,12 @@ export const ModalWindow: React.FC<Props> = ({
           <Button
             variant="secondary"
             onClick={() =>
-              setModal({
-                show: false,
-              })
+              setGlobalState((state) => ({
+                ...state,
+                modal: {
+                  show: false,
+                },
+              }))
             }
           >
             Cancel

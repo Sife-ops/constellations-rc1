@@ -1,11 +1,15 @@
 export interface GlobalStateType {
   state1: number;
   state2: string;
+  modal: ModalType;
 }
 
 export interface GlobalContextType {
   globalState: GlobalStateType;
   setGlobalState: React.Dispatch<React.SetStateAction<GlobalStateType>>;
+  setModal: (modalState: ModalType) => void;
+  showModal: () => void;
+  hideModal: () => void;
 }
 
 export interface CategoryType {

@@ -1,5 +1,6 @@
 import React from "react";
-import { BookmarkType, CategoryType, ModalType } from "../utility/types";
+import { BookmarkType, CategoryType } from "../utility/types";
+import { GlobalContext } from "../utility/context";
 
 import {
   Badge,
@@ -12,10 +13,11 @@ import {
 
 interface HomeProps {
   bookmarks: BookmarkType[];
-  setModal: React.Dispatch<React.SetStateAction<ModalType>>;
 }
 
-export const Home: React.FC<HomeProps> = ({ bookmarks, setModal }) => {
+export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
+  const { hideModal, setModal } = React.useContext(GlobalContext);
+
   const [categories, setCategories] = React.useState<CategoryType[]>(
     reduceCategories(bookmarks)
   );
@@ -106,14 +108,7 @@ export const Home: React.FC<HomeProps> = ({ bookmarks, setModal }) => {
             </Form>
           ),
           footer: (
-            <Button
-              variant="success"
-              onClick={() =>
-                setModal({
-                  show: false,
-                })
-              }
-            >
+            <Button variant="success" onClick={() => hideModal()}>
               Confirm
             </Button>
           ),
@@ -130,17 +125,18 @@ export const Home: React.FC<HomeProps> = ({ bookmarks, setModal }) => {
       {categoryButtons}
       {categoryAddButton}
 
-      <Filter bookmarks={bookmarks} setModal={setModal} />
+      <Filter bookmarks={bookmarks} />
     </div>
   );
 };
 
 interface FilterProps {
   bookmarks: BookmarkType[];
-  setModal: React.Dispatch<React.SetStateAction<ModalType>>;
 }
 
-const Filter: React.FC<FilterProps> = ({ bookmarks, setModal }) => {
+const Filter: React.FC<FilterProps> = ({ bookmarks }) => {
+  const { setModal, hideModal } = React.useContext(GlobalContext);
+
   const [filter, setFilter] = React.useState<string>("");
 
   // todo: filter on description and url text
@@ -193,14 +189,7 @@ const Filter: React.FC<FilterProps> = ({ bookmarks, setModal }) => {
                 </Form>
               ),
               footer: (
-                <Button
-                  variant="success"
-                  onClick={() =>
-                    setModal({
-                      show: false,
-                    })
-                  }
-                >
+                <Button variant="success" onClick={() => hideModal()}>
                   Confirm
                 </Button>
               ),

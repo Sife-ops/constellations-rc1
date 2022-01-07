@@ -4,6 +4,7 @@ import { GlobalStateType, GlobalContextType, ModalType } from "./types";
 const initialState: GlobalStateType = {
   modal: {
     show: false,
+    content: null,
   },
 };
 
@@ -11,19 +12,12 @@ const useGlobalState = (): GlobalContextType => {
   const [globalState, setGlobalState] =
     React.useState<GlobalStateType>(initialState);
 
-  // todo: rename and implement automatic merging
-  const _setGlobalState = (newState: GlobalStateType): void =>
-    setGlobalState((state) => ({
-      ...state,
-      ...newState,
-    }));
-
-  const setModal = (modalState: ModalType): void =>
+  const dispatchModal = (content: JSX.Element): void =>
     setGlobalState((state) => ({
       ...state,
       modal: {
-        ...state.modal,
-        ...modalState,
+        show: true,
+        content: content,
       },
     }));
 
@@ -41,12 +35,11 @@ const useGlobalState = (): GlobalContextType => {
   const hideModal = (): void => displayModal(false);
 
   return {
-    //
+    dispatchModal,
     globalState,
-    setGlobalState,
-    setModal,
-    showModal,
     hideModal,
+    setGlobalState,
+    showModal,
   };
 };
 

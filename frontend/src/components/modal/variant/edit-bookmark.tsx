@@ -1,24 +1,22 @@
 import React from "react";
-import { Button, Form } from "react-bootstrap";
+import { BookmarkType } from "../../../utility/types";
+import { Button } from "react-bootstrap";
 import { GlobalContext } from "../../../utility/context";
 import { ModalWindow } from "../modal";
 
-export const AddCategoryModal: React.FC = () => {
+interface Props {
+  bookmark: BookmarkType;
+}
+
+export const EditBookmarkModal: React.FC<Props> = ({ bookmark }) => {
   const { hideModal } = React.useContext(GlobalContext);
 
   const handleSubmit = () => hideModal();
 
   return (
     <ModalWindow
-      heading="Add Category"
-      body={
-        <Form>
-          <Form.Group>
-            <Form.Label>Category Name</Form.Label>
-            <Form.Control placeholder="New Category" />
-          </Form.Group>
-        </Form>
-      }
+      heading="Edit Bookmark"
+      body={<div>{bookmark.description}</div>}
       footer={
         <Button variant="success" onClick={handleSubmit}>
           Confirm

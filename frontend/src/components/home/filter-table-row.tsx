@@ -1,6 +1,8 @@
 import React from "react";
-import { Badge, Button } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
 import { BookmarkType, CategoryType } from "../../utility/types";
+import { DeleteBookmarkModal } from "../modal/variant/delete-bookmark";
+import { EditBookmarkModal } from "../modal/variant/edit-bookmark";
 import { GlobalContext } from "../../utility/context";
 
 interface FilterTableRowProps {
@@ -11,33 +13,15 @@ interface FilterTableRowProps {
 // todo: ellipsize long links
 // todo: action column less wide
 export const FilterTableRow: React.FC<FilterTableRowProps> = ({ bookmark }) => {
-  const { setModal, hideModal } = React.useContext(GlobalContext);
+  const { dispatchModal } = React.useContext(GlobalContext);
 
   const [hover, setHover] = React.useState<boolean>(false);
 
   const handleEdit = () =>
-    setModal({
-      show: true,
-      heading: "Edit Bookmark",
-      body: <div>{bookmark.description}</div>,
-      footer: (
-        <Button variant="success" onClick={() => hideModal()}>
-          Confirm
-        </Button>
-      ),
-    });
+    dispatchModal(<EditBookmarkModal bookmark={bookmark} />);
 
   const handleDelete = () =>
-    setModal({
-      show: true,
-      heading: "Delete Bookmark",
-      body: <p>Are you sure?</p>,
-      footer: (
-        <Button variant="danger" onClick={() => hideModal()}>
-          Confirm
-        </Button>
-      ),
-    });
+    dispatchModal(<DeleteBookmarkModal bookmark={bookmark} />);
 
   return (
     <tr

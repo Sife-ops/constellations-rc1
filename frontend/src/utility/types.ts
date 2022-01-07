@@ -1,13 +1,16 @@
 export interface GlobalStateType {
-  modal: ModalType;
+  modal: {
+    show: boolean;
+    content: JSX.Element | null;
+  };
 }
 
 export interface GlobalContextType {
+  dispatchModal: (content: JSX.Element) => void;
   globalState: GlobalStateType;
-  setGlobalState: React.Dispatch<React.SetStateAction<GlobalStateType>>;
-  setModal: (modalState: ModalType) => void;
-  showModal: () => void;
   hideModal: () => void;
+  setGlobalState: React.Dispatch<React.SetStateAction<GlobalStateType>>;
+  showModal: () => void;
 }
 
 export interface CategoryType {

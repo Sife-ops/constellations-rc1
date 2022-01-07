@@ -1,25 +1,17 @@
 import React from "react";
+import { AddCategoryModal } from "../modal/variant/add-category";
 import { Badge, Button, ToggleButton } from "react-bootstrap";
 import { BookmarkType, CategoryType } from "../../utility/types";
+import { EditCategoryModal } from "../modal/variant/edit-category";
 import { Filter } from "./filter";
 import { GlobalContext } from "../../utility/context";
-
-import {
-  EditCategoryBody,
-  EditCategoryFooter,
-} from "../modal/variant/edit-category";
-
-import {
-  AddCategoryBody,
-  AddCategoryFooter,
-} from "../modal/variant/add-category";
 
 interface HomeProps {
   bookmarks: BookmarkType[];
 }
 
 export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
-  const { setModal } = React.useContext(GlobalContext);
+  const { dispatchModal } = React.useContext(GlobalContext);
 
   const [categories, setCategories] = React.useState<CategoryType[]>(
     reduceCategories(bookmarks)
@@ -55,23 +47,10 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
       })
     );
 
-  const handleAddCategory = () =>
-    setModal({
-      show: true,
-      heading: "Add Category",
-      body: <AddCategoryBody />,
-      footer: <AddCategoryFooter />,
-    });
-
   const mapCategoryButtons = (e1: CategoryType) => {
     const handleSelectCategory = () => {
       if (categoryEdit) {
-        setModal({
-          show: true,
-          heading: "Edit Category",
-          body: <EditCategoryBody category={e1} />,
-          footer: <EditCategoryFooter />,
-        });
+        dispatchModal(<EditCategoryModal category={e1} />);
         return;
       }
       setCategories(
@@ -105,6 +84,12 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
     );
   };
 
+  const handleCategoryEdit = () => setCategoryEdit(true);
+
+  const handleAddCategory = () => dispatchModal(<AddCategoryModal />);
+
+  const handleCategoryEditDone = () => setCategoryEdit(false);
+
   return (
     <div>
       <Button
@@ -132,7 +117,7 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
           <Button
             className="mb-2 me-2"
             variant="primary"
-            onClick={() => setCategoryEdit(false)}
+            onClick={handleCategoryEditDone}
           >
             {/* todo: use checkmark */}
             Done
@@ -143,7 +128,7 @@ export const Home: React.FC<HomeProps> = ({ bookmarks }) => {
         <Button
           className="mb-2 me-2"
           variant="secondary"
-          onClick={() => setCategoryEdit(true)}
+          onClick={handleCategoryEdit}
         >
           <i className="fas fa-cog" />
         </Button>

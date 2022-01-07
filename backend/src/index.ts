@@ -1,13 +1,7 @@
 import "reflect-metadata";
-
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerLoaderPlugin } from "type-graphql-dataloader";
-import { buildSchema } from "type-graphql";
-import { createConnection, getConnection } from "typeorm";
-import { env } from "./utility/constants";
-import { seed } from "./utility/mock";
-
 import { Bookmark } from "./entities/bookmark";
 import { BookmarkResolver } from "./resolvers/bookmark";
 import { Category } from "./entities/category";
@@ -15,6 +9,10 @@ import { CategoryResolver } from "./resolvers/category";
 import { HelloWorldResolver } from "./resolvers/hwResolver";
 import { User } from "./entities/user";
 import { UserResolver } from "./resolvers/user";
+import { buildSchema } from "type-graphql";
+import { createConnection, getConnection } from "typeorm";
+import { env } from "./utility/constants";
+import { seed } from "./utility/mock";
 
 (async function main() {
   await createConnection({

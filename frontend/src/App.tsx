@@ -25,7 +25,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Home bookmarks={userData.data.user.bookmarks} />}
+            element={<Home />}
           />
           <Route path="/about" element={<About />} />
         </Routes>

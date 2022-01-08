@@ -1,5 +1,5 @@
 import React from "react";
-import { GlobalStateType, GlobalContextType, ModalType } from "./types";
+import { GlobalStateType, GlobalContextType, ModalType } from "./type";
 
 const initialState: GlobalStateType = {
   modal: {

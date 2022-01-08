@@ -1,18 +1,18 @@
 import React from "react";
 import { Badge } from "react-bootstrap";
-import { BookmarkType, CategoryType } from "../../utility/types";
+import { BookmarkType, CategoryType } from "../../utility/type";
 import { DeleteBookmarkModal } from "../modal/variant/delete-bookmark";
 import { EditBookmarkModal } from "../modal/variant/edit-bookmark";
 import { GlobalContext } from "../../utility/context";
 
-interface FilterTableRowProps {
+interface Props {
   bookmark: BookmarkType;
 }
 
 // todo: hide cog/trash until hover row
 // todo: ellipsize long links
 // todo: action column less wide
-export const FilterTableRow: React.FC<FilterTableRowProps> = ({ bookmark }) => {
+export const FilterTableRow: React.FC<Props> = ({ bookmark }) => {
   const { dispatchModal } = React.useContext(GlobalContext);
 
   const [hover, setHover] = React.useState<boolean>(false);

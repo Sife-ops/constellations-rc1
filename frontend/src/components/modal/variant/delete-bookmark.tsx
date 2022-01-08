@@ -1,5 +1,5 @@
 import React from "react";
-import { BookmarkType } from "../../../utility/types";
+import { BookmarkType } from "../../../utility/type";
 import { Button } from "react-bootstrap";
 import { GlobalContext } from "../../../utility/context";
 import { ModalWindow } from "../modal";

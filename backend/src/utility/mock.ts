@@ -24,13 +24,24 @@ export const seed = async () => {
     const mockCategories = await Category.find();
 
     for (const bookmark of bookmarks) {
+      const tries = randomInd(mockCategories, 1);
+      let inds: number[] = [];
+      for (let i = 0; i < tries; i++) {
+        while (true) {
+          const ind = randomInd(mockCategories);
+          if (inds.includes(ind)) {
+            continue;
+          }
+          inds = [...inds, ind];
+          break;
+        }
+      }
+
       await Bookmark.create({
         description: bookmark.description,
         url: bookmark.url,
-        categories: [
-          mockCategories[Math.floor(Math.random() * mockCategories.length)],
-        ],
-        user: mockUsers[Math.floor(Math.random() * mockUsers.length)],
+        categories: inds.map((e) => mockCategories[e]),
+        user: mockUsers[randomInd(mockUsers)],
       }).save();
     }
 
@@ -38,4 +49,8 @@ export const seed = async () => {
   } catch (e) {
     throw e;
   }
+};
+
+const randomInd = (arr: any[], plus: number = 0) => {
+  return Math.floor(Math.random() * (arr.length + plus));
 };

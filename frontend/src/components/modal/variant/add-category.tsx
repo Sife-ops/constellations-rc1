@@ -1,10 +1,10 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
-import { GlobalContext } from "../../../utility/context";
+import { globalContext } from "../../../utility/context";
 import { ModalWindow } from "../modal";
 
 export const AddCategoryModal: React.FC = () => {
-  const { hideModal } = React.useContext(GlobalContext);
+  const { hideModal } = React.useContext(globalContext);
 
   const handleSubmit = () => hideModal();
 

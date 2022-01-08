@@ -4,7 +4,7 @@ import { BookmarkType, CategoryType } from "../../utility/type";
 import { Button } from "react-bootstrap";
 import { Category } from "./category";
 import { FilterTable } from "./table";
-import { GlobalContext } from "../../utility/context";
+import { globalContext } from "../../utility/context";
 import { Search } from "./search";
 import { reduceCategories } from "../../utility/function";
 
@@ -13,8 +13,7 @@ interface Props {
 }
 
 export const Filter: React.FC<Props> = ({ bookmarks }) => {
-  const { dispatchModal } = React.useContext(GlobalContext);
-  const handleAddBookmark = () => dispatchModal(<AddBookmarkModal />);
+  const { dispatchModal } = React.useContext(globalContext);
 
   const [categories, setCategories] = React.useState<CategoryType[]>(
     reduceCategories(bookmarks)
@@ -22,13 +21,16 @@ export const Filter: React.FC<Props> = ({ bookmarks }) => {
 
   const [search, setSearch] = React.useState<string>("");
 
+  const handleAddBookmark = () => dispatchModal(<AddBookmarkModal />);
+
   return (
-    <>
+    <div>
       <Category
         //
         categories={categories}
         setCategories={setCategories}
       />
+
       <Search setSearch={setSearch} />
 
       <div className="d-grid gap-2">
@@ -42,6 +44,6 @@ export const Filter: React.FC<Props> = ({ bookmarks }) => {
         categories={categories}
         search={search}
       />
-    </>
+    </div>
   );
 };

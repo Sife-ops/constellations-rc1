@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import { GlobalContext } from "../../utility/context";
+import { globalContext } from "../../utility/context";
 
 interface ModalWindowProps {
   heading: string;
@@ -16,7 +16,7 @@ export const ModalWindow: React.FC<ModalWindowProps> = ({
   const {
     globalState: { modal },
     hideModal,
-  } = React.useContext(GlobalContext);
+  } = React.useContext(globalContext);
 
   const handleCancel = () => hideModal();
 

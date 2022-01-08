@@ -5,7 +5,7 @@ export interface GlobalStateType {
   };
 }
 
-export interface GlobalContextType {
+export interface globalContextType {
   dispatchModal: (content: JSX.Element) => void;
   globalState: GlobalStateType;
   hideModal: () => void;

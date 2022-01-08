@@ -3,7 +3,7 @@ import { Badge } from "react-bootstrap";
 import { BookmarkType, CategoryType } from "../../utility/type";
 import { DeleteBookmarkModal } from "../modal/variant/delete-bookmark";
 import { EditBookmarkModal } from "../modal/variant/edit-bookmark";
-import { GlobalContext } from "../../utility/context";
+import { globalContext } from "../../utility/context";
 
 interface Props {
   bookmark: BookmarkType;
@@ -13,7 +13,7 @@ interface Props {
 // todo: ellipsize long links
 // todo: action column less wide
 export const FilterTableRow: React.FC<Props> = ({ bookmark }) => {
-  const { dispatchModal } = React.useContext(GlobalContext);
+  const { dispatchModal } = React.useContext(globalContext);
 
   const [hover, setHover] = React.useState<boolean>(false);
 

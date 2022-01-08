@@ -1,5 +1,5 @@
 import React from "react";
-import { GlobalStateType, GlobalContextType, ModalType } from "./type";
+import { GlobalStateType, globalContextType, ModalType } from "./type";
 
 const initialState: GlobalStateType = {
   modal: {
@@ -8,7 +8,7 @@ const initialState: GlobalStateType = {
   },
 };
 
-const useGlobalState = (): GlobalContextType => {
+const useGlobalState = (): globalContextType => {
   const [globalState, setGlobalState] =
     React.useState<GlobalStateType>(initialState);
 
@@ -43,17 +43,17 @@ const useGlobalState = (): GlobalContextType => {
   };
 };
 
-export const GlobalContext = React.createContext<GlobalContextType>(
-  {} as GlobalContextType
+export const globalContext = React.createContext<globalContextType>(
+  {} as globalContextType
 );
 
 export const GlobalProvider: React.FC = ({ children }) => {
   const state = useGlobalState();
 
   return (
-    <GlobalContext.Provider value={state}>
+    <globalContext.Provider value={state}>
       {/* // */}
       {children}
-    </GlobalContext.Provider>
+    </globalContext.Provider>
   );
 };

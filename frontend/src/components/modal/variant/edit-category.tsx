@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { CategoryType } from "../../../utility/type";
 import { DeleteCategoryModal } from "./delete-category";
-import { GlobalContext } from "../../../utility/context";
+import { globalContext } from "../../../utility/context";
 import { ModalWindow } from "../modal";
 
 interface EditCategoryModalProps {
@@ -12,7 +12,7 @@ interface EditCategoryModalProps {
 export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
   category,
 }) => {
-  const { hideModal, dispatchModal } = React.useContext(GlobalContext);
+  const { hideModal, dispatchModal } = React.useContext(globalContext);
 
   const handleSave = () => hideModal();
 

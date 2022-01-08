@@ -3,7 +3,7 @@ import { AddCategoryModal } from "../modal/variant/add-category";
 import { Badge, Button, ToggleButton } from "react-bootstrap";
 import { CategoryType } from "../../utility/type";
 import { EditCategoryModal } from "../modal/variant/edit-category";
-import { GlobalContext } from "../../utility/context";
+import { globalContext } from "../../utility/context";
 
 interface Props {
   categories: CategoryType[];
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const Category: React.FC<Props> = ({ categories, setCategories }) => {
-  const { dispatchModal } = React.useContext(GlobalContext);
+  const { dispatchModal } = React.useContext(globalContext);
 
   const [editMode, setEditMode] = React.useState<boolean>(false);
 

@@ -24,19 +24,22 @@ export const seed = async () => {
     const mockCategories = await Category.find();
 
     for (const bookmark of bookmarks) {
-      const tries = randomInd(mockCategories, 1);
+      // const tries = randomInd(mockCategories, 1);
+      let tries: number;
+      while (true) {
+        tries = randomInd(mockCategories, 1);
+        if (tries > 3) continue;
+        break;
+      }
       let inds: number[] = [];
       for (let i = 0; i < tries; i++) {
         while (true) {
           const ind = randomInd(mockCategories);
-          if (inds.includes(ind)) {
-            continue;
-          }
+          if (inds.includes(ind)) continue;
           inds = [...inds, ind];
           break;
         }
       }
-
       await Bookmark.create({
         description: bookmark.description,
         url: bookmark.url,

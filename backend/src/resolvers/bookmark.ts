@@ -43,9 +43,9 @@ export class BookmarkResolver {
   async createBookmark(
     @Arg("options", () => BookmarkOptions) options: BookmarkOptions
   ) {
-    let categories: User[] = [];
+    let categories: Category[] = [];
     if (options.categoryIds) {
-      categories = await User.findByIds(options.categoryIds);
+      categories = await Category.findByIds(options.categoryIds);
     }
     const user = await User.findOne(options.userId);
     return await Bookmark.create({

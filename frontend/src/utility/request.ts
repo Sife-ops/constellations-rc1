@@ -24,3 +24,17 @@ export const userBookmark = `
     }
   }
 `;
+
+export const createBookmark = `
+  mutation Mutation($options: BookmarkOptions!) {
+    createBookmark(options: $options) {
+      id
+      url
+      description
+      categories {
+        id
+        name
+      }
+    }
+  }
+`;

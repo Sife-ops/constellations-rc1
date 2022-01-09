@@ -5,6 +5,7 @@ export interface GlobalStateType {
   };
 }
 
+// todo: rename
 export interface globalContextType {
   dispatchModal: (content: JSX.Element) => void;
   globalState: GlobalStateType;
@@ -33,3 +34,11 @@ export interface ModalType {
   body?: JSX.Element;
   footer?: JSX.Element;
 }
+
+export interface BookmarkOptions {
+  userId: number;
+  description: string;
+  url: string;
+  categoryIds: number[];
+}
+

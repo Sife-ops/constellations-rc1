@@ -21,7 +21,7 @@ export const Filter: React.FC<Props> = ({ bookmarks }) => {
 
   const [search, setSearch] = React.useState<string>("");
 
-  const handleAddBookmark = () => dispatchModal(<AddBookmarkModal />);
+  const handleAddBookmark = () => dispatchModal(<AddBookmarkModal categories={categories} />);
 
   return (
     <div>

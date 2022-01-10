@@ -35,10 +35,15 @@ export interface ModalType {
   footer?: JSX.Element;
 }
 
-export interface BookmarkOptions {
+export interface CreateBookmarkOptions {
   userId: number;
   description: string;
   url: string;
   categoryIds: number[];
 }
 
+export interface UpdateBookmarkOptions {
+  url?: string;
+  description?: string;
+  categoryIds?: number[];
+}

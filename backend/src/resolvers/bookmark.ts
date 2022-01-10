@@ -13,7 +13,7 @@ import { Category } from "../entities/category";
 import { User } from "../entities/user";
 
 @InputType()
-class BookmarkOptions {
+class CreateBookmarkOptions {
   @Field()
   description: string;
 
@@ -34,6 +34,9 @@ class BookmarkUpdateOptions {
 
   @Field(() => String, { nullable: true })
   url?: string;
+
+  @Field(() => [Int], { nullable: true })
+  categoryIds?: number[];
 }
 
 @Resolver()
@@ -41,19 +44,20 @@ export class BookmarkResolver {
   // create
   @Mutation(() => Bookmark)
   async createBookmark(
-    @Arg("options", () => BookmarkOptions) options: BookmarkOptions
+    @Arg("options", () => CreateBookmarkOptions) options: CreateBookmarkOptions
   ) {
     let categories: Category[] = [];
     if (options.categoryIds) {
       categories = await Category.findByIds(options.categoryIds);
     }
     const user = await User.findOne(options.userId);
-    return await Bookmark.create({
+    const bookmark = await Bookmark.create({
       description: options.description,
       url: options.url,
       categories,
       user,
     }).save();
+    return bookmark;
   }
 
   // read
@@ -73,47 +77,16 @@ export class BookmarkResolver {
     @Arg("id", () => Int) id: number,
     @Arg("options", () => BookmarkUpdateOptions) options: BookmarkUpdateOptions
   ) {
-    await Bookmark.update(id, options);
-    return true;
-  }
-
-  @Mutation(() => Boolean)
-  async addBookmarkCategory(
-    @Arg("bookmarkId", () => Int) bookmarkId: number,
-    @Arg("categoryId", () => Int) categoryId: number
-  ) {
-    const category = await Category.findOne(categoryId);
-    const bookmark = await Bookmark.findOne(bookmarkId, {
-      relations: ["categories"],
-    });
-    if (!category || !bookmark) {
+    const bookmark = await Bookmark.findOne(id);
+    if (!bookmark) {
       return false;
     }
-    for (const c of bookmark.categories) {
-      if (c.name === category.name) {
-        return false;
-      }
+    if (options.description) bookmark.description = options.description;
+    if (options.url) bookmark.url = options.url;
+    if (options.categoryIds) {
+      const categories = await Category.findByIds(options.categoryIds);
+      bookmark.categories = categories;
     }
-    bookmark.categories = bookmark.categories.concat(category);
-    await bookmark.save();
-    return true;
-  }
-
-  @Mutation(() => Boolean)
-  async removeBookmarkCategory(
-    @Arg("bookmarkId", () => Int) bookmarkId: number,
-    @Arg("categoryId", () => Int) categoryId: number
-  ) {
-    const category = await Category.findOne(categoryId);
-    const bookmark = await Bookmark.findOne(bookmarkId, {
-      relations: ["categories"],
-    });
-    if (!category || !bookmark) {
-      return false;
-    }
-    bookmark.categories = bookmark.categories.filter(
-      (e) => e.name !== category.name
-    );
     await bookmark.save();
     return true;
   }

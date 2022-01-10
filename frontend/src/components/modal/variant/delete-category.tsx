@@ -1,14 +1,24 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { globalContext } from "../../../utility/context";
+import { CategoryType } from "../../../utility/type";
 import { ModalWindow } from "../modal";
+import { deleteCategory } from "../../../utility/request";
+import { globalContext } from "../../../utility/context";
+import { useMutation } from "urql";
 
-export const DeleteCategoryModal: React.FC = () => {
+interface Props {
+  category: CategoryType;
+}
+
+export const DeleteCategoryModal: React.FC<Props> = ({ category }) => {
   const { hideModal } = React.useContext(globalContext);
 
-  // todo: delete category mutation
+  const [mutationRes, mutation] = useMutation(deleteCategory);
 
   const handleConfirm = () => {
+    mutation({
+      id: parseInt(category.id),
+    }).then((res) => console.log(res));
     handleClose();
   };
 
@@ -39,7 +49,7 @@ export const DeleteCategoryModal: React.FC = () => {
           </div>
         </>
       }
-      footer={<> </>}
+      footer={<></>}
     />
   );
 };

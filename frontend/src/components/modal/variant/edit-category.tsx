@@ -4,6 +4,8 @@ import { CategoryType } from "../../../utility/type";
 import { DeleteCategoryModal } from "./delete-category";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
+import { updateCategory } from "../../../utility/request";
+import { useMutation } from "urql";
 
 interface EditCategoryModalProps {
   category: CategoryType;
@@ -14,17 +16,27 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
 }) => {
   const { hideModal, dispatchModal } = React.useContext(globalContext);
 
-  const [newName, setNewName] = React.useState<string>("");
+  const [newName, setNewName] = React.useState<string>(category.name);
 
-  // todo: edit category mutation
+  const [mutationRes, mutation] = useMutation(updateCategory);
 
   const handleName = (e: any) => setNewName(e.target.value);
 
-  const handleSave = () => hideModal();
+  const handleDelete = () =>
+    dispatchModal(<DeleteCategoryModal category={category} />);
 
-  const handleDelete = () => dispatchModal(<DeleteCategoryModal />);
+  const handleSave = () => {
+    mutation({
+      id: parseInt(category.id),
+      name: newName,
+    }).then((res) => console.log(res));
+    handleClose();
+  };
 
-  const handleClose = () => hideModal();
+  const handleClose = () => {
+    dispatchModal(<></>);
+    hideModal();
+  };
 
   return (
     <ModalWindow
@@ -34,7 +46,11 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
           <Form>
             <Form.Group className="mb-2">
               <Form.Label>Description</Form.Label>
-              <Form.Control value={category.name} onChange={handleName} />
+              <Form.Control
+                // todo: fill with current name
+                value={newName}
+                onChange={handleName}
+              />
             </Form.Group>
             <Form.Group className="mb-2">
               <div className="d-grid gap-2">

@@ -1,5 +1,5 @@
 import React from "react";
-import { BookmarkOptions, CategoryType } from "../../../utility/type";
+import { CreateBookmarkOptions, CategoryType } from "../../../utility/type";
 import { Button, Form, ToggleButton } from "react-bootstrap";
 import { ModalWindow } from "../modal";
 import { createBookmark } from "../../../utility/request";
@@ -13,14 +13,14 @@ interface Props {
 export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
   const { hideModal, dispatchModal } = React.useContext(globalContext);
 
-  const initialForm: BookmarkOptions = {
+  const initialForm: CreateBookmarkOptions = {
     userId: 1,
     url: "",
     description: "",
     categoryIds: [],
   };
 
-  const [form, setForm] = React.useState<BookmarkOptions>(initialForm);
+  const [form, setForm] = React.useState<CreateBookmarkOptions>(initialForm);
 
   const initialCategories = categories.reduce(
     // remove 'no category'

@@ -9,7 +9,7 @@ import { userBookmark } from "../utility/request";
 export const Home: React.FC = () => {
   const [res, reexec] = useQuery({
     query: userBookmark,
-    variables: { userId: 1 },
+    variables: { id: 1 },
   });
   const { data, fetching, error } = res;
 

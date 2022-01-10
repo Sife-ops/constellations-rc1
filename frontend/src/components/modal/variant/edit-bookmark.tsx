@@ -1,12 +1,14 @@
 import React from "react";
+import { Button, Form, ToggleButton } from "react-bootstrap";
+import { useMutation } from "urql";
+import { globalContext } from "../../../utility/context";
+import { updateBookmark } from "../../../utility/request";
 import {
   BookmarkType,
-  BookmarkOptions,
   CategoryType,
+  UpdateBookmarkOptions,
 } from "../../../utility/type";
-import { Button, Form, ToggleButton } from "react-bootstrap";
 import { ModalWindow } from "../modal";
-import { globalContext } from "../../../utility/context";
 
 interface Props {
   bookmark: BookmarkType;
@@ -19,14 +21,13 @@ export const EditBookmarkModal: React.FC<Props> = ({
 }) => {
   const { hideModal, dispatchModal } = React.useContext(globalContext);
 
-  const initialForm: BookmarkOptions = {
-    userId: 1,
+  const initialForm: UpdateBookmarkOptions = {
     url: bookmark.url,
     description: bookmark.description,
     categoryIds: [],
   };
 
-  const [form, setForm] = React.useState<BookmarkOptions>(initialForm);
+  const [form, setForm] = React.useState<UpdateBookmarkOptions>(initialForm);
 
   const initialNewCategories: CategoryType[] = categories.reduce(
     // removes 'no category'
@@ -52,7 +53,7 @@ export const EditBookmarkModal: React.FC<Props> = ({
   const [newCategories, setNewCategories] =
     React.useState<CategoryType[]>(initialNewCategories);
 
-  // todo: edit bookmark mutation
+  const [mutationRes, mutation] = useMutation(updateBookmark);
 
   const handleDescription = (e: any) => {
     setForm((form) => ({
@@ -92,6 +93,21 @@ export const EditBookmarkModal: React.FC<Props> = ({
   );
 
   const handleSubmit = () => {
+    mutation({
+      id: parseInt(bookmark.id),
+      options: {
+        ...form,
+        categoryIds: newCategories.reduce(
+          (previous: number[], current: CategoryType): number[] => {
+            if (current.selected) {
+              return [...previous, parseInt(current.id)];
+            }
+            return previous;
+          },
+          []
+        ),
+      },
+    }).then((res) => console.log(res));
     handleClose();
   };
 
@@ -110,13 +126,13 @@ export const EditBookmarkModal: React.FC<Props> = ({
           <Form.Group className="mb-2">
             <Form.Label>Description</Form.Label>
             <Form.Control
-              value={bookmark.description}
+              value={form.description}
               onChange={handleDescription}
             />
           </Form.Group>
           <Form.Group className="mb-2">
             <Form.Label>URL</Form.Label>
-            <Form.Control value={bookmark.url} onChange={handleUrl} />
+            <Form.Control value={form.url} onChange={handleUrl} />
           </Form.Group>
           <Form.Group className="mb-2">
             <Form.Label>Category</Form.Label>

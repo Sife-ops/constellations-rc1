@@ -23,8 +23,8 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
   const [form, setForm] = React.useState<BookmarkOptions>(initialForm);
 
   const initialCategories = categories.reduce(
+    // remove 'no category'
     (previous: CategoryType[], current: CategoryType) => {
-      // remove 'no category'
       if (current.id === "0") {
         return previous;
       }
@@ -82,6 +82,7 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
     mutation({
       options: {
         ...form,
+        // add selected categories to request
         categoryIds: addCategories.reduce(
           (previous: number[], current: CategoryType) => {
             if (current.selected) {

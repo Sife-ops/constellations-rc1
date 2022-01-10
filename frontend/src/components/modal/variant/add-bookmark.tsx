@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
-  const { hideModal } = React.useContext(globalContext);
+  const { hideModal, dispatchModal } = React.useContext(globalContext);
 
   const initialForm: BookmarkOptions = {
     userId: 1,
@@ -24,7 +24,7 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
 
   const initialCategories = categories.reduce(
     // remove 'no category'
-    (previous: CategoryType[], current: CategoryType) => {
+    (previous: CategoryType[], current: CategoryType): CategoryType[] => {
       if (current.id === "0") {
         return previous;
       }

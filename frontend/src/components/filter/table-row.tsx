@@ -7,18 +7,19 @@ import { globalContext } from "../../utility/context";
 
 interface Props {
   bookmark: BookmarkType;
+  categories: CategoryType[];
 }
 
 // todo: hide cog/trash until hover row
 // todo: ellipsize long links
 // todo: action column less wide
-export const FilterTableRow: React.FC<Props> = ({ bookmark }) => {
+export const FilterTableRow: React.FC<Props> = ({ bookmark, categories }) => {
   const { dispatchModal } = React.useContext(globalContext);
 
   const [hover, setHover] = React.useState<boolean>(false);
 
   const handleEdit = () =>
-    dispatchModal(<EditBookmarkModal bookmark={bookmark} />);
+    dispatchModal(<EditBookmarkModal bookmark={bookmark} categories={categories} />);
 
   const handleDelete = () =>
     dispatchModal(<DeleteBookmarkModal bookmark={bookmark} />);

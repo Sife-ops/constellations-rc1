@@ -30,6 +30,11 @@ export const createBookmark = `
   }
 `;
 
+export interface UpdateCategoryArgs {
+  id: number;
+  name: string;
+}
+
 export const updateCategory = `
   mutation ($name: String!, $id: Int!) {
     updateCategory(name: $name, id: $id)

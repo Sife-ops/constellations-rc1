@@ -16,7 +16,7 @@ export interface globalContextType {
 
 export interface CategoryType {
   id: string;
-  name?: string;
+  name: string;
   count?: number;
   selected?: boolean;
 }

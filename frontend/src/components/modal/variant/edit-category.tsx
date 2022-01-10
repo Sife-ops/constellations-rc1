@@ -4,7 +4,8 @@ import { CategoryType } from "../../../utility/type";
 import { DeleteCategoryModal } from "./delete-category";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
-import { updateCategory } from "../../../utility/request";
+import { typedMutation } from "../../../utility/function";
+import { updateCategory, UpdateCategoryArgs } from "../../../utility/request";
 import { useMutation } from "urql";
 
 interface EditCategoryModalProps {
@@ -26,10 +27,10 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
     dispatchModal(<DeleteCategoryModal category={category} />);
 
   const handleSave = () => {
-    mutation({
+    typedMutation<UpdateCategoryArgs>(mutation, {
       id: parseInt(category.id),
       name: newName,
-    }).then((res) => console.log(res));
+    });
     handleClose();
   };
 

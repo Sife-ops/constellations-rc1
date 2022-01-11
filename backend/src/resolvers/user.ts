@@ -1,5 +1,6 @@
 import argon2 from "argon2";
-import jwt from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
+import { Request, Response } from "express";
 import { User } from "../entities/user";
 import { env } from "../utility/constants";
 
@@ -11,17 +12,26 @@ import {
   Int,
   ObjectType,
   Field,
+  UseMiddleware,
+  MiddlewareFn,
+  Ctx,
 } from "type-graphql";
 
 @ObjectType()
 class LoginResponse {
   @Field()
   ok: boolean;
+
   @Field(() => String, { nullable: true })
   message?: string;
+
   @Field()
   accessToken: string;
 }
+
+const isAuth: MiddlewareFn = async ({ context }, next) => {
+  return true;
+};
 
 @Resolver()
 export class UserResolver {
@@ -52,7 +62,8 @@ export class UserResolver {
   @Query(() => LoginResponse)
   async login(
     @Arg("username", () => String) username: string,
-    @Arg("password", () => String) password: string
+    @Arg("password", () => String) password: string,
+    @Ctx() { res }: { req: Request; res: Response }
   ): Promise<LoginResponse> {
     const bad: LoginResponse = { ok: false, accessToken: "" };
     if (!username || !password) return bad;
@@ -65,9 +76,11 @@ export class UserResolver {
     // todo: need try/fetch?
     const isVerified = await argon2.verify(found.password, password);
     if (isVerified) {
+      const payload = { userId: found.id };
+      res.cookie("refreshToken", sign(payload, env.secret_refresh_token));
       return {
         ok: true,
-        accessToken: jwt.sign({ userId: found.id }, env.secret_access_token),
+        accessToken: sign(payload, env.secret_access_token),
       };
     }
     return { ...bad, message: "incorrect password" };
@@ -81,6 +94,13 @@ export class UserResolver {
   @Query(() => [User])
   async users() {
     return await User.find();
+  }
+
+  // auth
+  @Query(() => String)
+  @UseMiddleware(isAuth)
+  authTest() {
+    return "authorized";
   }
 
   // update

@@ -1,8 +1,8 @@
 import argon2 from "argon2";
-import { sign } from "jsonwebtoken";
 import { Request, Response } from "express";
 import { User } from "../entities/user";
 import { env } from "../utility/constants";
+import { sign, verify } from "jsonwebtoken";
 
 import {
   Arg,
@@ -23,8 +23,27 @@ class LoginResponse {
   accessToken: string;
 }
 
-const isAuth: MiddlewareFn = async ({ context }, next) => {
-  return true;
+interface MyContext {
+  req: Request;
+  res: Response;
+  payload?: any;
+}
+
+const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
+  const auth = context.req.headers["authorization"] as string;
+  if (!auth) throw new Error("no authorization header");
+
+  try {
+    // const accessToken = auth.split(" ")[1];
+    // const payload = verify(accessToken, env.secret_access_token);
+    const payload = verify(auth, env.secret_access_token);
+    context.payload = payload as any;
+  } catch (e) {
+    console.log(e);
+    throw new Error("bad token");
+  }
+
+  return next();
 };
 
 @Resolver()
@@ -57,7 +76,7 @@ export class UserResolver {
   async login(
     @Arg("username", () => String) username: string,
     @Arg("password", () => String) password: string,
-    @Ctx() { res }: { req: Request; res: Response }
+    @Ctx() { res }: MyContext
   ): Promise<LoginResponse> {
     const found = await User.findOne({
       where: {
@@ -65,9 +84,7 @@ export class UserResolver {
       },
     });
 
-    if (!found) {
-      throw new Error("user does not exist");
-    }
+    if (!found) throw new Error("user does not exist");
 
     let isVerified: boolean;
     try {
@@ -98,8 +115,8 @@ export class UserResolver {
   // auth
   @Query(() => String)
   @UseMiddleware(isAuth)
-  authTest() {
-    return "authorized";
+  authTest(@Ctx() { payload }: MyContext) {
+    return `authorized ${payload.userId}`;
   }
 
   // update

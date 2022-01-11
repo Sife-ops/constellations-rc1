@@ -20,12 +20,6 @@ import {
 @ObjectType()
 class LoginResponse {
   @Field()
-  ok: boolean;
-
-  @Field(() => String, { nullable: true })
-  message?: string;
-
-  @Field()
   accessToken: string;
 }
 
@@ -65,25 +59,30 @@ export class UserResolver {
     @Arg("password", () => String) password: string,
     @Ctx() { res }: { req: Request; res: Response }
   ): Promise<LoginResponse> {
-    const bad: LoginResponse = { ok: false, accessToken: "" };
-    if (!username || !password) return bad;
     const found = await User.findOne({
       where: {
         username,
       },
     });
-    if (!found) return { ...bad, message: "incorrect username" };
-    // todo: need try/fetch?
-    const isVerified = await argon2.verify(found.password, password);
+
+    if (!found) {
+      throw new Error("user does not exist");
+    }
+
+    let isVerified: boolean;
+    try {
+      isVerified = await argon2.verify(found.password, password);
+    } catch (e) {
+      console.log(e);
+      throw new Error("could not decrypt password");
+    }
+
     if (isVerified) {
       const payload = { userId: found.id };
       res.cookie("refreshToken", sign(payload, env.secret_refresh_token));
-      return {
-        ok: true,
-        accessToken: sign(payload, env.secret_access_token),
-      };
+      return { accessToken: sign(payload, env.secret_access_token) };
     }
-    return { ...bad, message: "incorrect password" };
+    throw new Error("incorrect password");
   }
 
   @Query(() => User)

@@ -17,6 +17,7 @@ export class UserResolver {
       },
     });
     if (found) return false;
+    // todo: try/fetch
     const hashedPassword = await argon2.hash(password);
     const user = await User.create({
       username,
@@ -39,6 +40,7 @@ export class UserResolver {
       },
     });
     if (!found) return false;
+    // todo: try/fetch
     const isVerified = await argon2.verify(found.password, password);
     if (isVerified) return true;
     return false;

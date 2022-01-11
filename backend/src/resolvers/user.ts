@@ -1,6 +1,27 @@
 import argon2 from "argon2";
-import { Arg, Mutation, Query, Resolver, Int } from "type-graphql";
+import jwt from "jsonwebtoken";
 import { User } from "../entities/user";
+import { env } from "../utility/constants";
+
+import {
+  Arg,
+  Mutation,
+  Query,
+  Resolver,
+  Int,
+  ObjectType,
+  Field,
+} from "type-graphql";
+
+@ObjectType()
+class LoginResponse {
+  @Field()
+  ok: boolean;
+  @Field(() => String, { nullable: true })
+  message?: string;
+  @Field()
+  accessToken: string;
+}
 
 @Resolver()
 export class UserResolver {
@@ -17,7 +38,7 @@ export class UserResolver {
       },
     });
     if (found) return false;
-    // todo: try/fetch
+    // todo: need try/fetch?
     const hashedPassword = await argon2.hash(password);
     const user = await User.create({
       username,
@@ -28,22 +49,28 @@ export class UserResolver {
   }
 
   // read
-  @Query(() => Boolean)
+  @Query(() => LoginResponse)
   async login(
     @Arg("username", () => String) username: string,
     @Arg("password", () => String) password: string
-  ) {
-    if (!username || !password) return false;
+  ): Promise<LoginResponse> {
+    const bad: LoginResponse = { ok: false, accessToken: "" };
+    if (!username || !password) return bad;
     const found = await User.findOne({
       where: {
         username,
       },
     });
-    if (!found) return false;
-    // todo: try/fetch
+    if (!found) return { ...bad, message: "incorrect username" };
+    // todo: need try/fetch?
     const isVerified = await argon2.verify(found.password, password);
-    if (isVerified) return true;
-    return false;
+    if (isVerified) {
+      return {
+        ok: true,
+        accessToken: jwt.sign({ userId: found.id }, env.secret_access_token),
+      };
+    }
+    return { ...bad, message: "incorrect password" };
   }
 
   @Query(() => User)

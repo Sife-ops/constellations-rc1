@@ -1,39 +1,24 @@
-import {
-  Arg,
-  Field,
-  InputType,
-  Mutation,
-  Query,
-  Resolver,
-  Int,
-} from "type-graphql";
-
+import { Arg, Mutation, Query, Resolver, Int } from "type-graphql";
 import { User } from "../entities/user";
-
-@InputType()
-class UserOptions {
-  @Field()
-  username: string;
-
-  @Field()
-  password: string;
-}
-
-@InputType()
-class UserUpdateOptions {
-  @Field(() => String, { nullable: true })
-  username?: string;
-
-  @Field(() => String, { nullable: true })
-  password?: string;
-}
 
 @Resolver()
 export class UserResolver {
   // create
-  @Mutation(() => User)
-  async createUser(@Arg("options", () => UserOptions) options: UserOptions) {
-    return await User.create(options).save();
+  @Mutation(() => Boolean)
+  async register(
+    @Arg("username", () => String) username: string,
+    @Arg("password", () => String) password: string
+  ) {
+    if (!username || !password) return false;
+    const found = await User.findOne({
+      where: {
+        username,
+      },
+    });
+    if (found) return false;
+    const user = await User.create({ username, password }).save();
+    if (user) return true;
+    return false;
   }
 
   // read
@@ -51,9 +36,9 @@ export class UserResolver {
   @Mutation(() => Boolean)
   async updateUser(
     @Arg("id", () => Int) id: number,
-    @Arg("options", () => UserUpdateOptions) options: UserUpdateOptions
+    @Arg("password", () => String) password: string
   ) {
-    await User.update(id, options);
+    await User.update(id, { password });
     return true;
   }
 

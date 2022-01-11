@@ -2,7 +2,8 @@ import argon2 from "argon2";
 import { Request, Response } from "express";
 import { User } from "../entities/user";
 import { env } from "../utility/constants";
-import { sign, verify } from "jsonwebtoken";
+import { newAccessToken, newRefreshToken } from "../utility/token";
+import { verify } from "jsonwebtoken";
 
 import {
   Arg,
@@ -34,9 +35,8 @@ const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
   if (!auth) throw new Error("no authorization header");
 
   try {
-    // const accessToken = auth.split(" ")[1];
-    // const payload = verify(accessToken, env.secret_access_token);
-    const payload = verify(auth, env.secret_access_token);
+    const accessToken = auth.split(" ")[1];
+    const payload = verify(accessToken, env.secret_access_token);
     context.payload = payload as any;
   } catch (e) {
     console.log(e);
@@ -96,8 +96,8 @@ export class UserResolver {
 
     if (isVerified) {
       const payload = { userId: found.id };
-      res.cookie("refreshToken", sign(payload, env.secret_refresh_token));
-      return { accessToken: sign(payload, env.secret_access_token) };
+      res.cookie("refreshToken", newRefreshToken(payload), { httpOnly: true });
+      return { accessToken: newAccessToken(payload) };
     }
     throw new Error("incorrect password");
   }

@@ -1,5 +1,6 @@
 import "reflect-metadata";
-import express from "express";
+import cookieParser from "cookie-parser";
+import express, { Request, Response } from "express";
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerLoaderPlugin } from "type-graphql-dataloader";
 import { Bookmark } from "./entities/bookmark";
@@ -12,7 +13,9 @@ import { UserResolver } from "./resolvers/user";
 import { buildSchema } from "type-graphql";
 import { createConnection, getConnection } from "typeorm";
 import { env } from "./utility/constants";
+import { newAccessToken, newRefreshToken } from "./utility/token";
 import { seed } from "./utility/mock";
+import { verify } from "jsonwebtoken";
 
 (async function main() {
   await createConnection({
@@ -48,7 +51,32 @@ import { seed } from "./utility/mock";
   });
 
   await server.start();
+
   server.applyMiddleware({ app });
+  app.use(cookieParser());
+
+  app.post("/refresh", (req: Request, res: Response) => {
+    const refreshToken = req.cookies.refreshToken;
+    // if (!refreshToken) return res.sendStatus(403);
+    const bad = { ok: false, accessToken: "" };
+    if (!refreshToken) return res.json(bad);
+
+    let payload: any;
+    try {
+      payload = verify(refreshToken, env.secret_refresh_token);
+    } catch (e) {
+      console.log(e);
+      // return res.sendStatus(403);
+      return res.json(bad);
+    }
+
+    const newPayload = { userId: payload.userId };
+    res.cookie("refreshToken", newRefreshToken(newPayload), {
+      httpOnly: true,
+    });
+
+    res.json({ ok: true, accessToken: newAccessToken(newPayload) });
+  });
 
   app.listen(env.port, () => {
     console.log(`running on ${env.port}`);

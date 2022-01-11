@@ -24,7 +24,7 @@ export const Home: React.FC = () => {
 
   // todo: use environment variable to toggle mock data
   const bookmarks = data.user.bookmarks as BookmarkType[];
-  // const bookmarks = mockUserBookmark.data.user.bookmarks as BookmarkType[];
+  // const bookmarks = mockUserBookmark.data.user.bookmarks as Bookmark[];
 
   return <Filter bookmarks={bookmarks} />;
 };

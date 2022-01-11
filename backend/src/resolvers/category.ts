@@ -1,13 +1,4 @@
-import {
-  Arg,
-  Field,
-  InputType,
-  Int,
-  Mutation,
-  Query,
-  Resolver,
-} from "type-graphql";
-
+import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
 import { Category } from "../entities/category";
 
 @Resolver()

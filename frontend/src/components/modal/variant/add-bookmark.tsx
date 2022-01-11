@@ -1,9 +1,14 @@
 import React from "react";
-import { CreateBookmarkOptions, CategoryType } from "../../../utility/type";
+import {
+  BookmarkCreateOptions,
+  CategoryType,
+  BookmarkCreateRequest,
+} from "../../../utility/type";
 import { Button, Form, ToggleButton } from "react-bootstrap";
 import { ModalWindow } from "../modal";
 import { createBookmark } from "../../../utility/request";
 import { globalContext } from "../../../utility/context";
+import { typedMutation } from "../../../utility/function";
 import { useMutation } from "urql";
 
 interface Props {
@@ -13,14 +18,13 @@ interface Props {
 export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
   const { hideModal, dispatchModal } = React.useContext(globalContext);
 
-  const initialForm: CreateBookmarkOptions = {
-    userId: 1,
+  const initialForm: BookmarkCreateOptions = {
     url: "",
     description: "",
     categoryIds: [],
   };
 
-  const [form, setForm] = React.useState<CreateBookmarkOptions>(initialForm);
+  const [form, setForm] = React.useState<BookmarkCreateOptions>(initialForm);
 
   const initialCategories = categories.reduce(
     // remove 'no category'
@@ -79,7 +83,8 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
   );
 
   const handleSubmit = () => {
-    mutation({
+    typedMutation<BookmarkCreateRequest>(mutation, {
+      userId: 1,
       options: {
         ...form,
         // add selected categories to request
@@ -93,7 +98,7 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
           []
         ),
       },
-    }).then((res) => console.log(res));
+    });
 
     handleClose();
   };

@@ -4,6 +4,7 @@ import { CategoryType } from "../../../utility/type";
 import { ModalWindow } from "../modal";
 import { deleteCategory } from "../../../utility/request";
 import { globalContext } from "../../../utility/context";
+import { typedMutation } from "../../../utility/function";
 import { useMutation } from "urql";
 
 interface Props {
@@ -16,9 +17,9 @@ export const DeleteCategoryModal: React.FC<Props> = ({ category }) => {
   const [mutationRes, mutation] = useMutation(deleteCategory);
 
   const handleConfirm = () => {
-    mutation({
+    typedMutation<{ id: number }>(mutation, {
       id: parseInt(category.id),
-    }).then((res) => console.log(res));
+    });
     handleClose();
   };
 

@@ -6,7 +6,7 @@ import { updateBookmark } from "../../../utility/request";
 import {
   BookmarkType,
   CategoryType,
-  UpdateBookmarkOptions,
+  BookmarkUpdateOptions,
 } from "../../../utility/type";
 import { ModalWindow } from "../modal";
 
@@ -21,13 +21,13 @@ export const EditBookmarkModal: React.FC<Props> = ({
 }) => {
   const { hideModal, dispatchModal } = React.useContext(globalContext);
 
-  const initialForm: UpdateBookmarkOptions = {
+  const initialForm: BookmarkUpdateOptions = {
     url: bookmark.url,
     description: bookmark.description,
     categoryIds: [],
   };
 
-  const [form, setForm] = React.useState<UpdateBookmarkOptions>(initialForm);
+  const [form, setForm] = React.useState<BookmarkUpdateOptions>(initialForm);
 
   const initialNewCategories: CategoryType[] = categories.reduce(
     // removes 'no category'

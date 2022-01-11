@@ -1,16 +1,16 @@
 import React from "react";
-import { GlobalStateType, globalContextType, ModalType } from "./type";
+import { GlobalState, GlobalContext, ModalContent } from "./type";
 
-const initialState: GlobalStateType = {
+const initialState: GlobalState = {
   modal: {
     show: false,
     content: null,
   },
 };
 
-const useGlobalState = (): globalContextType => {
+const useGlobalState = (): GlobalContext => {
   const [globalState, setGlobalState] =
-    React.useState<GlobalStateType>(initialState);
+    React.useState<GlobalState>(initialState);
 
   const dispatchModal = (content: JSX.Element): void =>
     setGlobalState((state) => ({
@@ -43,8 +43,8 @@ const useGlobalState = (): globalContextType => {
   };
 };
 
-export const globalContext = React.createContext<globalContextType>(
-  {} as globalContextType
+export const globalContext = React.createContext<GlobalContext>(
+  {} as GlobalContext
 );
 
 export const GlobalProvider: React.FC = ({ children }) => {

@@ -11,7 +11,9 @@ export const typedMutation = <T extends {}>(
   variables: T
   // context: Partial<OperationContext> | undefined
 ): void => {
-  fn(variables).then((res) => console.log(res));
+  fn(variables).then((res) => {
+    console.log(res);
+  });
 };
 
 export const categoryNone: CategoryType = {

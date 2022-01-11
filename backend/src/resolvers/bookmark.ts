@@ -13,15 +13,12 @@ import { Category } from "../entities/category";
 import { User } from "../entities/user";
 
 @InputType()
-class CreateBookmarkOptions {
+class BookmarkCreateOptions {
   @Field()
   description: string;
 
   @Field()
   url: string;
-
-  @Field(() => Int)
-  userId: number;
 
   @Field(() => [Int], { nullable: true })
   categoryIds?: number[];
@@ -44,13 +41,14 @@ export class BookmarkResolver {
   // create
   @Mutation(() => Bookmark)
   async createBookmark(
-    @Arg("options", () => CreateBookmarkOptions) options: CreateBookmarkOptions
+    @Arg("userId", () => Int) userId: number,
+    @Arg("options", () => BookmarkCreateOptions) options: BookmarkCreateOptions
   ) {
     let categories: Category[] = [];
     if (options.categoryIds) {
       categories = await Category.findByIds(options.categoryIds);
     }
-    const user = await User.findOne(options.userId);
+    const user = await User.findOne(userId);
     const bookmark = await Bookmark.create({
       description: options.description,
       url: options.url,

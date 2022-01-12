@@ -13,6 +13,7 @@ export const NavBar: React.FC<{ logo: any }> = ({ logo }) => {
           <Nav.Link href="/about">About</Nav.Link>
           <Nav.Link href="/register">Register</Nav.Link>
           <Nav.Link href="/login">Login</Nav.Link>
+          <Nav.Link href="/dev">Dev</Nav.Link>
         </Nav>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>

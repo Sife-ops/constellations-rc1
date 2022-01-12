@@ -10,12 +10,14 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./logo.svg";
 import { About } from "./components/about";
+import { Dev } from "./components/dev";
 import { Home } from "./components/home";
 import { Login } from "./components/login";
 import { ModalContainer } from "./components/modal/modal-container";
 import { NavBar } from "./components/navbar";
 import { Register } from "./components/register";
 import { Routes, Route } from "react-router-dom";
+import { setAccessToken } from "./utility/token";
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/dev" element={<Dev />} />
         </Routes>
       </div>
     </div>

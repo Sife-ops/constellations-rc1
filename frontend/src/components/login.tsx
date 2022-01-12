@@ -4,7 +4,7 @@ export const Login: React.FC = () => {
   return (
     <div>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           console.log("login");
         }}

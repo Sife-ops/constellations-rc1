@@ -72,7 +72,7 @@ export class UserResolver {
   }
 
   // read
-  @Query(() => LoginResponse)
+  @Mutation(() => LoginResponse)
   async login(
     @Arg("username", () => String) username: string,
     @Arg("password", () => String) password: string,
@@ -96,7 +96,11 @@ export class UserResolver {
 
     if (isVerified) {
       const payload = { userId: found.id };
-      res.cookie("refreshToken", newRefreshToken(payload), { httpOnly: true });
+      res.cookie("refreshToken", newRefreshToken(payload), {
+        // secure: true,
+        httpOnly: true,
+        sameSite: "lax"
+      });
       return { accessToken: newAccessToken(payload) };
     }
     throw new Error("incorrect password");
@@ -113,7 +117,7 @@ export class UserResolver {
   }
 
   // auth
-  @Query(() => String)
+  @Mutation(() => String)
   @UseMiddleware(isAuth)
   authTest(@Ctx() { payload }: MyContext) {
     return `authorized ${payload.userId}`;

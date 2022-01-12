@@ -11,6 +11,8 @@ export const NavBar: React.FC<{ logo: any }> = ({ logo }) => {
         <Nav className="me-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/about">About</Nav.Link>
+          <Nav.Link href="/register">Register</Nav.Link>
+          <Nav.Link href="/login">Login</Nav.Link>
         </Nav>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>

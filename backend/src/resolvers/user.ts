@@ -117,9 +117,15 @@ export class UserResolver {
   }
 
   // auth
+  @Query(() => String)
+  @UseMiddleware(isAuth)
+  queryAuthTest(@Ctx() { payload }: MyContext) {
+    return `authorized ${payload.userId}`;
+  }
+
   @Mutation(() => String)
   @UseMiddleware(isAuth)
-  authTest(@Ctx() { payload }: MyContext) {
+  mutAuthTest(@Ctx() { payload }: MyContext) {
     return `authorized ${payload.userId}`;
   }
 

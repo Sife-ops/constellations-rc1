@@ -1,15 +1,18 @@
 import React from "react";
 import { useMutation } from "urql";
+import { globalContext } from "../utility/context";
 
 export const Dev: React.FC = () => {
+  const { setGlobalState } = React.useContext(globalContext);
+
   const [test, setTest] = React.useState("");
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const [accessToken, setAccessToken] = React.useState("");
+  const [myAccessToken, setMyAccessToken] = React.useState("");
 
-  const [registerRes, registerMutation] = useMutation(`
+  const [registerRes, loginMutation] = useMutation(`
     mutation Login($password: String!, $username: String!) {
       login(password: $password, username: $username) {
         accessToken
@@ -53,12 +56,22 @@ export const Dev: React.FC = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          registerMutation({
-            username,
-            password,
-          }).then((res) => {
-            console.log(res.data.login.accessToken);
-            setAccessToken(res.data.login.accessToken);
+          loginMutation(
+            {
+              username,
+              password,
+            },
+            {
+              url: "http://localhost:4000/graphql",
+              fetchOptions: {
+                credentials: "include",
+              },
+            }
+          ).then((res) => {
+            const accessToken = res.data.login.accessToken;
+            setMyAccessToken(accessToken);
+            sessionStorage.setItem("accessToken", accessToken);
+            console.log(sessionStorage.getItem("accessToken"));
           });
         }}
       >
@@ -73,7 +86,19 @@ export const Dev: React.FC = () => {
         </div>
         <button type="submit">login</button>
         <br />
-        {accessToken}
+        {myAccessToken}
+      </form>
+
+      <br />
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log(sessionStorage.getItem("accessToken"));
+        }}
+      >
+        <button type="submit">log access token</button>
+        <br />
       </form>
 
       <br />
@@ -89,18 +114,8 @@ export const Dev: React.FC = () => {
 
           const data = await res.json();
 
-          console.log(data);
-
-          // if (res.ok) {
-          //   console.log(res.json())
-          // }
-
-          // fetch("http://localhost:4000/refresh", {
-          //   method: "POST",
-          //   credentials: "include",
-          // })
-          //   .then((res) => res.json())
-          //   .then((data) => console.log(data));
+          sessionStorage.setItem("accessToken", data.accessToken);
+          console.log(sessionStorage.getItem("accessToken"));
         }}
       >
         <button type="submit">refresh</button>
@@ -117,6 +132,20 @@ export const Dev: React.FC = () => {
         }}
       >
         <button type="submit">authorized</button>
+      </form>
+
+      <br />
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setGlobalState((state) => ({
+            ...state,
+            login: true,
+          }));
+        }}
+      >
+        <button type="submit">force login</button>
       </form>
     </div>
   );

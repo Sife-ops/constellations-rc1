@@ -1,7 +1,7 @@
 import jwt_decode from "jwt-decode";
 import { AuthConfig } from "@urql/exchange-auth";
-import { getAccessToken, setAccessToken } from "./token";
-import { makeOperation, } from "urql";
+import { makeOperation } from "urql";
+// import {getAccessToken,setAccessToken} from "../utility/token"
 
 export const authConfig: AuthConfig<{ accessToken: string }> = {
   addAuthToOperation: ({ authState, operation }) => {
@@ -41,7 +41,7 @@ export const authConfig: AuthConfig<{ accessToken: string }> = {
   getAuth: async ({ authState, mutate }) => {
     console.log("getAuth");
     if (!authState) {
-      const accessToken = getAccessToken();
+      const accessToken = sessionStorage.getItem("accessToken");
       if (accessToken) {
         return { accessToken };
       }
@@ -57,14 +57,13 @@ export const authConfig: AuthConfig<{ accessToken: string }> = {
 
     console.log("set token");
     if (data.ok) {
-      setAccessToken(data.accessToken);
+      sessionStorage.setItem("accessToken", data.accessToken);
       return {
         accessToken: data.accessToken,
       };
     }
 
-    setAccessToken("");
+    sessionStorage.removeItem("accessToken");
     return null;
   },
 };
-

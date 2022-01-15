@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import decode, { JwtPayload } from "jwt-decode";
 import reportWebVitals from "./reportWebVitals";
+import { GlobalProvider } from "./utility/context";
 import { Main } from "./main";
 import { getAccessToken, setAccessToken } from "./utility/token";
 import { setContext } from "@apollo/client/link/context";
@@ -62,7 +63,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <Main />
+      <GlobalProvider>
+        <Main />
+      </GlobalProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

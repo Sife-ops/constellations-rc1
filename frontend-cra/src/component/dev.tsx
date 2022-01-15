@@ -51,8 +51,8 @@ export const Dev: React.FC = () => {
             method: "POST",
             credentials: "include",
           });
-          // const data =
-          // console.log(data);
+          const data = await res.json();
+          console.log(data)
           setAccessToken("");
           window.location.reload();
         }}

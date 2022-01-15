@@ -1,7 +1,18 @@
 import React from "react";
 import logo from "../logo.png";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { Dev } from "./dev";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { setAccessToken } from "../utility/token";
+
+const handleLogout = async () => {
+  const res = await fetch("http://localhost:4000/logout", {
+    method: "POST",
+    credentials: "include",
+  });
+  const data = await res.json();
+  console.log(data);
+  setAccessToken("");
+  window.location.reload();
+};
 
 export const NavBar: React.FC = () => {
   return (
@@ -16,10 +27,12 @@ export const NavBar: React.FC = () => {
         </Nav>
 
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            {/* todo: logout button */}
+          {/* <Navbar.Text>
             Signed in as: <a href="/login">USER</a>
-          </Navbar.Text>
+          </Navbar.Text> */}
+          <Button variant="secondary" onClick={handleLogout}>
+            Log Out
+          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>

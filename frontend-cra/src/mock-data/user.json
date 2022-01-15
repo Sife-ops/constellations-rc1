@@ -1,0 +1,298 @@
+{
+  "data": {
+    "user": {
+      "id": "1",
+      "username": "wyatt",
+      "bookmarks": [
+        {
+          "id": "2",
+          "url": "https://youtube.com",
+          "description": "youtube",
+          "categories": [
+            {
+              "id": "5",
+              "name": "News"
+            },
+            {
+              "id": "4",
+              "name": "Streaming"
+            },
+            {
+              "id": "3",
+              "name": "Education"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "url": "https://amazon.com",
+          "description": "amazon",
+          "categories": [
+            {
+              "id": "5",
+              "name": "News"
+            },
+            {
+              "id": "4",
+              "name": "Streaming"
+            }
+          ]
+        },
+        {
+          "id": "8",
+          "url": "https://imdb.com",
+          "description": "imdb",
+          "categories": []
+        },
+        {
+          "id": "10",
+          "url": "https://yelp.com",
+          "description": "yelp",
+          "categories": []
+        },
+        {
+          "id": "15",
+          "url": "https://healthline.com",
+          "description": "healthline",
+          "categories": [
+            {
+              "id": "3",
+              "name": "Education"
+            }
+          ]
+        },
+        {
+          "id": "18",
+          "url": "https://webmd.com",
+          "description": "webmd",
+          "categories": [
+            {
+              "id": "1",
+              "name": "Search"
+            }
+          ]
+        },
+        {
+          "id": "25",
+          "url": "https://google.com",
+          "description": "google",
+          "categories": [
+            {
+              "id": "5",
+              "name": "News"
+            }
+          ]
+        },
+        {
+          "id": "29",
+          "url": "https://microsoft.com",
+          "description": "microsoft",
+          "categories": [
+            {
+              "id": "5",
+              "name": "News"
+            }
+          ]
+        },
+        {
+          "id": "33",
+          "url": "https://usps.com",
+          "description": "usps",
+          "categories": [
+            {
+              "id": "3",
+              "name": "Education"
+            }
+          ]
+        },
+        {
+          "id": "39",
+          "url": "https://merriam-webster.com",
+          "description": "merriam-webster",
+          "categories": [
+            {
+              "id": "1",
+              "name": "Search"
+            }
+          ]
+        },
+        {
+          "id": "41",
+          "url": "https://mapquest.com",
+          "description": "mapquest",
+          "categories": [
+            {
+              "id": "1",
+              "name": "Search"
+            }
+          ]
+        },
+        {
+          "id": "47",
+          "url": "https://live.com",
+          "description": "live",
+          "categories": [
+            {
+              "id": "2",
+              "name": "Shopping"
+            }
+          ]
+        },
+        {
+          "id": "49",
+          "url": "https://rottentomatoes.com",
+          "description": "rottentomatoes",
+          "categories": [
+            {
+              "id": "4",
+              "name": "Streaming"
+            }
+          ]
+        },
+        {
+          "id": "52",
+          "url": "https://cnet.com",
+          "description": "cnet",
+          "categories": [
+            {
+              "id": "2",
+              "name": "Shopping"
+            }
+          ]
+        },
+        {
+          "id": "54",
+          "url": "https://usnews.com",
+          "description": "usnews",
+          "categories": [
+            {
+              "id": "1",
+              "name": "Search"
+            }
+          ]
+        },
+        {
+          "id": "55",
+          "url": "https://zillow.com",
+          "description": "zillow",
+          "categories": [
+            {
+              "id": "5",
+              "name": "News"
+            }
+          ]
+        },
+        {
+          "id": "59",
+          "url": "https://finance.yahoo.com",
+          "description": "finance.yahoo",
+          "categories": [
+            {
+              "id": "4",
+              "name": "Streaming"
+            }
+          ]
+        },
+        {
+          "id": "60",
+          "url": "https://genius.com",
+          "description": "genius",
+          "categories": [
+            {
+              "id": "3",
+              "name": "Education"
+            }
+          ]
+        },
+        {
+          "id": "63",
+          "url": "https://medicalnewstoday.com",
+          "description": "medicalnewstoday",
+          "categories": [
+            {
+              "id": "1",
+              "name": "Search"
+            }
+          ]
+        },
+        {
+          "id": "70",
+          "url": "https://cdc.gov",
+          "description": "cdc",
+          "categories": [
+            {
+              "id": "4",
+              "name": "Streaming"
+            }
+          ]
+        },
+        {
+          "id": "73",
+          "url": "https://xfinity.com",
+          "description": "xfinity",
+          "categories": [
+            {
+              "id": "3",
+              "name": "Education"
+            }
+          ]
+        },
+        {
+          "id": "78",
+          "url": "https://verizon.com",
+          "description": "verizon",
+          "categories": [
+            {
+              "id": "3",
+              "name": "Education"
+            }
+          ]
+        },
+        {
+          "id": "81",
+          "url": "https://expedia.com",
+          "description": "expedia",
+          "categories": [
+            {
+              "id": "5",
+              "name": "News"
+            }
+          ]
+        },
+        {
+          "id": "84",
+          "url": "https://nbcnews.com",
+          "description": "nbcnews",
+          "categories": [
+            {
+              "id": "3",
+              "name": "Education"
+            }
+          ]
+        },
+        {
+          "id": "88",
+          "url": "https://capitalone.com",
+          "description": "capitalone",
+          "categories": [
+            {
+              "id": "3",
+              "name": "Education"
+            }
+          ]
+        },
+        {
+          "id": "98",
+          "url": "https://twitch.tv",
+          "description": "twitch",
+          "categories": [
+            {
+              "id": "3",
+              "name": "Education"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

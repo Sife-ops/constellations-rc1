@@ -1,4 +1,20 @@
 import { BookmarkType, CategoryType } from "./type";
+import { OperationResult, OperationContext } from "urql";
+
+type MutationFn = (
+  variables?: object | undefined,
+  context?: Partial<OperationContext> | undefined
+) => Promise<OperationResult<any>>;
+
+export const typedMutation = <T extends {}>(
+  fn: MutationFn,
+  variables: T
+  // context: Partial<OperationContext> | undefined
+): void => {
+  fn(variables).then((res) => {
+    console.log(res);
+  });
+};
 
 export const categoryNone: CategoryType = {
   id: "0",

@@ -2,7 +2,6 @@ import React from "react";
 import { GlobalState, GlobalContext } from "./type";
 
 const initialState: GlobalState = {
-  login: false,
   modal: {
     show: false,
     content: null,

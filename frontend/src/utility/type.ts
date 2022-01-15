@@ -43,7 +43,6 @@ export interface GlobalContext {
 }
 
 export interface GlobalState {
-  login: boolean,
   modal: {
     show: boolean;
     content: JSX.Element | null;

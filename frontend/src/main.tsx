@@ -1,17 +1,28 @@
-import "./index.css";
 import App from "./App";
 import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import { GlobalProvider } from "./utility/context";
+import { Login } from "./component/login";
+import { setAccessToken } from "./utility/token";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <GlobalProvider>
-        <App />
-      </GlobalProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+export const Main: React.FC = () => {
+  const [loading, setLoading] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+  React.useEffect(() => {
+    fetch("http://localhost:4000/refresh", {
+      method: "POST",
+      credentials: "include",
+    }).then((res) =>
+      res.json().then((data) => {
+        if (data.accessToken) {
+          setAccessToken(data.accessToken);
+          setLoggedIn(true);
+        }
+        setLoading(false);
+      })
+    );
+  }, []);
+
+  if (loading) return <div>loading...</div>;
+  if (!loggedIn) return <Login />;
+  return <App />;
+};

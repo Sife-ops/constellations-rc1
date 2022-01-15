@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../logo.png";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { globalContext } from "../utility/context";
 import { setAccessToken } from "../utility/token";
 
 const handleLogout = async () => {
@@ -15,6 +16,8 @@ const handleLogout = async () => {
 };
 
 export const NavBar: React.FC = () => {
+  const { globalState } = React.useContext(globalContext);
+
   return (
     <Navbar className="mb-2" bg="primary" variant="dark">
       <Container>
@@ -31,6 +34,7 @@ export const NavBar: React.FC = () => {
           {/* <Navbar.Text>
             Signed in as: <a href="/login">USER</a>
           </Navbar.Text> */}
+          {/* {globalState.userId} */}
           <Button variant="secondary" onClick={handleLogout}>
             Log Out
           </Button>

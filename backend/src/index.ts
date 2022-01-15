@@ -65,7 +65,10 @@ import { verify } from "jsonwebtoken";
       return res.json(bad);
     }
 
-    const newPayload = { userId: payload.userId };
+    const newPayload = {
+      userId: payload.userId,
+      username: payload.username,
+    };
     // todo: refreshToken cookie function
     res.cookie("refreshToken", newRefreshToken(newPayload), {
       // secure: true,

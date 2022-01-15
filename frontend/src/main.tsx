@@ -1,12 +1,16 @@
 import App from "./App";
 import React from "react";
+import decode from "jwt-decode";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoadingSpinner } from "./component/loading-spinner";
 import { Login } from "./component/login";
 import { Register } from "./component/register";
+import { globalContext } from "./utility/context";
 import { setAccessToken } from "./utility/token";
 
 export const Main: React.FC = () => {
+  const { setUserId } = React.useContext(globalContext);
+
   const [loading, setLoading] = React.useState(true);
   const [loggedIn, setLoggedIn] = React.useState(false);
 
@@ -18,6 +22,8 @@ export const Main: React.FC = () => {
       res.json().then((data) => {
         if (data.accessToken) {
           setAccessToken(data.accessToken);
+          const decoded = decode<{ username: string }>(data.accessToken);
+          setUserId(decoded.username);
           setLoggedIn(true);
         }
         setLoading(false);
@@ -25,7 +31,7 @@ export const Main: React.FC = () => {
     );
   }, []);
 
-  if (loading) return <LoadingSpinner />
+  if (loading) return <LoadingSpinner />;
 
   if (!loggedIn) {
     return (

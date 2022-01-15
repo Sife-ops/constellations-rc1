@@ -95,11 +95,14 @@ export class UserResolver {
     }
 
     if (isVerified) {
-      const payload = { userId: found.id };
+      const payload = {
+        userId: found.id,
+        username: found.username,
+      };
       res.cookie("refreshToken", newRefreshToken(payload), {
         // secure: true,
         httpOnly: true,
-        sameSite: "lax"
+        sameSite: "lax",
       });
       return { accessToken: newAccessToken(payload) };
     }

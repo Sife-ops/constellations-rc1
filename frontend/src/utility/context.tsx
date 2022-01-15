@@ -2,6 +2,7 @@ import React from "react";
 import { GlobalState, GlobalContext } from "./type";
 
 const initialState: GlobalState = {
+  userId: null,
   modal: {
     show: false,
     content: null,
@@ -11,6 +12,12 @@ const initialState: GlobalState = {
 const useGlobalState = (): GlobalContext => {
   const [globalState, setGlobalState] =
     React.useState<GlobalState>(initialState);
+
+  const setUserId = (userId: string) =>
+    setGlobalState((state) => ({
+      ...state,
+      userId,
+    }));
 
   const dispatchModal = (content: JSX.Element): void =>
     setGlobalState((state) => ({
@@ -39,6 +46,7 @@ const useGlobalState = (): GlobalContext => {
     globalState,
     hideModal,
     setGlobalState,
+    setUserId,
     showModal,
   };
 };

@@ -31,9 +31,9 @@ export const Main: React.FC = () => {
       <div>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Navigate replace to="/" />} />
+            <Route path="*" element={<Navigate replace to="/login" />} />
           </Routes>
         </BrowserRouter>
       </div>

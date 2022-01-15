@@ -2,10 +2,6 @@
 
 #id1 {
   text-align: center;
-  /* font-family: "Gloria Hallelujah", cursive; */
-  /* font-family: "Press Start 2P", cursive; */
-  /* font-family: 'Audiowide', cursive; */
-  /* font-family: 'Comforter', cursive; */
   font-family: "Twinkle Star", cursive;
 }
 
@@ -20,4 +16,25 @@
 
 .bookmarkRow__delete--hover {
   color: firebrick;
+}
+
+.class1 {
+  /* border: 2px solid red; */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.class2 {
+  /* border: 2px solid green; */
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.class3 {
+  border: 1px solid lightgray;
+  padding: 1rem;
+  border-radius: 0.5rem;
 }

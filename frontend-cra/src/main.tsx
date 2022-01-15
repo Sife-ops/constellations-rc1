@@ -1,7 +1,7 @@
 import App from "./App";
 import React from "react";
-import { setAccessToken } from "./utility/token";
 import { Login } from "./component/login";
+import { setAccessToken } from "./utility/token";
 
 export const Main: React.FC = () => {
   const [loading, setLoading] = React.useState(true);

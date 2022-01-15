@@ -1,10 +1,10 @@
 import "./index.css";
-import App from "./App";
 import React from "react";
 import ReactDOM from "react-dom";
+import decode, { JwtPayload } from "jwt-decode";
 import reportWebVitals from "./reportWebVitals";
 import { Main } from "./main";
-import { getAccessToken } from "./utility/token";
+import { getAccessToken, setAccessToken } from "./utility/token";
 import { setContext } from "@apollo/client/link/context";
 
 import {
@@ -19,8 +19,34 @@ const httpLink = createHttpLink({
   credentials: "include",
 });
 
-const authLink = setContext((_, { headers }) => {
-  const token = getAccessToken();
+const authLink = setContext(async (_, { headers }) => {
+  let token = getAccessToken();
+
+  let expired = false;
+  if (token) {
+    const decoded = decode<JwtPayload>(token);
+    const now = new Date().getTime();
+    if (decoded.exp) {
+      console.log("current time  ", now);
+      console.log("token expires ", decoded.exp * 1000);
+      if (now > decoded.exp * 1000) expired = true;
+    }
+  }
+
+  if (!token || expired) {
+    console.log("refreshing");
+
+    const res = await fetch("http://localhost:4000/refresh", {
+      method: "POST",
+      credentials: "include",
+    });
+    const data = await res.json();
+    if (data.accessToken) {
+      setAccessToken(data.accessToken);
+      token = data.accessToken;
+    }
+  }
+
   return {
     headers: {
       ...headers,
@@ -32,7 +58,6 @@ const authLink = setContext((_, { headers }) => {
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
-  // credentials: "include",
 });
 
 ReactDOM.render(

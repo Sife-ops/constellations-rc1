@@ -4,6 +4,6 @@ export const env = {
   seed: process.env.SEED ? true : false,
   secret_access_token: "abcd",
   secret_refresh_token: "efgh",
-  expiry_access: "5m",
-  expiry_refresh: "15m",
+  expiry_access: "15s",
+  expiry_refresh: "1m",
 };

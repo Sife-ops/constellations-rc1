@@ -53,8 +53,8 @@ import { verify } from "jsonwebtoken";
 
   app.post("/refresh", (req: Request, res: Response) => {
     const refreshToken = req.cookies.refreshToken;
-    // if (!refreshToken) return res.sendStatus(403);
     const bad = { ok: false, accessToken: "" };
+
     if (!refreshToken) return res.json(bad);
 
     let payload: any;
@@ -62,7 +62,6 @@ import { verify } from "jsonwebtoken";
       payload = verify(refreshToken, env.secret_refresh_token);
     } catch (e) {
       console.log(e);
-      // return res.sendStatus(403);
       return res.json(bad);
     }
 

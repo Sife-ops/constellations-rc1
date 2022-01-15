@@ -1,6 +1,8 @@
 import App from "./App";
 import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Login } from "./component/login";
+import { Register } from "./component/register";
 import { setAccessToken } from "./utility/token";
 
 export const Main: React.FC = () => {
@@ -23,6 +25,20 @@ export const Main: React.FC = () => {
   }, []);
 
   if (loading) return <div>loading...</div>;
-  if (!loggedIn) return <Login />;
+
+  if (!loggedIn) {
+    return (
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<Navigate replace to="/" />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    );
+  }
+
   return <App />;
 };

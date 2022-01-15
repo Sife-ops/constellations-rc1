@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, ToggleButton } from "react-bootstrap";
-import { globalContext } from "../../../utility/context";
 import { ModalWindow } from "../modal";
+import { globalContext } from "../../../utility/context";
 
 import {
   BookmarkType,

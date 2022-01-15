@@ -5,18 +5,13 @@ export interface BookmarkType {
   categories: CategoryType[];
 }
 
-export interface BookmarkCreateRequest {
-  userId: number;
-  options: BookmarkCreateOptions;
-}
-
-export interface BookmarkCreateOptions {
+export interface BookmarkAddForm {
   description: string;
   url: string;
   categoryIds: number[];
 }
 
-export interface BookmarkUpdateOptions {
+export interface BookmarkEditForm {
   description?: string;
   url?: string;
   categoryIds?: number[];
@@ -27,11 +22,6 @@ export interface CategoryType {
   name: string;
   count?: number;
   selected?: boolean;
-}
-
-export interface CategoryUpdateRequest {
-  id: number;
-  name: string;
 }
 
 export interface GlobalContext {

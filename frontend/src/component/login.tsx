@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { setAccessToken } from "../utility/token";
-import { useLoginMutation } from "../generated/graphql";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { setAccessToken } from "../utility/token";
+import { useLoginMutation } from "../generated/graphql";
 
 export const Login: React.FC = () => {
   interface Form {
@@ -70,7 +70,7 @@ export const Login: React.FC = () => {
               />
             </Form.Group>
             <div className="d-grid gap-2">
-              <Button variant="success" type="submit">
+              <Button variant="primary" type="submit">
                 Login
               </Button>
             </div>

@@ -76,11 +76,7 @@ export const Login: React.FC = () => {
             </div>
           </Form>
         </div>
-        <div
-          style={{
-            textAlign: "center",
-          }}
-        >
+        <div className="class4">
           <Link to="/register">Register</Link>
         </div>
       </div>

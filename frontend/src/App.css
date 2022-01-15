@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Comforter&family=Gloria+Hallelujah&family=Press+Start+2P&family=Twinkle+Star&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Twinkle+Star&display=swap");
 
 #id1 {
   text-align: center;
@@ -37,4 +37,8 @@
   border: 1px solid lightgray;
   padding: 1rem;
   border-radius: 0.5rem;
+}
+
+.class4 {
+  text-align: center;
 }

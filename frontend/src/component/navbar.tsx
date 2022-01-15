@@ -27,6 +27,7 @@ export const NavBar: React.FC = () => {
         </Nav>
 
         <Navbar.Collapse className="justify-content-end">
+          {/* todo: welcome message */}
           {/* <Navbar.Text>
             Signed in as: <a href="/login">USER</a>
           </Navbar.Text> */}

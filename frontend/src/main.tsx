@@ -1,6 +1,7 @@
 import App from "./App";
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { LoadingSpinner } from "./component/loading-spinner";
 import { Login } from "./component/login";
 import { Register } from "./component/register";
 import { setAccessToken } from "./utility/token";
@@ -24,7 +25,7 @@ export const Main: React.FC = () => {
     );
   }, []);
 
-  if (loading) return <div>loading...</div>;
+  if (loading) return <LoadingSpinner />
 
   if (!loggedIn) {
     return (

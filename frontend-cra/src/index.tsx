@@ -27,15 +27,14 @@ const authLink = setContext(async (_, { headers }) => {
     const decoded = decode<JwtPayload>(token);
     const now = new Date().getTime();
     if (decoded.exp) {
-      console.log("current time  ", now);
-      console.log("token expires ", decoded.exp * 1000);
+      // todo: debut env var
+      // console.log("current time  ", now);
+      // console.log("token expires ", decoded.exp * 1000);
       if (now > decoded.exp * 1000) expired = true;
     }
   }
 
   if (!token || expired) {
-    console.log("refreshing");
-
     const res = await fetch("http://localhost:4000/refresh", {
       method: "POST",
       credentials: "include",

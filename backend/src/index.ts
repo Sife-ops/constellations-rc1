@@ -75,6 +75,17 @@ import { verify } from "jsonwebtoken";
 
     res.json({ ok: true, accessToken: newAccessToken(newPayload) });
   });
+
+  app.post("/logout", (req: Request, res: Response) => {
+    res.cookie("refreshToken", "itm", {
+      // secure: true,
+      httpOnly: true,
+      sameSite: "lax",
+    });
+    res.json({
+      ok: true,
+    });
+  });
   //$
 
   const server = new ApolloServer({

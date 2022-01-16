@@ -1,14 +1,16 @@
+import { Bookmark } from "./bookmark";
 import { Field, ID, ObjectType } from "type-graphql";
 import { TypeormLoader } from "type-graphql-dataloader";
+import { User } from "./user";
+
 import {
   BaseEntity,
   Column,
   Entity,
   ManyToMany,
   PrimaryGeneratedColumn,
+  ManyToOne,
 } from "typeorm";
-
-import { Bookmark } from "./bookmark";
 
 @ObjectType()
 @Entity()
@@ -25,4 +27,8 @@ export class Category extends BaseEntity {
   @ManyToMany(() => Bookmark, (bookmark) => bookmark.categories)
   @TypeormLoader()
   bookmarks: Bookmark[];
+
+  @ManyToOne(() => User, (user) => user.bookmarks, { onDelete: "CASCADE" })
+  @TypeormLoader()
+  user: User;
 }

@@ -91,30 +91,31 @@ import { verify } from "jsonwebtoken";
   });
   //$
 
-  const server = new ApolloServer({
-    schema: await buildSchema({
-      resolvers: [
-        BookmarkResolver,
-        CategoryResolver,
-        HelloWorldResolver,
-        UserResolver,
-      ],
-    }),
-    context: ({ req, res }) => ({ req, res }),
-    plugins: [
-      ApolloServerLoaderPlugin({
-        typeormGetConnection: getConnection,
-      }),
-    ],
-  });
+  // const server = new ApolloServer({
+  //   schema: await buildSchema({
+  //     resolvers: [
+  //       BookmarkResolver,
+  //       CategoryResolver,
+  //       HelloWorldResolver,
+  //       UserResolver,
+  //     ],
+  //   }),
+  //   context: ({ req, res }) => ({ req, res }),
+  //   plugins: [
+  //     ApolloServerLoaderPlugin({
+  //       typeormGetConnection: getConnection,
+  //     }),
+  //   ],
+  // });
 
-  await server.start();
+  // await server.start();
 
-  server.applyMiddleware({ app, cors: false });
+  // server.applyMiddleware({ app, cors: false });
 
-  app.listen(env.port, () => {
-    console.log(`running on ${env.port}`);
-  });
+  // app.listen(env.port, () => {
+  //   console.log(`running on ${env.port}`);
+  // });
+
 })();
 
 // vim: fdm=marker fmr=//^,//$

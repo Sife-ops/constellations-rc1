@@ -1,5 +1,8 @@
+import { Category } from "./category";
 import { Field, ObjectType, ID } from "type-graphql";
 import { TypeormLoader } from "type-graphql-dataloader";
+import { User } from "./user";
+
 import {
   Entity,
   Column,
@@ -9,9 +12,6 @@ import {
   ManyToMany,
   JoinTable,
 } from "typeorm";
-
-import { Category } from "./category";
-import { User } from "./user";
 
 @ObjectType()
 @Entity()

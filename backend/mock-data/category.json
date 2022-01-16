@@ -16,5 +16,17 @@
   },
   {
     "name": "News"
+  },
+  {
+    "name": "Fitness"
+  },
+  {
+    "name": "Trivia"
+  },
+  {
+    "name": "Books"
+  },
+  {
+    "name": "Movies"
   }
 ]

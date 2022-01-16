@@ -28,7 +28,7 @@ export class Category extends BaseEntity {
   @TypeormLoader()
   bookmarks: Bookmark[];
 
-  @ManyToOne(() => User, (user) => user.bookmarks, { onDelete: "CASCADE" })
+  @ManyToOne(() => User, (user) => user.categories, { onDelete: "CASCADE" })
   @TypeormLoader()
   user: User;
 }

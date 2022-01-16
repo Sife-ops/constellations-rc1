@@ -28,13 +28,13 @@ export class Bookmark extends BaseEntity {
   @Column("text")
   description: string;
 
+  @ManyToOne(() => User, (user) => user.bookmarks, { onDelete: "CASCADE" })
+  @TypeormLoader()
+  user: User;
+
   @Field(() => [Category], { nullable: true })
   @ManyToMany(() => Category, (category) => category.bookmarks)
   @JoinTable()
   @TypeormLoader()
   categories: Category[];
-
-  @ManyToOne(() => User, (user) => user.bookmarks, { onDelete: "CASCADE" })
-  @TypeormLoader()
-  user: User;
 }

@@ -33,5 +33,5 @@ export class User extends BaseEntity {
   @Field(() => [Category], { nullable: true })
   @OneToMany(() => Category, (category) => category.user)
   @TypeormLoader()
-  category: Category[];
+  categories: Category[];
 }

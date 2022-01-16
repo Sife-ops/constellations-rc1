@@ -148,6 +148,7 @@ export type QueryUserArgs = {
 export type User = {
   __typename?: 'User';
   bookmarks?: Maybe<Array<Bookmark>>;
+  categories?: Maybe<Array<Category>>;
   id: Scalars['ID'];
   username: Scalars['String'];
 };
@@ -182,6 +183,13 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: boolean };
+
+export type UserBookmarkCategoryQueryVariables = Exact<{
+  userId: Scalars['Int'];
+}>;
+
+
+export type UserBookmarkCategoryQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, username: string, bookmarks?: Array<{ __typename?: 'Bookmark', id: string, url: string, categories?: Array<{ __typename?: 'Category', id: string, name: string }> | null | undefined }> | null | undefined } };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -349,6 +357,50 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const UserBookmarkCategoryDocument = gql`
+    query UserBookmarkCategory($userId: Int!) {
+  user(id: $userId) {
+    id
+    username
+    bookmarks {
+      id
+      url
+      categories {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserBookmarkCategoryQuery__
+ *
+ * To run a query within a React component, call `useUserBookmarkCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserBookmarkCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserBookmarkCategoryQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useUserBookmarkCategoryQuery(baseOptions: Apollo.QueryHookOptions<UserBookmarkCategoryQuery, UserBookmarkCategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserBookmarkCategoryQuery, UserBookmarkCategoryQueryVariables>(UserBookmarkCategoryDocument, options);
+      }
+export function useUserBookmarkCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserBookmarkCategoryQuery, UserBookmarkCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserBookmarkCategoryQuery, UserBookmarkCategoryQueryVariables>(UserBookmarkCategoryDocument, options);
+        }
+export type UserBookmarkCategoryQueryHookResult = ReturnType<typeof useUserBookmarkCategoryQuery>;
+export type UserBookmarkCategoryLazyQueryHookResult = ReturnType<typeof useUserBookmarkCategoryLazyQuery>;
+export type UserBookmarkCategoryQueryResult = Apollo.QueryResult<UserBookmarkCategoryQuery, UserBookmarkCategoryQueryVariables>;
 export const UsersDocument = gql`
     query Users {
   users {

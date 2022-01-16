@@ -1,42 +1,42 @@
 [
   {
     "username": "wyatt",
-    "password": "pass"
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$2sWsbLmA/UJuY/Tj40PV2g$1z3FM8Vm3PRvFIHCTBqwdhzPb7M7rCiB7ObkCPoAj70"
   },
   {
     "username": "yuki",
-    "password": "pass"
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$2sWsbLmA/UJuY/Tj40PV2g$1z3FM8Vm3PRvFIHCTBqwdhzPb7M7rCiB7ObkCPoAj70"
   },
   {
     "username": "noah",
-    "password": "pass"
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$2sWsbLmA/UJuY/Tj40PV2g$1z3FM8Vm3PRvFIHCTBqwdhzPb7M7rCiB7ObkCPoAj70"
   },
   {
     "username": "steve",
-    "password": "pass"
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$2sWsbLmA/UJuY/Tj40PV2g$1z3FM8Vm3PRvFIHCTBqwdhzPb7M7rCiB7ObkCPoAj70"
   },
   {
     "username": "bob",
-    "password": "pass"
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$2sWsbLmA/UJuY/Tj40PV2g$1z3FM8Vm3PRvFIHCTBqwdhzPb7M7rCiB7ObkCPoAj70"
   },
   {
     "username": "greg",
-    "password": "pass"
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$2sWsbLmA/UJuY/Tj40PV2g$1z3FM8Vm3PRvFIHCTBqwdhzPb7M7rCiB7ObkCPoAj70"
   },
   {
     "username": "tom",
-    "password": "pass"
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$2sWsbLmA/UJuY/Tj40PV2g$1z3FM8Vm3PRvFIHCTBqwdhzPb7M7rCiB7ObkCPoAj70"
   },
   {
     "username": "pete",
-    "password": "pass"
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$2sWsbLmA/UJuY/Tj40PV2g$1z3FM8Vm3PRvFIHCTBqwdhzPb7M7rCiB7ObkCPoAj70"
   },
   {
     "username": "alex",
-    "password": "pass"
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$2sWsbLmA/UJuY/Tj40PV2g$1z3FM8Vm3PRvFIHCTBqwdhzPb7M7rCiB7ObkCPoAj70"
   },
   {
     "username": "jim",
-    "password": "pass"
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$2sWsbLmA/UJuY/Tj40PV2g$1z3FM8Vm3PRvFIHCTBqwdhzPb7M7rCiB7ObkCPoAj70"
   }
 ]

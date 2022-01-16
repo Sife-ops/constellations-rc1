@@ -13,7 +13,7 @@ const useGlobalState = (): GlobalContext => {
   const [globalState, setGlobalState] =
     React.useState<GlobalState>(initialState);
 
-  const setUserId = (userId: string) =>
+  const setUserId = (userId: number) =>
     setGlobalState((state) => ({
       ...state,
       userId,

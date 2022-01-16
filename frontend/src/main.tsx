@@ -22,8 +22,8 @@ export const Main: React.FC = () => {
       res.json().then((data) => {
         if (data.accessToken) {
           setAccessToken(data.accessToken);
-          const decoded = decode<{ username: string }>(data.accessToken);
-          setUserId(decoded.username);
+          const decoded = decode<{ userId: number }>(data.accessToken);
+          setUserId(decoded.userId);
           setLoggedIn(true);
         }
         setLoading(false);

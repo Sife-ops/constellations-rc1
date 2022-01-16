@@ -29,12 +29,12 @@ export interface GlobalContext {
   globalState: GlobalState;
   hideModal: () => void;
   setGlobalState: React.Dispatch<React.SetStateAction<GlobalState>>;
-  setUserId: (userId: string) => void;
+  setUserId: (userId: number) => void;
   showModal: () => void;
 }
 
 export interface GlobalState {
-  userId: string | null;
+  userId: number | null;
   modal: {
     show: boolean;
     content: JSX.Element | null;

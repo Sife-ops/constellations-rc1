@@ -191,6 +191,13 @@ export type UserBookmarkCategoryQueryVariables = Exact<{
 
 export type UserBookmarkCategoryQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, username: string, bookmarks?: Array<{ __typename?: 'Bookmark', id: string, url: string, categories?: Array<{ __typename?: 'Category', id: string, name: string }> | null | undefined }> | null | undefined } };
 
+export type UserCategoryBookmarkQueryVariables = Exact<{
+  userId: Scalars['Int'];
+}>;
+
+
+export type UserCategoryBookmarkQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, username: string, categories?: Array<{ __typename?: 'Category', id: string, name: string, bookmarks?: Array<{ __typename?: 'Bookmark', id: string, url: string }> | null | undefined }> | null | undefined } };
+
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -401,6 +408,50 @@ export function useUserBookmarkCategoryLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type UserBookmarkCategoryQueryHookResult = ReturnType<typeof useUserBookmarkCategoryQuery>;
 export type UserBookmarkCategoryLazyQueryHookResult = ReturnType<typeof useUserBookmarkCategoryLazyQuery>;
 export type UserBookmarkCategoryQueryResult = Apollo.QueryResult<UserBookmarkCategoryQuery, UserBookmarkCategoryQueryVariables>;
+export const UserCategoryBookmarkDocument = gql`
+    query UserCategoryBookmark($userId: Int!) {
+  user(id: $userId) {
+    id
+    username
+    categories {
+      id
+      name
+      bookmarks {
+        id
+        url
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserCategoryBookmarkQuery__
+ *
+ * To run a query within a React component, call `useUserCategoryBookmarkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserCategoryBookmarkQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserCategoryBookmarkQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useUserCategoryBookmarkQuery(baseOptions: Apollo.QueryHookOptions<UserCategoryBookmarkQuery, UserCategoryBookmarkQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserCategoryBookmarkQuery, UserCategoryBookmarkQueryVariables>(UserCategoryBookmarkDocument, options);
+      }
+export function useUserCategoryBookmarkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserCategoryBookmarkQuery, UserCategoryBookmarkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserCategoryBookmarkQuery, UserCategoryBookmarkQueryVariables>(UserCategoryBookmarkDocument, options);
+        }
+export type UserCategoryBookmarkQueryHookResult = ReturnType<typeof useUserCategoryBookmarkQuery>;
+export type UserCategoryBookmarkLazyQueryHookResult = ReturnType<typeof useUserCategoryBookmarkLazyQuery>;
+export type UserCategoryBookmarkQueryResult = Apollo.QueryResult<UserCategoryBookmarkQuery, UserCategoryBookmarkQueryVariables>;
 export const UsersDocument = gql`
     query Users {
   users {

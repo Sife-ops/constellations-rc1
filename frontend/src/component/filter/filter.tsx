@@ -1,18 +1,17 @@
 import React from "react";
 import { AddBookmarkModal } from "../modal/variant/add-bookmark";
-import { BookmarkType, CategoryType } from "../../utility/type";
+import { BookmarkType } from "../../utility/type";
 import { Button } from "react-bootstrap";
 import { Category } from "./category";
 import { FilterTable } from "./table";
 import { Search } from "./search";
 import { globalContext } from "../../utility/context";
-import { reduceCategories } from "../../utility/function";
-import { useUserBookmarkCategoryQuery } from "../../generated/graphql";
+import { useUserCategoryBookmarkQuery } from "../../generated/graphql";
 
 export const Filter: React.FC = () => {
   const { globalState } = React.useContext(globalContext);
 
-  const { data, loading, error } = useUserBookmarkCategoryQuery({
+  const { data, loading, error } = useUserCategoryBookmarkQuery({
     variables: { userId: globalState.userId! },
   });
 
@@ -20,9 +19,10 @@ export const Filter: React.FC = () => {
 
   const { dispatchModal } = React.useContext(globalContext);
 
-  // const [categories, setCategories] = React.useState<CategoryType[]>(
-  //   reduceCategories(bookmarks)
-  // );
+  const [categories, setCategories] = React.useState(() => {
+    if (data) return data.user.categories;
+    return [];
+  });
 
   const [search, setSearch] = React.useState<string>("");
 

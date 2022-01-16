@@ -1,0 +1,14 @@
+query UserCategoryBookmark($userId: Int!) {
+  user(id: $userId) {
+    id
+    username
+    categories {
+      id
+      name
+      bookmarks {
+        id
+        url
+      }
+    }
+  }
+}

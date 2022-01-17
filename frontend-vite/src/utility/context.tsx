@@ -48,7 +48,7 @@ export const globalContext = React.createContext<GlobalContext>(
   {} as GlobalContext
 );
 
-export const GlobalProvider: React.FC = ({ children }) => {
+export const ContextProvider: React.FC = ({ children }) => {
   const state = useGlobalState();
 
   return (

@@ -1,3 +1,5 @@
+import { CookieOptions } from "express";
+
 export const env = {
   dev: process.env.DEV ? true : false,
   port: process.env.PORT ? parseInt(process.env.PORT) : 4000,
@@ -6,4 +8,10 @@ export const env = {
   secret_refresh_token: process.env.SECRET_ACCESS_TOKEN || "refresh",
   expiry_access: "24h",
   expiry_refresh: "7d",
+};
+
+export const cookieOptions: CookieOptions = {
+  // secure: true,
+  httpOnly: true,
+  sameSite: "lax",
 };

@@ -1,6 +1,7 @@
 import argon2 from "argon2";
 import { Request, Response } from "express";
 import { User } from "../entities/user";
+import { cookieOptions } from "../utility/constants";
 import { env } from "../utility/constants";
 import { newAccessToken, newRefreshToken } from "../utility/token";
 import { verify } from "jsonwebtoken";
@@ -99,11 +100,7 @@ export class UserResolver {
         userId: found.id,
         username: found.username,
       };
-      res.cookie("refreshToken", newRefreshToken(payload), {
-        // secure: true,
-        httpOnly: true,
-        sameSite: "lax",
-      });
+      res.cookie("refreshToken", newRefreshToken(payload), cookieOptions);
       return { accessToken: newAccessToken(payload) };
     }
     throw new Error("incorrect password");

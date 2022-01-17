@@ -12,6 +12,7 @@ import { HelloWorldResolver } from "./resolvers/hwResolver";
 import { User } from "./entities/user";
 import { UserResolver } from "./resolvers/user";
 import { buildSchema } from "type-graphql";
+import { cookieOptions } from "./utility/constants";
 import { createConnection, getConnection } from "typeorm";
 import { env } from "./utility/constants";
 import { newAccessToken, newRefreshToken } from "./utility/token";
@@ -69,22 +70,13 @@ import { verify } from "jsonwebtoken";
       userId: payload.userId,
       username: payload.username,
     };
-    // todo: refreshToken cookie function
-    res.cookie("refreshToken", newRefreshToken(newPayload), {
-      // secure: true,
-      httpOnly: true,
-      sameSite: "lax",
-    });
 
+    res.cookie("refreshToken", newRefreshToken(newPayload), cookieOptions);
     res.json({ ok: true, accessToken: newAccessToken(newPayload) });
   });
 
   app.post("/logout", (req: Request, res: Response) => {
-    res.cookie("refreshToken", "itm", {
-      // secure: true,
-      httpOnly: true,
-      sameSite: "lax",
-    });
+    res.clearCookie("refreshToken", cookieOptions);
     res.json({
       ok: true,
     });

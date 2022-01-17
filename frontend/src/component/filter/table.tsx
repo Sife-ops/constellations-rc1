@@ -1,8 +1,12 @@
 import React from "react";
-import { BookmarkType, CategoryType } from "../../utility/type";
 import { FilterTableRow } from "./table-row";
 import { Table } from "react-bootstrap";
 import { categoryNone } from "../../utility/function";
+
+import {
+  Bookmark as BookmarkType,
+  Category as CategoryType,
+} from "../../utility/type";
 
 interface Props {
   bookmarks: BookmarkType[];
@@ -21,7 +25,7 @@ export const FilterTable: React.FC<Props> = ({
 
   if (selectedCategories.length > 0) {
     filtered = bookmarks.filter((e) => {
-      if (e.categories.length < 1) {
+      if (!e.categories) {
         e.categories = [categoryNone];
       }
       let matched = 0;

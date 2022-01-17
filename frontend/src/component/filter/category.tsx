@@ -1,7 +1,7 @@
 import React from "react";
 import { AddCategoryModal } from "../modal/variant/add-category";
 import { Badge, Button, ToggleButton } from "react-bootstrap";
-import { CategoryType } from "../../utility/type";
+import { Category as CategoryType } from "../../utility/type";
 import { EditCategoryModal } from "../modal/variant/edit-category";
 import { globalContext } from "../../utility/context";
 
@@ -51,10 +51,9 @@ export const Category: React.FC<Props> = ({ categories, setCategories }) => {
       >
         {e1.name}{" "}
         {editMode ? (
-          //
           <i className="fas fa-cog" />
         ) : (
-          <Badge>{e1.count}</Badge>
+          <>{e1.bookmarks ? <Badge>{e1.bookmarks.length}</Badge> : null}</>
         )}
       </ToggleButton>
     );

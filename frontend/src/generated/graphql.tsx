@@ -189,14 +189,14 @@ export type UserBookmarkCategoryQueryVariables = Exact<{
 }>;
 
 
-export type UserBookmarkCategoryQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, username: string, bookmarks?: Array<{ __typename?: 'Bookmark', id: string, url: string, categories?: Array<{ __typename?: 'Category', id: string, name: string }> | null | undefined }> | null | undefined } };
+export type UserBookmarkCategoryQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, username: string, bookmarks?: Array<{ __typename?: 'Bookmark', id: string, url: string, description: string, categories?: Array<{ __typename?: 'Category', id: string, name: string }> | null | undefined }> | null | undefined } };
 
 export type UserCategoryBookmarkQueryVariables = Exact<{
   userId: Scalars['Int'];
 }>;
 
 
-export type UserCategoryBookmarkQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, username: string, categories?: Array<{ __typename?: 'Category', id: string, name: string, bookmarks?: Array<{ __typename?: 'Bookmark', id: string, url: string }> | null | undefined }> | null | undefined } };
+export type UserCategoryBookmarkQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, username: string, categories?: Array<{ __typename?: 'Category', id: string, name: string, bookmarks?: Array<{ __typename?: 'Bookmark', id: string, url: string, description: string }> | null | undefined }> | null | undefined } };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -372,6 +372,7 @@ export const UserBookmarkCategoryDocument = gql`
     bookmarks {
       id
       url
+      description
       categories {
         id
         name
@@ -419,6 +420,7 @@ export const UserCategoryBookmarkDocument = gql`
       bookmarks {
         id
         url
+        description
       }
     }
   }

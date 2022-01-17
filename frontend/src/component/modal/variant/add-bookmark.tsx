@@ -1,8 +1,12 @@
 import React from "react";
-import { BookmarkAddForm, CategoryType } from "../../../utility/type";
 import { Button, Form, ToggleButton } from "react-bootstrap";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
+
+import {
+  BookmarkAddForm,
+  Category as CategoryType,
+} from "../../../utility/type";
 
 interface Props {
   categories: CategoryType[];

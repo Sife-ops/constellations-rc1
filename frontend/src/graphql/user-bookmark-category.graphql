@@ -5,6 +5,7 @@ query UserBookmarkCategory($userId: Int!) {
     bookmarks {
       id
       url
+      description
       categories {
         id
         name

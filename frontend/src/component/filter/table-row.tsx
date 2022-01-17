@@ -1,9 +1,13 @@
 import React from "react";
 import { Badge } from "react-bootstrap";
-import { BookmarkType, CategoryType } from "../../utility/type";
 import { DeleteBookmarkModal } from "../modal/variant/delete-bookmark";
 import { EditBookmarkModal } from "../modal/variant/edit-bookmark";
 import { globalContext } from "../../utility/context";
+
+import {
+  Bookmark as BookmarkType,
+  Category as CategoryType,
+} from "../../utility/type";
 
 interface Props {
   bookmark: BookmarkType;
@@ -18,11 +22,15 @@ export const FilterTableRow: React.FC<Props> = ({ bookmark, categories }) => {
 
   const [hover, setHover] = React.useState<boolean>(false);
 
-  const handleEdit = () =>
-    dispatchModal(<EditBookmarkModal bookmark={bookmark} categories={categories} />);
+  const handleEdit = () => {
+    dispatchModal(
+      <EditBookmarkModal bookmark={bookmark} categories={categories} />
+    );
+  };
 
-  const handleDelete = () =>
+  const handleDelete = () => {
     dispatchModal(<DeleteBookmarkModal bookmark={bookmark} />);
+  };
 
   return (
     <tr
@@ -36,7 +44,9 @@ export const FilterTableRow: React.FC<Props> = ({ bookmark, categories }) => {
           {bookmark.url}
         </a>
       </td>
-      <td>{bookmark.categories.map(mapCategoryBadge)}</td>
+      <td>
+        {bookmark.categories ? bookmark.categories.map(mapCategoryBadge) : null}
+      </td>
       <td align="right">
         <i
           className={

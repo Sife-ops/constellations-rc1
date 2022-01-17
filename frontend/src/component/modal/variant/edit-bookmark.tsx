@@ -4,8 +4,8 @@ import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
 
 import {
-  BookmarkType,
-  CategoryType,
+  Bookmark as BookmarkType,
+  Category as CategoryType,
   BookmarkEditForm,
 } from "../../../utility/type";
 
@@ -35,7 +35,10 @@ export const EditBookmarkModal: React.FC<Props> = ({
       if (current.id === "0") {
         return previous;
       }
-      if (bookmark.categories.find((e) => e.id === current.id)) {
+      if (
+        bookmark.categories &&
+        bookmark.categories.find((e) => e.id === current.id)
+      ) {
         return previous.concat({
           ...current,
           selected: true,

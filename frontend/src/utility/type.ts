@@ -24,6 +24,22 @@ export interface CategoryType {
   selected?: boolean;
 }
 
+export interface Category {
+  __typename?: "Category" | undefined;
+  id: string;
+  name: string;
+  bookmarks?: Bookmark[] | null | undefined;
+  selected?: boolean;
+}
+
+export interface Bookmark {
+  __typename?: "Bookmark" | undefined;
+  id: string;
+  url: string;
+  description: string;
+  categories?: Category[] | null | undefined;
+}
+
 export interface GlobalContext {
   dispatchModal: (content: JSX.Element) => void;
   globalState: GlobalState;

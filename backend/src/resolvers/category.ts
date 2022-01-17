@@ -15,59 +15,62 @@ import {
 @Resolver()
 export class CategoryResolver {
   // create
-  @Mutation(() => Boolean)
+  @Mutation(() => Category)
   @UseMiddleware(auth)
   async createCategory(
     @Arg("name", () => String) name: string,
     @Ctx() { payload }: AuthContext
-  ) {
+  ): Promise<Category> {
     const user = await User.findOne(payload.userId);
-    await Category.create({ name, user }).save();
-
-    return true;
+    return await Category.create({ name, user }).save();
   }
 
   // read
   @Query(() => Category)
-  async category(@Arg("id", () => Int) id: number) {
-    return await Category.findOne(id);
+  @UseMiddleware(auth)
+  async category(@Arg("id", () => Int) id: number): Promise<Category> {
+    const category = await Category.findOne(id);
+    if (!category) throw new Error("cannot find category");
+    return category;
   }
 
+  // todo: fix entity column "userId" not found
   @Query(() => [Category])
-  async categories() {
-    return await Category.find();
+  @UseMiddleware(auth)
+  async categories(@Ctx() { payload }: AuthContext): Promise<Category[]> {
+    return await Category.find({
+      relations: ["user"],
+      where: { userId: payload.userId },
+    });
   }
 
   // update
-  @Mutation(() => Boolean)
+  @Mutation(() => Category)
   @UseMiddleware(auth)
   async updateCategory(
     @Arg("id", () => Int) id: number,
     @Arg("name", () => String) name: string,
     @Ctx() { payload }: AuthContext
-  ) {
+  ): Promise<Category> {
     const category = await Category.findOne(id, {
       relations: ["user"],
     });
-    if (!category || !payload?.userId) return false;
-
+    if (!category) throw new Error("cannot find category");
+    // if (category.user.id !== payload.userId) return false;
     category.name = name;
-    await category.save();
-
-    return true;
+    return await category.save();
   }
 
   // delete
   @Mutation(() => Boolean)
-  async deleteCategory(@Arg("id", () => Int) id: number) {
-    const c = await Category.findOne(id);
-    if (!c) {
-      return false;
-    }
-    const r = await Category.remove(c);
-    if (!r) {
-      return false;
-    }
+  @UseMiddleware(auth)
+  async deleteCategory(
+    @Arg("id", () => Int) id: number,
+    @Ctx() { payload }: AuthContext
+  ): Promise<Boolean> {
+    const category = await Category.findOne(id);
+    if (!category) throw new Error("cannot find category");
+    await Category.remove(category);
     return true;
   }
 }

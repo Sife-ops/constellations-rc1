@@ -1,3 +1,8 @@
+import { AuthContext, auth } from "../utility/auth";
+import { Bookmark } from "../entities/bookmark";
+import { Category } from "../entities/category";
+import { User } from "../entities/user";
+
 import {
   Arg,
   Field,
@@ -6,11 +11,9 @@ import {
   Mutation,
   Query,
   Resolver,
+  UseMiddleware,
+  Ctx,
 } from "type-graphql";
-
-import { Bookmark } from "../entities/bookmark";
-import { Category } from "../entities/category";
-import { User } from "../entities/user";
 
 @InputType()
 class BookmarkCreateOptions {
@@ -40,15 +43,16 @@ class BookmarkUpdateOptions {
 export class BookmarkResolver {
   // create
   @Mutation(() => Bookmark)
+  @UseMiddleware(auth)
   async createBookmark(
-    @Arg("userId", () => Int) userId: number,
-    @Arg("options", () => BookmarkCreateOptions) options: BookmarkCreateOptions
-  ) {
+    @Arg("options", () => BookmarkCreateOptions) options: BookmarkCreateOptions,
+    @Ctx() { payload }: AuthContext
+  ): Promise<Bookmark> {
     let categories: Category[] = [];
     if (options.categoryIds) {
       categories = await Category.findByIds(options.categoryIds);
     }
-    const user = await User.findOne(userId);
+    const user = await User.findOne(payload.userId);
     const bookmark = await Bookmark.create({
       description: options.description,
       url: options.url,
@@ -60,46 +64,48 @@ export class BookmarkResolver {
 
   // read
   @Query(() => Bookmark)
-  async bookmark(@Arg("id", () => Int) id: number) {
-    return await Bookmark.findOne(id);
+  @UseMiddleware(auth)
+  async bookmark(@Arg("id", () => Int) id: number): Promise<Bookmark> {
+    const bookmark = await Bookmark.findOne(id);
+    if (!bookmark) throw new Error("cannot find bookmark");
+    return bookmark;
   }
 
+  // todo: fix entity column "userId" not found
   @Query(() => [Bookmark])
-  async bookmarks() {
-    return await Bookmark.find();
+  @UseMiddleware(auth)
+  async bookmarks(@Ctx() { payload }: AuthContext): Promise<Bookmark[]> {
+    const bookmarks = await Bookmark.find({
+      where: { userId: payload.userId },
+    });
+    return bookmarks;
   }
 
   // update
-  @Mutation(() => Boolean)
+  @Mutation(() => Bookmark)
+  @UseMiddleware(auth)
   async updateBookmark(
     @Arg("id", () => Int) id: number,
     @Arg("options", () => BookmarkUpdateOptions) options: BookmarkUpdateOptions
-  ) {
+  ): Promise<Bookmark> {
     const bookmark = await Bookmark.findOne(id);
-    if (!bookmark) {
-      return false;
-    }
+    if (!bookmark) throw new Error("cannot find bookmark");
     if (options.description) bookmark.description = options.description;
     if (options.url) bookmark.url = options.url;
     if (options.categoryIds) {
       const categories = await Category.findByIds(options.categoryIds);
       bookmark.categories = categories;
     }
-    await bookmark.save();
-    return true;
+    return await bookmark.save();
   }
 
   // delete
   @Mutation(() => Boolean)
-  async deleteBookmark(@Arg("id", () => Int) id: number) {
-    const b = await Bookmark.findOne(id);
-    if (!b) {
-      return false;
-    }
-    const r = await Bookmark.remove(b);
-    if (!r) {
-      return false;
-    }
+  @UseMiddleware(auth)
+  async deleteBookmark(@Arg("id", () => Int) id: number): Promise<Boolean> {
+    const bookmark = await Bookmark.findOne(id);
+    if (!bookmark) throw new Error("cannot find bookmark");
+    await Bookmark.remove(bookmark);
     return true;
   }
 }

@@ -29,7 +29,7 @@ export class UserResolver {
   async register(
     @Arg("username", () => String) username: string,
     @Arg("password", () => String) password: string
-  ) {
+  ): Promise<boolean> {
     if (!username || !password) return false;
     const found = await User.findOne({
       where: {
@@ -37,7 +37,7 @@ export class UserResolver {
       },
     });
     if (found) return false;
-    // todo: need try/fetch?
+    // todo: need try/cetch?
     const hashedPassword = await argon2.hash(password);
     const user = await User.create({
       username,
@@ -82,49 +82,50 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  async user(@Arg("id", () => Int) id: number) {
-    return await User.findOne(id);
-  }
-
-  @Query(() => [User])
-  async users() {
-    return await User.find();
-  }
-
-  // auth
-  @Query(() => String)
   @UseMiddleware(auth)
-  queryAuthTest(@Ctx() { payload }: AuthContext) {
-    return `authorized ${payload.userId}`;
-  }
-
-  @Mutation(() => String)
-  @UseMiddleware(auth)
-  mutAuthTest(@Ctx() { payload }: AuthContext) {
-    return `authorized ${payload.userId}`;
+  async user(@Ctx() { payload }: AuthContext): Promise<User> {
+    const user = await User.findOne(payload.userId);
+    if (!user) throw new Error("cannot find user");
+    return user;
   }
 
   // update
   @Mutation(() => Boolean)
+  @UseMiddleware(auth)
   async updateUser(
-    @Arg("id", () => Int) id: number,
-    @Arg("password", () => String) password: string
-  ) {
-    await User.update(id, { password });
+    @Arg("password", () => String) password: string,
+    @Ctx() { payload }: AuthContext
+  ): Promise<boolean> {
+    const user = await User.findOne(payload.userId);
+    const hashedPassword = await argon2.hash(password);
+    user.password = hashedPassword;
+    await user.save();
     return true;
   }
 
   // delete
   @Mutation(() => Boolean)
-  async deleteUser(@Arg("id", () => Int) id: number) {
-    const u = await User.findOne(id);
-    if (!u) {
-      return false;
-    }
-    const r = await User.remove(u);
-    if (!r) {
-      return false;
-    }
+  @UseMiddleware(auth)
+  async deleteUser(@Ctx() { payload }: AuthContext): Promise<boolean> {
+    const user = await User.findOne(payload.userId);
+    if (!user) return false;
+    await User.remove(user);
     return true;
+  }
+
+  // todo: delete
+  @Query(() => String)
+  @UseMiddleware(auth)
+  queryAuthTest(@Ctx() { payload }: AuthContext) {
+    return `authorized ${payload.userId}`;
+  }
+  @Mutation(() => String)
+  @UseMiddleware(auth)
+  mutAuthTest(@Ctx() { payload }: AuthContext) {
+    return `authorized ${payload.userId}`;
+  }
+  @Query(() => [User])
+  async users() {
+    return await User.find();
   }
 }

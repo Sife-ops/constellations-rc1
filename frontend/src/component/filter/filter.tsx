@@ -18,12 +18,10 @@ import {
 } from "../../utility/type";
 
 export const Filter: React.FC = () => {
-  const { globalState, dispatchModal } = React.useContext(globalContext);
+  const { dispatchModal } = React.useContext(globalContext);
 
   // category stuff
-  const userCategoryBookmark = useUserCategoryBookmarkQuery({
-    variables: { userId: globalState.userId! },
-  });
+  const userCategoryBookmark = useUserCategoryBookmarkQuery();
   const [categories, setCategories] = React.useState<CategoryType[]>([]);
   React.useEffect(() => {
     const { loading, data } = userCategoryBookmark;
@@ -41,9 +39,7 @@ export const Filter: React.FC = () => {
   const [search, setSearch] = React.useState<string>("");
 
   // bookmark stuff
-  const userBookmarkCategory = useUserBookmarkCategoryQuery({
-    variables: { userId: globalState.userId! },
-  });
+  const userBookmarkCategory = useUserBookmarkCategoryQuery();
   const [bookmarks, setBookmarks] = React.useState<BookmarkType[]>([]);
   React.useEffect(() => {
     const { loading, data } = userBookmarkCategory;

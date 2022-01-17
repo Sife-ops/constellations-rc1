@@ -51,21 +51,20 @@ export type Mutation = {
   __typename?: 'Mutation';
   createBookmark: Bookmark;
   createCategory: Category;
-  deleteBookmark: Scalars['Boolean'];
-  deleteCategory: Scalars['Boolean'];
+  deleteBookmark: Bookmark;
+  deleteCategory: Category;
   deleteUser: Scalars['Boolean'];
   login: LoginResponse;
   mutAuthTest: Scalars['String'];
   register: Scalars['Boolean'];
-  updateBookmark: Scalars['Boolean'];
-  updateCategory: Scalars['Boolean'];
+  updateBookmark: Bookmark;
+  updateCategory: Category;
   updateUser: Scalars['Boolean'];
 };
 
 
 export type MutationCreateBookmarkArgs = {
   options: BookmarkCreateOptions;
-  userId: Scalars['Int'];
 };
 
 
@@ -80,11 +79,6 @@ export type MutationDeleteBookmarkArgs = {
 
 
 export type MutationDeleteCategoryArgs = {
-  id: Scalars['Int'];
-};
-
-
-export type MutationDeleteUserArgs = {
   id: Scalars['Int'];
 };
 
@@ -114,7 +108,6 @@ export type MutationUpdateCategoryArgs = {
 
 
 export type MutationUpdateUserArgs = {
-  id: Scalars['Int'];
   password: Scalars['String'];
 };
 
@@ -137,11 +130,6 @@ export type QueryBookmarkArgs = {
 
 
 export type QueryCategoryArgs = {
-  id: Scalars['Int'];
-};
-
-
-export type QueryUserArgs = {
   id: Scalars['Int'];
 };
 
@@ -184,16 +172,12 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: boolean };
 
-export type UserBookmarkCategoryQueryVariables = Exact<{
-  userId: Scalars['Int'];
-}>;
+export type UserBookmarkCategoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UserBookmarkCategoryQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, username: string, bookmarks?: Array<{ __typename?: 'Bookmark', id: string, url: string, description: string, categories?: Array<{ __typename?: 'Category', id: string, name: string }> | null | undefined }> | null | undefined } };
 
-export type UserCategoryBookmarkQueryVariables = Exact<{
-  userId: Scalars['Int'];
-}>;
+export type UserCategoryBookmarkQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UserCategoryBookmarkQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, username: string, categories?: Array<{ __typename?: 'Category', id: string, name: string, bookmarks?: Array<{ __typename?: 'Bookmark', id: string, url: string, description: string }> | null | undefined }> | null | undefined } };
@@ -365,8 +349,8 @@ export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const UserBookmarkCategoryDocument = gql`
-    query UserBookmarkCategory($userId: Int!) {
-  user(id: $userId) {
+    query UserBookmarkCategory {
+  user {
     id
     username
     bookmarks {
@@ -394,11 +378,10 @@ export const UserBookmarkCategoryDocument = gql`
  * @example
  * const { data, loading, error } = useUserBookmarkCategoryQuery({
  *   variables: {
- *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useUserBookmarkCategoryQuery(baseOptions: Apollo.QueryHookOptions<UserBookmarkCategoryQuery, UserBookmarkCategoryQueryVariables>) {
+export function useUserBookmarkCategoryQuery(baseOptions?: Apollo.QueryHookOptions<UserBookmarkCategoryQuery, UserBookmarkCategoryQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<UserBookmarkCategoryQuery, UserBookmarkCategoryQueryVariables>(UserBookmarkCategoryDocument, options);
       }
@@ -410,8 +393,8 @@ export type UserBookmarkCategoryQueryHookResult = ReturnType<typeof useUserBookm
 export type UserBookmarkCategoryLazyQueryHookResult = ReturnType<typeof useUserBookmarkCategoryLazyQuery>;
 export type UserBookmarkCategoryQueryResult = Apollo.QueryResult<UserBookmarkCategoryQuery, UserBookmarkCategoryQueryVariables>;
 export const UserCategoryBookmarkDocument = gql`
-    query UserCategoryBookmark($userId: Int!) {
-  user(id: $userId) {
+    query UserCategoryBookmark {
+  user {
     id
     username
     categories {
@@ -439,11 +422,10 @@ export const UserCategoryBookmarkDocument = gql`
  * @example
  * const { data, loading, error } = useUserCategoryBookmarkQuery({
  *   variables: {
- *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useUserCategoryBookmarkQuery(baseOptions: Apollo.QueryHookOptions<UserCategoryBookmarkQuery, UserCategoryBookmarkQueryVariables>) {
+export function useUserCategoryBookmarkQuery(baseOptions?: Apollo.QueryHookOptions<UserCategoryBookmarkQuery, UserCategoryBookmarkQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<UserCategoryBookmarkQuery, UserCategoryBookmarkQueryVariables>(UserCategoryBookmarkDocument, options);
       }

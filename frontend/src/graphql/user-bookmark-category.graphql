@@ -1,5 +1,5 @@
-query UserBookmarkCategory($userId: Int!) {
-  user(id: $userId) {
+query UserBookmarkCategory {
+  user {
     id
     username
     bookmarks {

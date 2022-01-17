@@ -1,7 +1,8 @@
 import React from "react";
+import { QueryAuthTest } from "../component/query-auth-test";
+import { env } from "../utility/constant";
 import { getAccessToken, setAccessToken } from "../utility/token";
 import { useUsersQuery } from "../generated/graphql";
-import { QueryAuthTest } from "../component/query-auth-test";
 
 export const Dev: React.FC = () => {
   const { data, loading } = useUsersQuery({ fetchPolicy: "network-only" });
@@ -31,7 +32,7 @@ export const Dev: React.FC = () => {
 
       <button
         onClick={async () => {
-          const res = await fetch("http://localhost:4000/refresh", {
+          const res = await fetch(`${env.apiUrl}/refresh`, {
             method: "POST",
             credentials: "include",
           });
@@ -47,12 +48,12 @@ export const Dev: React.FC = () => {
 
       <button
         onClick={async () => {
-          const res = await fetch("http://localhost:4000/logout", {
+          const res = await fetch(`${env.apiUrl}/logout`, {
             method: "POST",
             credentials: "include",
           });
           const data = await res.json();
-          console.log(data)
+          console.log(data);
           setAccessToken("");
           window.location.reload();
         }}

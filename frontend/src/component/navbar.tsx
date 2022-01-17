@@ -1,11 +1,12 @@
 import React from "react";
 import logo from "../logo.png";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { env } from "../utility/constant";
 import { globalContext } from "../utility/context";
 import { setAccessToken } from "../utility/token";
 
 const handleLogout = async () => {
-  const res = await fetch("http://localhost:4000/logout", {
+  const res = await fetch(`${env.apiUrl}/logout`, {
     method: "POST",
     credentials: "include",
   });

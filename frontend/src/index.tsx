@@ -6,6 +6,7 @@ import decode, { JwtPayload } from "jwt-decode";
 import reportWebVitals from "./reportWebVitals";
 import { ContextProvider } from "./utility/context";
 import { Main } from "./main";
+import { env } from "./utility/constant";
 import { getAccessToken, setAccessToken } from "./utility/token";
 import { setContext } from "@apollo/client/link/context";
 
@@ -17,7 +18,7 @@ import {
 } from "@apollo/client";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: `${env.apiUrl}/graphql`,
   credentials: "include",
 });
 
@@ -37,7 +38,7 @@ const authLink = setContext(async (_, { headers }) => {
   }
 
   if (!token || expired) {
-    const res = await fetch("http://localhost:4000/refresh", {
+    const res = await fetch(`${env.apiUrl}/refresh`, {
       method: "POST",
       credentials: "include",
     });

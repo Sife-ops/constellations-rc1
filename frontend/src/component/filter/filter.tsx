@@ -48,7 +48,14 @@ export const Filter: React.FC = () => {
   React.useEffect(() => {
     const { loading, data } = userBookmarkCategory;
     if (!loading && data?.user.bookmarks) {
-      setBookmarks(data.user.bookmarks);
+      setBookmarks(
+        data.user.bookmarks.map((e) => {
+          if (!e.categories || e.categories.length < 1) {
+            return { ...e, categories: [{ id: "0", name: "No Category" }] };
+          }
+          return e;
+        })
+      );
     }
   }, [userBookmarkCategory.loading]);
 

@@ -39,6 +39,8 @@ export const Category: React.FC<Props> = ({ categories, setCategories }) => {
       );
     };
 
+    if (e1.id === "0" && editMode) return null;
+
     return (
       <ToggleButton
         className="mb-2 me-2"

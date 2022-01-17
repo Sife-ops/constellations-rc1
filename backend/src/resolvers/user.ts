@@ -1,10 +1,8 @@
 import argon2 from "argon2";
-import { Request, Response } from "express";
+import { AuthContext, auth } from "../utility/auth";
 import { User } from "../entities/user";
 import { cookieOptions } from "../utility/constants";
-import { env } from "../utility/constants";
 import { newAccessToken, newRefreshToken } from "../utility/token";
-import { verify } from "jsonwebtoken";
 
 import {
   Arg,
@@ -15,7 +13,6 @@ import {
   ObjectType,
   Field,
   UseMiddleware,
-  MiddlewareFn,
   Ctx,
 } from "type-graphql";
 
@@ -24,28 +21,6 @@ class LoginResponse {
   @Field()
   accessToken: string;
 }
-
-interface MyContext {
-  req: Request;
-  res: Response;
-  payload?: any;
-}
-
-const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
-  const auth = context.req.headers["authorization"] as string;
-  if (!auth) throw new Error("no authorization header");
-
-  try {
-    const accessToken = auth.split(" ")[1];
-    const payload = verify(accessToken, env.secret_access_token);
-    context.payload = payload as any;
-  } catch (e) {
-    console.log(e);
-    throw new Error("bad token");
-  }
-
-  return next();
-};
 
 @Resolver()
 export class UserResolver {
@@ -77,7 +52,7 @@ export class UserResolver {
   async login(
     @Arg("username", () => String) username: string,
     @Arg("password", () => String) password: string,
-    @Ctx() { res }: MyContext
+    @Ctx() { res }: AuthContext
   ): Promise<LoginResponse> {
     const found = await User.findOne({
       where: {
@@ -118,14 +93,14 @@ export class UserResolver {
 
   // auth
   @Query(() => String)
-  @UseMiddleware(isAuth)
-  queryAuthTest(@Ctx() { payload }: MyContext) {
+  @UseMiddleware(auth)
+  queryAuthTest(@Ctx() { payload }: AuthContext) {
     return `authorized ${payload.userId}`;
   }
 
   @Mutation(() => String)
-  @UseMiddleware(isAuth)
-  mutAuthTest(@Ctx() { payload }: MyContext) {
+  @UseMiddleware(auth)
+  mutAuthTest(@Ctx() { payload }: AuthContext) {
     return `authorized ${payload.userId}`;
   }
 

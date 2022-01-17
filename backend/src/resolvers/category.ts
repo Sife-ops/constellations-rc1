@@ -1,12 +1,30 @@
-import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
+import { AuthContext, auth } from "../utility/auth";
 import { Category } from "../entities/category";
+import { User } from "../entities/user";
+
+import {
+  Arg,
+  Ctx,
+  Int,
+  Mutation,
+  Query,
+  Resolver,
+  UseMiddleware,
+} from "type-graphql";
 
 @Resolver()
 export class CategoryResolver {
   // create
-  @Mutation(() => Category)
-  async createCategory(@Arg("name", () => String) name: string) {
-    return await Category.create({ name }).save();
+  @Mutation(() => Boolean)
+  @UseMiddleware(auth)
+  async createCategory(
+    @Arg("name", () => String) name: string,
+    @Ctx() { payload }: AuthContext
+  ) {
+    const user = await User.findOne(payload.userId);
+    await Category.create({ name, user }).save();
+
+    return true;
   }
 
   // read
@@ -22,11 +40,20 @@ export class CategoryResolver {
 
   // update
   @Mutation(() => Boolean)
+  @UseMiddleware(auth)
   async updateCategory(
     @Arg("id", () => Int) id: number,
-    @Arg("name", () => String) name: string
+    @Arg("name", () => String) name: string,
+    @Ctx() { payload }: AuthContext
   ) {
-    await Category.update(id, { name });
+    const category = await Category.findOne(id, {
+      relations: ["user"],
+    });
+    if (!category || !payload?.userId) return false;
+
+    category.name = name;
+    await category.save();
+
     return true;
   }
 

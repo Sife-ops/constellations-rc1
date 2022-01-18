@@ -15,9 +15,8 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
 }) => {
   const { hideModal, dispatchModal } = useContext(globalContext);
 
-  const [newName, setNewName] = useState<string>(category.name);
-
-  const handleName = (e: any) => setNewName(e.target.value);
+  const [name, setName] = useState<string>(category.name);
+  const handleName = (e: any) => setName(e.target.value);
 
   const handleDelete = () =>
     dispatchModal(<DeleteCategoryModal category={category} />);
@@ -27,7 +26,7 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
     updateMutation({
       variables: {
         categoryUpdateId: parseInt(category.id),
-        name: newName,
+        name
       },
     }).then((e) => {
       console.log(e.data);
@@ -50,7 +49,7 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
               <Form.Label>Description</Form.Label>
               <Form.Control
                 // todo: fill with current name
-                value={newName}
+                value={name}
                 onChange={handleName}
               />
             </Form.Group>

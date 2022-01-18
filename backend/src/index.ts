@@ -23,7 +23,7 @@ import { verify } from "jsonwebtoken";
   //^
   await createConnection({
     type: "sqlite",
-    database: "./db.sqlite3",
+    database: "./database/db.sqlite3",
     dropSchema: env.seed,
     entities: [Bookmark, Category, User],
     synchronize: true,

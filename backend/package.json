@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node ./dist/index.js",
     "watch": "tsc -w",
-    "dev": "nodemon --quiet ./dist/index.js"
+    "dev": "DEV=true nodemon --quiet ./dist/index.js"
   },
   "keywords": [],
   "author": "",

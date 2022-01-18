@@ -21,14 +21,12 @@ export const Login: React.FC = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(username, password);
     const response = await login({
       variables: {
         username,
         password,
       },
     });
-    console.log(response);
     const accessToken = response?.data?.login?.accessToken;
     if (accessToken) setAccessToken(accessToken);
     window.location.reload();

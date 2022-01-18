@@ -26,10 +26,8 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
     updateMutation({
       variables: {
         categoryUpdateId: parseInt(category.id),
-        name
+        name,
       },
-    }).then((e) => {
-      console.log(e.data);
     });
     handleClose();
   };

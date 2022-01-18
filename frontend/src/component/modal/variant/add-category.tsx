@@ -16,8 +16,6 @@ export const AddCategoryModal: React.FC = () => {
       variables: {
         name,
       },
-    }).then((e) => {
-      console.log(e.data);
     });
     handleClose();
   };

@@ -18,8 +18,6 @@ export const DeleteBookmarkModal: React.FC<Props> = ({ bookmark }) => {
       variables: {
         bookmarkDeleteId: parseInt(bookmark.id),
       },
-    }).then((e) => {
-      console.log(e.data);
     });
     handleClose();
   };

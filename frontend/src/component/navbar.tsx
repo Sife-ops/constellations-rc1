@@ -11,7 +11,6 @@ const handleLogout = async () => {
     credentials: "include",
   });
   const data = await res.json();
-  console.log(data);
   setAccessToken("");
   window.location.reload();
 };

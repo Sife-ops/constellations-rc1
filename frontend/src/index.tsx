@@ -29,12 +29,7 @@ const authLink = setContext(async (_, { headers }) => {
   if (token) {
     const decoded = decode<JwtPayload>(token);
     const now = new Date().getTime();
-    if (decoded.exp) {
-      // todo: debut env var
-      // console.log("current time  ", now);
-      // console.log("token expires ", decoded.exp * 1000);
-      if (now > decoded.exp * 1000) expired = true;
-    }
+    if (decoded.exp && now > decoded.exp * 1000) expired = true;
   }
 
   if (!token || expired) {

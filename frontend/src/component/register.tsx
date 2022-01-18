@@ -22,14 +22,12 @@ export const Register: React.FC = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(username, password);
     const response = await register({
       variables: {
         username,
         password,
       },
     });
-    console.log(response);
     navigate("/login");
   };
 

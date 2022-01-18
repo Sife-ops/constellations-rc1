@@ -18,8 +18,6 @@ export const DeleteCategoryModal: React.FC<Props> = ({ category }) => {
       variables: {
         categoryDeleteId: parseInt(category.id),
       },
-    }).then((e) => {
-      console.log(e.data);
     });
     handleClose();
   };

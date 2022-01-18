@@ -91,8 +91,6 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
             .map((e) => parseInt(e.id)),
         },
       },
-    }).then((e) => {
-      console.log(e);
     });
 
     handleClose();

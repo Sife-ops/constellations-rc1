@@ -1,9 +1,10 @@
-import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { CategoryType } from "../../../utility/type";
 import { DeleteCategoryModal } from "./delete-category";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
+import { useCategoryUpdateMutation } from "../../../generated/graphql";
+import { useContext, useState } from "react";
 
 interface EditCategoryModalProps {
   category: CategoryType;
@@ -12,16 +13,25 @@ interface EditCategoryModalProps {
 export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
   category,
 }) => {
-  const { hideModal, dispatchModal } = React.useContext(globalContext);
+  const { hideModal, dispatchModal } = useContext(globalContext);
 
-  const [newName, setNewName] = React.useState<string>(category.name);
+  const [newName, setNewName] = useState<string>(category.name);
 
   const handleName = (e: any) => setNewName(e.target.value);
 
   const handleDelete = () =>
     dispatchModal(<DeleteCategoryModal category={category} />);
 
+  const [updateMutation] = useCategoryUpdateMutation();
   const handleSave = () => {
+    updateMutation({
+      variables: {
+        categoryUpdateId: parseInt(category.id),
+        name: newName,
+      },
+    }).then((e) => {
+      console.log(e.data);
+    });
     handleClose();
   };
 

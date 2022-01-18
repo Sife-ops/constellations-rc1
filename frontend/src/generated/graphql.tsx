@@ -55,11 +55,11 @@ export type Mutation = {
   categoryCreate: Category;
   categoryDelete: Scalars['Boolean'];
   categoryUpdate: Category;
-  deleteUser: Scalars['Boolean'];
   login: LoginResponse;
   mutAuthTest: Scalars['String'];
   register: Scalars['Boolean'];
-  updateUser: Scalars['Boolean'];
+  userDelete: Scalars['Boolean'];
+  userUpdate: Scalars['Boolean'];
 };
 
 
@@ -107,7 +107,7 @@ export type MutationRegisterArgs = {
 };
 
 
-export type MutationUpdateUserArgs = {
+export type MutationUserUpdateArgs = {
   password: Scalars['String'];
 };
 

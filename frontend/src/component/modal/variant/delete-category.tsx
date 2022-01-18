@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { CategoryType } from "../../../utility/type";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
+import { useCategoryDeleteMutation } from "../../../generated/graphql";
 
 interface Props {
   category: CategoryType;
@@ -11,7 +12,15 @@ interface Props {
 export const DeleteCategoryModal: React.FC<Props> = ({ category }) => {
   const { hideModal } = React.useContext(globalContext);
 
+  const [deleteMutation] = useCategoryDeleteMutation();
   const handleConfirm = () => {
+    deleteMutation({
+      variables: {
+        categoryDeleteId: parseInt(category.id),
+      },
+    }).then((e) => {
+      console.log(e.data);
+    });
     handleClose();
   };
 

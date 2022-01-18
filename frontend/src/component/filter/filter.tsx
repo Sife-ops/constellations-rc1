@@ -20,7 +20,7 @@ import {
 export const Filter: React.FC = () => {
   const { dispatchModal } = React.useContext(globalContext);
 
-  // category stuff
+  // category data
   const userCategoryBookmark = useUserCategoryBookmarkQuery();
   const [categories, setCategories] = React.useState<CategoryType[]>([]);
   React.useEffect(() => {
@@ -38,7 +38,7 @@ export const Filter: React.FC = () => {
   // search
   const [search, setSearch] = React.useState<string>("");
 
-  // bookmark stuff
+  // bookmark data
   const userBookmarkCategory = useUserBookmarkCategoryQuery();
   const [bookmarks, setBookmarks] = React.useState<BookmarkType[]>([]);
   React.useEffect(() => {

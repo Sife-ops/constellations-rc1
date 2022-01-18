@@ -71,14 +71,11 @@ export class BookmarkResolver {
     return bookmark;
   }
 
-  // todo: fix entity column "userId" not found
   @Query(() => [Bookmark])
   @UseMiddleware(auth)
   async bookmarks(@Ctx() { payload }: AuthContext): Promise<Bookmark[]> {
-    const bookmarks = await Bookmark.find({
-      where: { userId: payload.userId },
-    });
-    return bookmarks;
+    const user = await User.findOne(payload.userId);
+    return await Bookmark.find({ where: { user } });
   }
 
   // update

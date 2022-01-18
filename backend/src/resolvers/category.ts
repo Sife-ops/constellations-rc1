@@ -34,14 +34,11 @@ export class CategoryResolver {
     return category;
   }
 
-  // todo: fix entity column "userId" not found
   @Query(() => [Category])
   @UseMiddleware(auth)
   async categories(@Ctx() { payload }: AuthContext): Promise<Category[]> {
-    return await Category.find({
-      relations: ["user"],
-      where: { userId: payload.userId },
-    });
+    const user = await User.findOne(payload.userId);
+    return await Category.find({ where: { user } });
   }
 
   // update

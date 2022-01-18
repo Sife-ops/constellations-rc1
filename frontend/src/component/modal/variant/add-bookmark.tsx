@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Form, ToggleButton } from "react-bootstrap";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
+import { useBookmarkCreateMutation } from "../../../generated/graphql";
 
 import {
   BookmarkAddForm,
@@ -13,12 +14,12 @@ interface Props {
 }
 
 export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
-  const { hideModal } = React.useContext(globalContext);
+  const { hideModal, dispatchModal } = React.useContext(globalContext);
 
   const initialForm: BookmarkAddForm = {
     url: "",
     description: "",
-    categoryIds: [],
+    // categoryIds: [],
   };
 
   const [form, setForm] = React.useState<BookmarkAddForm>(initialForm);
@@ -77,13 +78,29 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
     </ToggleButton>
   );
 
+  const [mutation] = useBookmarkCreateMutation();
   const handleSubmit = () => {
+    const { url, description } = form;
+
+    mutation({
+      variables: {
+        options: {
+          url,
+          description,
+          categoryIds: addCategories
+            .filter((e) => e.selected)
+            .map((e) => parseInt(e.id)),
+        },
+      },
+    }).then((e) => {
+      console.log(e);
+    });
+
     handleClose();
   };
 
   const handleClose = () => {
-    setAddCategories(initialCategories);
-    setForm(initialForm);
+    dispatchModal(<></>);
     hideModal();
   };
 

@@ -8,7 +8,7 @@ export interface BookmarkType {
 export interface BookmarkAddForm {
   description: string;
   url: string;
-  categoryIds: number[];
+  // categoryIds: number[];
 }
 
 export interface BookmarkEditForm {

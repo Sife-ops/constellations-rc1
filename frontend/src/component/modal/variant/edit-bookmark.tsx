@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Form, ToggleButton } from "react-bootstrap";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
+import { useBookmarkUpdateMutation } from "../../../generated/graphql";
 
 import {
   Bookmark as BookmarkType,
@@ -23,7 +24,6 @@ export const EditBookmarkModal: React.FC<Props> = ({
   const initialForm: BookmarkEditForm = {
     url: bookmark.url,
     description: bookmark.description,
-    categoryIds: [],
   };
 
   const [form, setForm] = React.useState<BookmarkEditForm>(initialForm);
@@ -92,13 +92,29 @@ export const EditBookmarkModal: React.FC<Props> = ({
     </ToggleButton>
   );
 
+  const [mutation] = useBookmarkUpdateMutation();
   const handleSubmit = () => {
+    const { description, url } = form;
+
+    mutation({
+      variables: {
+        bookmarkUpdateId: parseInt(bookmark.id),
+        options: {
+          url,
+          description,
+          categoryIds: newCategories
+            .filter((e) => e.selected)
+            .map((e) => parseInt(e.id)),
+        },
+      },
+    }).then((e) => {
+      console.log(e.data);
+    });
+
     handleClose();
   };
 
   const handleClose = () => {
-    // todo: hide modal unmounts component
-    // todo: disable modal animations
     dispatchModal(<></>);
     hideModal();
   };

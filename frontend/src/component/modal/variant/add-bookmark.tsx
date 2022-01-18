@@ -19,7 +19,6 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
   const initialForm: BookmarkAddForm = {
     url: "",
     description: "",
-    // categoryIds: [],
   };
 
   const [form, setForm] = React.useState<BookmarkAddForm>(initialForm);

@@ -8,13 +8,11 @@ export interface BookmarkType {
 export interface BookmarkAddForm {
   description: string;
   url: string;
-  // categoryIds: number[];
 }
 
 export interface BookmarkEditForm {
   description?: string;
   url?: string;
-  categoryIds?: number[];
 }
 
 export interface CategoryType {

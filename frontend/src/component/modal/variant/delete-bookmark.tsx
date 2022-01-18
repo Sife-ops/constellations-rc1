@@ -3,19 +3,31 @@ import { Bookmark as BookmarkType } from "../../../utility/type";
 import { Button } from "react-bootstrap";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
+import { useBookmarkDeleteMutation } from "../../../generated/graphql";
 
 interface Props {
   bookmark: BookmarkType;
 }
 
 export const DeleteBookmarkModal: React.FC<Props> = ({ bookmark }) => {
-  const { hideModal } = React.useContext(globalContext);
+  const { hideModal, dispatchModal } = React.useContext(globalContext);
 
+  const [mutation] = useBookmarkDeleteMutation();
   const handleConfirm = () => {
-    hideModal();
+    mutation({
+      variables: {
+        bookmarkDeleteId: parseInt(bookmark.id),
+      },
+    }).then((e) => {
+      console.log(e.data);
+    });
+    handleClose();
   };
 
-  const handleClose = () => hideModal();
+  const handleClose = () => {
+    dispatchModal(<></>);
+    hideModal();
+  };
 
   return (
     <ModalWindow

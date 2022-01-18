@@ -49,37 +49,49 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createBookmark: Bookmark;
-  createCategory: Category;
-  deleteBookmark: Bookmark;
-  deleteCategory: Category;
+  bookmarkCreate: Bookmark;
+  bookmarkDelete: Scalars['Boolean'];
+  bookmarkUpdate: Bookmark;
+  categoryCreate: Category;
+  categoryDelete: Scalars['Boolean'];
+  categoryUpdate: Category;
   deleteUser: Scalars['Boolean'];
   login: LoginResponse;
   mutAuthTest: Scalars['String'];
   register: Scalars['Boolean'];
-  updateBookmark: Bookmark;
-  updateCategory: Category;
   updateUser: Scalars['Boolean'];
 };
 
 
-export type MutationCreateBookmarkArgs = {
+export type MutationBookmarkCreateArgs = {
   options: BookmarkCreateOptions;
 };
 
 
-export type MutationCreateCategoryArgs = {
+export type MutationBookmarkDeleteArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationBookmarkUpdateArgs = {
+  id: Scalars['Int'];
+  options: BookmarkUpdateOptions;
+};
+
+
+export type MutationCategoryCreateArgs = {
   name: Scalars['String'];
 };
 
 
-export type MutationDeleteBookmarkArgs = {
+export type MutationCategoryDeleteArgs = {
   id: Scalars['Int'];
 };
 
 
-export type MutationDeleteCategoryArgs = {
+export type MutationCategoryUpdateArgs = {
   id: Scalars['Int'];
+  name: Scalars['String'];
 };
 
 
@@ -92,18 +104,6 @@ export type MutationLoginArgs = {
 export type MutationRegisterArgs = {
   password: Scalars['String'];
   username: Scalars['String'];
-};
-
-
-export type MutationUpdateBookmarkArgs = {
-  id: Scalars['Int'];
-  options: BookmarkUpdateOptions;
-};
-
-
-export type MutationUpdateCategoryArgs = {
-  id: Scalars['Int'];
-  name: Scalars['String'];
 };
 
 
@@ -141,6 +141,50 @@ export type User = {
   username: Scalars['String'];
 };
 
+export type BookmarkCreateMutationVariables = Exact<{
+  options: BookmarkCreateOptions;
+}>;
+
+
+export type BookmarkCreateMutation = { __typename?: 'Mutation', bookmarkCreate: { __typename?: 'Bookmark', id: string, url: string, description: string, categories?: Array<{ __typename?: 'Category', id: string, name: string }> | null | undefined } };
+
+export type BookmarkDeleteMutationVariables = Exact<{
+  bookmarkDeleteId: Scalars['Int'];
+}>;
+
+
+export type BookmarkDeleteMutation = { __typename?: 'Mutation', bookmarkDelete: boolean };
+
+export type BookmarkUpdateMutationVariables = Exact<{
+  options: BookmarkUpdateOptions;
+  bookmarkUpdateId: Scalars['Int'];
+}>;
+
+
+export type BookmarkUpdateMutation = { __typename?: 'Mutation', bookmarkUpdate: { __typename?: 'Bookmark', id: string, url: string, description: string, categories?: Array<{ __typename?: 'Category', id: string, name: string }> | null | undefined } };
+
+export type CategoryCreateMutationVariables = Exact<{
+  name: Scalars['String'];
+}>;
+
+
+export type CategoryCreateMutation = { __typename?: 'Mutation', categoryCreate: { __typename?: 'Category', id: string, name: string } };
+
+export type CategoryDeleteMutationVariables = Exact<{
+  categoryDeleteId: Scalars['Int'];
+}>;
+
+
+export type CategoryDeleteMutation = { __typename?: 'Mutation', categoryDelete: boolean };
+
+export type CategoryUpdateMutationVariables = Exact<{
+  name: Scalars['String'];
+  categoryUpdateId: Scalars['Int'];
+}>;
+
+
+export type CategoryUpdateMutation = { __typename?: 'Mutation', categoryUpdate: { __typename?: 'Category', id: string, name: string } };
+
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -153,11 +197,6 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string } };
-
-export type MutationMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MutationMutation = { __typename?: 'Mutation', mutAuthTest: string };
 
 export type QueryAuthTestQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -188,6 +227,216 @@ export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, username: string }> };
 
 
+export const BookmarkCreateDocument = gql`
+    mutation BookmarkCreate($options: BookmarkCreateOptions!) {
+  bookmarkCreate(options: $options) {
+    id
+    url
+    description
+    categories {
+      id
+      name
+    }
+  }
+}
+    `;
+export type BookmarkCreateMutationFn = Apollo.MutationFunction<BookmarkCreateMutation, BookmarkCreateMutationVariables>;
+
+/**
+ * __useBookmarkCreateMutation__
+ *
+ * To run a mutation, you first call `useBookmarkCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBookmarkCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [bookmarkCreateMutation, { data, loading, error }] = useBookmarkCreateMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *   },
+ * });
+ */
+export function useBookmarkCreateMutation(baseOptions?: Apollo.MutationHookOptions<BookmarkCreateMutation, BookmarkCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<BookmarkCreateMutation, BookmarkCreateMutationVariables>(BookmarkCreateDocument, options);
+      }
+export type BookmarkCreateMutationHookResult = ReturnType<typeof useBookmarkCreateMutation>;
+export type BookmarkCreateMutationResult = Apollo.MutationResult<BookmarkCreateMutation>;
+export type BookmarkCreateMutationOptions = Apollo.BaseMutationOptions<BookmarkCreateMutation, BookmarkCreateMutationVariables>;
+export const BookmarkDeleteDocument = gql`
+    mutation BookmarkDelete($bookmarkDeleteId: Int!) {
+  bookmarkDelete(id: $bookmarkDeleteId)
+}
+    `;
+export type BookmarkDeleteMutationFn = Apollo.MutationFunction<BookmarkDeleteMutation, BookmarkDeleteMutationVariables>;
+
+/**
+ * __useBookmarkDeleteMutation__
+ *
+ * To run a mutation, you first call `useBookmarkDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBookmarkDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [bookmarkDeleteMutation, { data, loading, error }] = useBookmarkDeleteMutation({
+ *   variables: {
+ *      bookmarkDeleteId: // value for 'bookmarkDeleteId'
+ *   },
+ * });
+ */
+export function useBookmarkDeleteMutation(baseOptions?: Apollo.MutationHookOptions<BookmarkDeleteMutation, BookmarkDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<BookmarkDeleteMutation, BookmarkDeleteMutationVariables>(BookmarkDeleteDocument, options);
+      }
+export type BookmarkDeleteMutationHookResult = ReturnType<typeof useBookmarkDeleteMutation>;
+export type BookmarkDeleteMutationResult = Apollo.MutationResult<BookmarkDeleteMutation>;
+export type BookmarkDeleteMutationOptions = Apollo.BaseMutationOptions<BookmarkDeleteMutation, BookmarkDeleteMutationVariables>;
+export const BookmarkUpdateDocument = gql`
+    mutation BookmarkUpdate($options: BookmarkUpdateOptions!, $bookmarkUpdateId: Int!) {
+  bookmarkUpdate(options: $options, id: $bookmarkUpdateId) {
+    id
+    url
+    description
+    categories {
+      id
+      name
+    }
+  }
+}
+    `;
+export type BookmarkUpdateMutationFn = Apollo.MutationFunction<BookmarkUpdateMutation, BookmarkUpdateMutationVariables>;
+
+/**
+ * __useBookmarkUpdateMutation__
+ *
+ * To run a mutation, you first call `useBookmarkUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBookmarkUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [bookmarkUpdateMutation, { data, loading, error }] = useBookmarkUpdateMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *      bookmarkUpdateId: // value for 'bookmarkUpdateId'
+ *   },
+ * });
+ */
+export function useBookmarkUpdateMutation(baseOptions?: Apollo.MutationHookOptions<BookmarkUpdateMutation, BookmarkUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<BookmarkUpdateMutation, BookmarkUpdateMutationVariables>(BookmarkUpdateDocument, options);
+      }
+export type BookmarkUpdateMutationHookResult = ReturnType<typeof useBookmarkUpdateMutation>;
+export type BookmarkUpdateMutationResult = Apollo.MutationResult<BookmarkUpdateMutation>;
+export type BookmarkUpdateMutationOptions = Apollo.BaseMutationOptions<BookmarkUpdateMutation, BookmarkUpdateMutationVariables>;
+export const CategoryCreateDocument = gql`
+    mutation CategoryCreate($name: String!) {
+  categoryCreate(name: $name) {
+    id
+    name
+  }
+}
+    `;
+export type CategoryCreateMutationFn = Apollo.MutationFunction<CategoryCreateMutation, CategoryCreateMutationVariables>;
+
+/**
+ * __useCategoryCreateMutation__
+ *
+ * To run a mutation, you first call `useCategoryCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCategoryCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [categoryCreateMutation, { data, loading, error }] = useCategoryCreateMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useCategoryCreateMutation(baseOptions?: Apollo.MutationHookOptions<CategoryCreateMutation, CategoryCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CategoryCreateMutation, CategoryCreateMutationVariables>(CategoryCreateDocument, options);
+      }
+export type CategoryCreateMutationHookResult = ReturnType<typeof useCategoryCreateMutation>;
+export type CategoryCreateMutationResult = Apollo.MutationResult<CategoryCreateMutation>;
+export type CategoryCreateMutationOptions = Apollo.BaseMutationOptions<CategoryCreateMutation, CategoryCreateMutationVariables>;
+export const CategoryDeleteDocument = gql`
+    mutation CategoryDelete($categoryDeleteId: Int!) {
+  categoryDelete(id: $categoryDeleteId)
+}
+    `;
+export type CategoryDeleteMutationFn = Apollo.MutationFunction<CategoryDeleteMutation, CategoryDeleteMutationVariables>;
+
+/**
+ * __useCategoryDeleteMutation__
+ *
+ * To run a mutation, you first call `useCategoryDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCategoryDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [categoryDeleteMutation, { data, loading, error }] = useCategoryDeleteMutation({
+ *   variables: {
+ *      categoryDeleteId: // value for 'categoryDeleteId'
+ *   },
+ * });
+ */
+export function useCategoryDeleteMutation(baseOptions?: Apollo.MutationHookOptions<CategoryDeleteMutation, CategoryDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CategoryDeleteMutation, CategoryDeleteMutationVariables>(CategoryDeleteDocument, options);
+      }
+export type CategoryDeleteMutationHookResult = ReturnType<typeof useCategoryDeleteMutation>;
+export type CategoryDeleteMutationResult = Apollo.MutationResult<CategoryDeleteMutation>;
+export type CategoryDeleteMutationOptions = Apollo.BaseMutationOptions<CategoryDeleteMutation, CategoryDeleteMutationVariables>;
+export const CategoryUpdateDocument = gql`
+    mutation CategoryUpdate($name: String!, $categoryUpdateId: Int!) {
+  categoryUpdate(name: $name, id: $categoryUpdateId) {
+    id
+    name
+  }
+}
+    `;
+export type CategoryUpdateMutationFn = Apollo.MutationFunction<CategoryUpdateMutation, CategoryUpdateMutationVariables>;
+
+/**
+ * __useCategoryUpdateMutation__
+ *
+ * To run a mutation, you first call `useCategoryUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCategoryUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [categoryUpdateMutation, { data, loading, error }] = useCategoryUpdateMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      categoryUpdateId: // value for 'categoryUpdateId'
+ *   },
+ * });
+ */
+export function useCategoryUpdateMutation(baseOptions?: Apollo.MutationHookOptions<CategoryUpdateMutation, CategoryUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CategoryUpdateMutation, CategoryUpdateMutationVariables>(CategoryUpdateDocument, options);
+      }
+export type CategoryUpdateMutationHookResult = ReturnType<typeof useCategoryUpdateMutation>;
+export type CategoryUpdateMutationResult = Apollo.MutationResult<CategoryUpdateMutation>;
+export type CategoryUpdateMutationOptions = Apollo.BaseMutationOptions<CategoryUpdateMutation, CategoryUpdateMutationVariables>;
 export const HelloDocument = gql`
     query Hello {
   hello
@@ -254,36 +503,6 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
-export const MutationDocument = gql`
-    mutation Mutation {
-  mutAuthTest
-}
-    `;
-export type MutationMutationFn = Apollo.MutationFunction<MutationMutation, MutationMutationVariables>;
-
-/**
- * __useMutationMutation__
- *
- * To run a mutation, you first call `useMutationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMutationMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [mutationMutation, { data, loading, error }] = useMutationMutation({
- *   variables: {
- *   },
- * });
- */
-export function useMutationMutation(baseOptions?: Apollo.MutationHookOptions<MutationMutation, MutationMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MutationMutation, MutationMutationVariables>(MutationDocument, options);
-      }
-export type MutationMutationHookResult = ReturnType<typeof useMutationMutation>;
-export type MutationMutationResult = Apollo.MutationResult<MutationMutation>;
-export type MutationMutationOptions = Apollo.BaseMutationOptions<MutationMutation, MutationMutationVariables>;
 export const QueryAuthTestDocument = gql`
     query QueryAuthTest {
   queryAuthTest

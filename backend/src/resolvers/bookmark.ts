@@ -44,7 +44,7 @@ export class BookmarkResolver {
   // create
   @Mutation(() => Bookmark)
   @UseMiddleware(auth)
-  async createBookmark(
+  async bookmarkCreate(
     @Arg("options", () => BookmarkCreateOptions) options: BookmarkCreateOptions,
     @Ctx() { payload }: AuthContext
   ): Promise<Bookmark> {
@@ -81,7 +81,7 @@ export class BookmarkResolver {
   // update
   @Mutation(() => Bookmark)
   @UseMiddleware(auth)
-  async updateBookmark(
+  async bookmarkUpdate(
     @Arg("id", () => Int) id: number,
     @Arg("options", () => BookmarkUpdateOptions) options: BookmarkUpdateOptions
   ): Promise<Bookmark> {
@@ -99,7 +99,7 @@ export class BookmarkResolver {
   // delete
   @Mutation(() => Boolean)
   @UseMiddleware(auth)
-  async deleteBookmark(@Arg("id", () => Int) id: number): Promise<Boolean> {
+  async bookmarkDelete(@Arg("id", () => Int) id: number): Promise<Boolean> {
     const bookmark = await Bookmark.findOne(id);
     if (!bookmark) throw new Error("cannot find bookmark");
     await Bookmark.remove(bookmark);

@@ -8,7 +8,7 @@ import { Bookmark } from "./entities/bookmark";
 import { BookmarkResolver } from "./resolvers/bookmark";
 import { Category } from "./entities/category";
 import { CategoryResolver } from "./resolvers/category";
-import { HelloWorldResolver } from "./resolvers/hwResolver";
+import { HelloWorldResolver } from "./resolvers/hello-world";
 import { User } from "./entities/user";
 import { UserResolver } from "./resolvers/user";
 import { buildSchema } from "type-graphql";

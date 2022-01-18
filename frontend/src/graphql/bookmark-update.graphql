@@ -1,0 +1,14 @@
+mutation BookmarkUpdate(
+  $options: BookmarkUpdateOptions!
+  $bookmarkUpdateId: Int!
+) {
+  bookmarkUpdate(options: $options, id: $bookmarkUpdateId) {
+    id
+    url
+    description
+    categories {
+      id
+      name
+    }
+  }
+}

@@ -1,0 +1,11 @@
+mutation BookmarkCreate($options: BookmarkCreateOptions!) {
+  bookmarkCreate(options: $options) {
+    id
+    url
+    description
+    categories {
+      id
+      name
+    }
+  }
+}

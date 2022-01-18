@@ -17,7 +17,7 @@ export class CategoryResolver {
   // create
   @Mutation(() => Category)
   @UseMiddleware(auth)
-  async createCategory(
+  async categoryCreate(
     @Arg("name", () => String) name: string,
     @Ctx() { payload }: AuthContext
   ): Promise<Category> {
@@ -44,16 +44,12 @@ export class CategoryResolver {
   // update
   @Mutation(() => Category)
   @UseMiddleware(auth)
-  async updateCategory(
+  async categoryUpdate(
     @Arg("id", () => Int) id: number,
     @Arg("name", () => String) name: string,
-    @Ctx() { payload }: AuthContext
   ): Promise<Category> {
-    const category = await Category.findOne(id, {
-      relations: ["user"],
-    });
+    const category = await Category.findOne(id);
     if (!category) throw new Error("cannot find category");
-    // if (category.user.id !== payload.userId) return false;
     category.name = name;
     return await category.save();
   }
@@ -61,7 +57,7 @@ export class CategoryResolver {
   // delete
   @Mutation(() => Boolean)
   @UseMiddleware(auth)
-  async deleteCategory(
+  async categoryDelete(
     @Arg("id", () => Int) id: number,
     @Ctx() { payload }: AuthContext
   ): Promise<Boolean> {

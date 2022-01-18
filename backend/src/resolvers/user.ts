@@ -9,7 +9,6 @@ import {
   Mutation,
   Query,
   Resolver,
-  Int,
   ObjectType,
   Field,
   UseMiddleware,
@@ -37,7 +36,7 @@ export class UserResolver {
       },
     });
     if (found) return false;
-    // todo: need try/cetch?
+    // todo: need try/catch?
     const hashedPassword = await argon2.hash(password);
     const user = await User.create({
       username,
@@ -92,7 +91,7 @@ export class UserResolver {
   // update
   @Mutation(() => Boolean)
   @UseMiddleware(auth)
-  async updateUser(
+  async userUpdate(
     @Arg("password", () => String) password: string,
     @Ctx() { payload }: AuthContext
   ): Promise<boolean> {
@@ -106,7 +105,7 @@ export class UserResolver {
   // delete
   @Mutation(() => Boolean)
   @UseMiddleware(auth)
-  async deleteUser(@Ctx() { payload }: AuthContext): Promise<boolean> {
+  async userDelete(@Ctx() { payload }: AuthContext): Promise<boolean> {
     const user = await User.findOne(payload.userId);
     if (!user) return false;
     await User.remove(user);

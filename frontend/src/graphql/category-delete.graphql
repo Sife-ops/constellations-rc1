@@ -1,0 +1,3 @@
+mutation CategoryDelete($categoryDeleteId: Int!) {
+  categoryDelete(id: $categoryDeleteId)
+}

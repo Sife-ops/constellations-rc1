@@ -3,10 +3,10 @@ import { Category } from "../entities/category";
 import { User } from "../entities/user";
 
 const mockBookmarks = require("../../mock-data/bookmark.json").slice(0, 100);
-// const mockBookmarks = require("../../mock-data/bookmark.json")
-const mockCategories = require("../../mock-data/category.json");
 const mockUsers = require("../../mock-data/user.json").slice(0, 3);
+// const mockBookmarks = require("../../mock-data/bookmark.json")
 // const mockUsers = require("../../mock-data/user.json")
+const mockCategories = require("../../mock-data/category.json");
 
 export const seed = async () => {
   for (const { username, password } of mockUsers) {

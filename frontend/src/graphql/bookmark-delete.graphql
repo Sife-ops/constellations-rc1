@@ -1,0 +1,3 @@
+mutation BookmarkDelete($bookmarkDeleteId: Int!) {
+  bookmarkDelete(id: $bookmarkDeleteId)
+}

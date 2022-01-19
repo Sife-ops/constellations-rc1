@@ -7,13 +7,13 @@ export const LoadingSpinner: React.FC = () => {
       style={{
         height: "100vh",
         display: "flex",
-        flexDirection: "column",
         justifyContent: "center",
       }}
     >
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
         }}
       >

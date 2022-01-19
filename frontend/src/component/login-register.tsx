@@ -1,9 +1,19 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useRegisterMutation } from "../generated/graphql";
+import { setAccessToken } from "../utility/token";
+import { useLoginMutation, useRegisterMutation } from "../generated/graphql";
 
-export const Register: React.FC = () => {
+export enum LoginRegisterEnum {
+  Login,
+  Register,
+}
+
+interface Props {
+  variant: LoginRegisterEnum;
+}
+
+export const LoginRegister: React.FC<Props> = ({ variant }) => {
   const navigate = useNavigate();
 
   interface Form {
@@ -18,17 +28,32 @@ export const Register: React.FC = () => {
 
   const [{ username, password }, setForm] = useState<Form>(initialForm);
 
+  const [login] = useLoginMutation();
   const [register] = useRegisterMutation();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const response = await register({
-      variables: {
-        username,
-        password,
-      },
-    });
-    navigate("/login");
+
+    if (variant === LoginRegisterEnum.Login) {
+      const response = await login({
+        variables: {
+          username,
+          password,
+        },
+      });
+      const accessToken = response?.data?.login?.accessToken;
+      if (accessToken) setAccessToken(accessToken);
+    } else {
+      const response = await register({
+        variables: {
+          username,
+          password,
+        },
+      });
+      navigate("/login");
+    }
+
+    window.location.reload();
   };
 
   const handleUsername = (e: any) =>
@@ -67,14 +92,24 @@ export const Register: React.FC = () => {
               />
             </Form.Group>
             <div className="d-grid gap-2">
-              <Button variant="success" type="submit">
-                Register
-              </Button>
+              {variant === LoginRegisterEnum.Login ? (
+                <Button variant="primary" type="submit">
+                  Login
+                </Button>
+              ) : (
+                <Button variant="success" type="submit">
+                  Register
+                </Button>
+              )}
             </div>
           </Form>
         </div>
         <div className="class4">
-          <Link to="/login">Login</Link>
+          {variant === LoginRegisterEnum.Login ? (
+            <Link to="/register">Register</Link>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
         </div>
       </div>
     </div>

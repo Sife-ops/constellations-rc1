@@ -1,0 +1,17 @@
+services:
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend/database:/app/database
+  frontend:
+    depends_on:
+      - backend
+    build: ./frontend
+  proxy:
+    depends_on:
+      - frontend
+    image: nginx:alpine
+    ports:
+      - 3000:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d

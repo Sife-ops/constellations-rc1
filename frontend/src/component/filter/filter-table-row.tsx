@@ -43,7 +43,7 @@ export const FilterTableRow: React.FC<Props> = ({ bookmark, categories }) => {
         </a>
       </td>
 
-      <td className="bookmarkRow__category--noMobile">
+      <td className="filterTable__row__category--noMobile">
         {bookmark.categories ? bookmark.categories.map(mapCategoryBadge) : null}
       </td>
 
@@ -53,7 +53,7 @@ export const FilterTableRow: React.FC<Props> = ({ bookmark, categories }) => {
           <i
             className={
               "fas fa-cog me-2 " +
-              (hover ? "bookmarkRow__edit--hover" : "bookmarkRow__edit")
+              (hover ? "filterTable__row__edit--hover" : "filterTable__row__edit")
             }
             onClick={handleEdit}
           />
@@ -61,7 +61,7 @@ export const FilterTableRow: React.FC<Props> = ({ bookmark, categories }) => {
           <i
             className={
               "fas fa-trash " +
-              (hover ? "bookmarkRow__delete--hover" : "bookmarkRow__delete")
+              (hover ? "filterTable__row__delete--hover" : "filterTable__row__delete")
             }
             onClick={handleDelete}
           />

@@ -1,0 +1,29 @@
+.filterTable {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.filterTable td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filterTable__row__edit,
+.filterTable__row__delete {
+  color: lightgray;
+}
+
+.filterTable__row__edit--hover {
+  color: grey;
+}
+
+.filterTable__row__delete--hover {
+  color: firebrick;
+}
+
+@media (max-width: 480px) {
+  .filterTable__row__category--noMobile {
+    display: none;
+  }
+}
+

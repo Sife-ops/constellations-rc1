@@ -10,7 +10,7 @@ interface Props {
   setCategories: React.Dispatch<React.SetStateAction<CategoryType[]>>;
 }
 
-export const Category: React.FC<Props> = ({ categories, setCategories }) => {
+export const FilterCategory: React.FC<Props> = ({ categories, setCategories }) => {
   const { dispatchModal } = React.useContext(globalContext);
 
   const [editMode, setEditMode] = React.useState<boolean>(false);

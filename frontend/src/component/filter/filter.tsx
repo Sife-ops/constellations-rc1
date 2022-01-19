@@ -1,10 +1,10 @@
 import React from "react";
 import { AddBookmarkModal } from "../modal/variant/add-bookmark";
 import { Button } from "react-bootstrap";
-import { Category } from "./category";
-import { FilterTable } from "./table";
+import { FilterCategory } from "./filter-category";
+import { FilterSearch } from "./filter-search";
+import { FilterTable } from "./filter-table";
 import { LoadingSpinner } from "../loading-spinner";
-import { Search } from "./search";
 import { globalContext } from "../../utility/context";
 
 import {
@@ -63,14 +63,14 @@ export const Filter: React.FC = () => {
       {userCategoryBookmark.loading ? (
         <LoadingSpinner />
       ) : (
-        <Category categories={categories} setCategories={setCategories} />
+        <FilterCategory categories={categories} setCategories={setCategories} />
       )}
 
       {userBookmarkCategory.loading ? (
         <LoadingSpinner />
       ) : (
         <>
-          <Search setSearch={setSearch} />
+          <FilterSearch setSearch={setSearch} />
           <div className="d-grid gap-2">
             <Button variant="success" onClick={handleAddBookmark}>
               Add Bookmark

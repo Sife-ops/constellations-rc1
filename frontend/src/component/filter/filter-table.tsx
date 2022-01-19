@@ -1,6 +1,6 @@
+import "./filter-table.css";
 import React from "react";
-import { FilterTableRow } from "./table-row";
-import { Table } from "react-bootstrap";
+import { FilterTableRow } from "./filter-table-row";
 import { categoryNone } from "../../utility/function";
 
 import {
@@ -50,7 +50,7 @@ export const FilterTable: React.FC<Props> = ({
   }
 
   return (
-    <table className="table bookmarkTable">
+    <table className="table filterTable">
       <tbody>
         {filtered.map((e) => (
           <FilterTableRow key={e.id} bookmark={e} categories={categories} />

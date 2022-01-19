@@ -68,7 +68,7 @@ export const LoginRegister: React.FC<Props> = ({ variant }) => {
 
   return (
     <div className="loginRegister__outer">
-      <div className="loginRegister__inner">
+      <div className="loginRegister__inner loginRegister__inner--ifMobile">
         <div className="loginRegister__window mb-2">
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">

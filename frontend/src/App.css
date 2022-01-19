@@ -14,10 +14,21 @@
 
 .loginRegister__inner {
   /* border: 2px solid green; */
-  width: 275px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .loginRegister__inner--ifMobile {
+    width: 75%;
+  }
+}
+
+@media (min-width: 481px) {
+  .loginRegister__inner--ifMobile {
+    width: 30%;
+  }
 }
 
 .loginRegister__window {

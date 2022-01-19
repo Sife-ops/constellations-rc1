@@ -22,9 +22,13 @@ export const AddCategoryModal: React.FC<Props> = ({ setCategories }) => {
       variables: {
         name,
       },
-    }).then(() => {
+    }).then((e) => {
+      setCategories((state) => {
+        const category = e?.data?.categoryCreate;
+        if (category) return [...state, category];
+        return state;
+      });
       dispatchModal(<></>);
-      window.location.reload();
     });
   };
 

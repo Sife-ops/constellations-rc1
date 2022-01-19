@@ -3,6 +3,8 @@ services:
     build: ./backend
     volumes:
       - ./backend/database:/app/database
+    environment:
+      - REACT_APP_NGROK=${REACT_APP_NGROK}
   frontend:
     depends_on:
       - backend

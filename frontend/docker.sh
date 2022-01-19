@@ -1,7 +1,7 @@
 #!/bin/sh
 docker run \
-    --name test2 \
+    --name constellations_frontend \
     --rm \
     -d \
     -p 3000:80 \
-    test2
+    constellations_frontend

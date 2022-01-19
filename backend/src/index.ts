@@ -2,7 +2,6 @@ import "reflect-metadata";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Request, Response } from "express";
-import process from "process"
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerLoaderPlugin } from "type-graphql-dataloader";
 import { Bookmark } from "./entities/bookmark";
@@ -20,13 +19,9 @@ import { newAccessToken, newRefreshToken } from "./utility/token";
 import { seed } from "./utility/mock";
 import { verify } from "jsonwebtoken";
 
-process.on("SIGINT", () => {
-  console.info("Interrupted");
-  process.exit(0);
-});
-
 (async function main() {
-  await createConnection({ //^
+  //^
+  await createConnection({
     type: "sqlite",
     database: "./database/db.sqlite3",
     dropSchema: env.seed,
@@ -37,19 +32,22 @@ process.on("SIGINT", () => {
 
   if (env.seed) {
     await seed();
-  } //$
+  }
+  //$
 
   const app = express();
 
+  const origin = ["https://studio.apollographql.com", "http://localhost:3000"];
   app.use(
     cors({
-      origin: ["https://studio.apollographql.com", "http://localhost:3000"],
+      origin: env.ngrok ? origin.concat(env.ngrok) : origin,
       credentials: true,
     })
   );
   app.use(cookieParser());
 
-  app.get("/test", (req: Request, res: Response) => { //^
+  //^
+  app.get("/test", (req: Request, res: Response) => {
     res.json({
       message: "yes",
     });
@@ -83,7 +81,8 @@ process.on("SIGINT", () => {
     res.json({
       ok: true,
     });
-  }); //$
+  });
+  //$
 
   const server = new ApolloServer({
     schema: await buildSchema({

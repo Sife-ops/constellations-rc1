@@ -13,6 +13,7 @@ interface EditCategoryModalProps {
 
 export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
   category,
+  setCategories,
 }) => {
   const { hideModal, dispatchModal } = useContext(globalContext);
 
@@ -20,7 +21,9 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
   const handleName = (e: any) => setName(e.target.value);
 
   const handleDelete = () =>
-    dispatchModal(<DeleteCategoryModal category={category} />);
+    dispatchModal(
+      <DeleteCategoryModal category={category} setCategories={setCategories} />
+    );
 
   const [updateMutation] = useCategoryUpdateMutation();
   const handleSave = () => {

@@ -7,9 +7,13 @@ import { useCategoryDeleteMutation } from "../../../generated/graphql";
 
 interface Props {
   category: CategoryType;
+  setCategories: React.Dispatch<React.SetStateAction<CategoryType[]>>;
 }
 
-export const DeleteCategoryModal: React.FC<Props> = ({ category }) => {
+export const DeleteCategoryModal: React.FC<Props> = ({
+  category,
+  setCategories,
+}) => {
   const { hideModal, dispatchModal } = React.useContext(globalContext);
 
   const [deleteMutation] = useCategoryDeleteMutation();
@@ -19,9 +23,11 @@ export const DeleteCategoryModal: React.FC<Props> = ({ category }) => {
       variables: {
         categoryDeleteId: parseInt(category.id),
       },
-    }).then(() => {
+    }).then((e) => {
+      if (!e.errors) {
+        setCategories((state) => state.filter((e) => e.id !== category.id));
+      }
       dispatchModal(<></>);
-      window.location.reload();
     });
   };
 

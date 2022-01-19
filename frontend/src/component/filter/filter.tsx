@@ -6,6 +6,7 @@ import { FilterSearch } from "./filter-search";
 import { FilterTable } from "./filter-table";
 import { LoadingSpinner } from "../loading-spinner";
 import { globalContext } from "../../utility/context";
+import { noCategory } from "../../utility/no-category";
 
 import {
   useUserCategoryBookmarkQuery,
@@ -29,7 +30,7 @@ export const Filter: React.FC = () => {
       // add 'no category', set selected to false
       setCategories(
         data.user.categories
-          .concat({ id: "0", name: "No Category" })
+          .concat(noCategory)
           .map((e) => ({ ...e, selected: false }))
       );
     }
@@ -47,7 +48,7 @@ export const Filter: React.FC = () => {
       setBookmarks(
         data.user.bookmarks.map((e) => {
           if (!e.categories || e.categories.length < 1) {
-            return { ...e, categories: [{ id: "0", name: "No Category" }] };
+            return { ...e, categories: [noCategory] };
           }
           return e;
         })

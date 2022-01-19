@@ -21,7 +21,7 @@ export const NavBar: React.FC = () => {
   return (
     <Navbar className="mb-2" bg="primary" variant="dark">
       <Container>
-        <Navbar.Brand id="id1" href="/">
+        <Navbar.Brand id="titleNavbar" href="/">
           <img src={logo} width="30" height="30" /> Constellations
         </Navbar.Brand>
 
@@ -30,11 +30,7 @@ export const NavBar: React.FC = () => {
         </Nav>
 
         <Navbar.Collapse className="justify-content-end">
-          {/* todo: welcome message */}
-          {/* <Navbar.Text>
-            Signed in as: <a href="/login">USER</a>
-          </Navbar.Text> */}
-          {/* {globalState.userId} */}
+          {/* todo: show 'signed in as ...' */}
           <Button variant="secondary" onClick={handleLogout}>
             Log Out
           </Button>

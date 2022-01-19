@@ -67,9 +67,9 @@ export const LoginRegister: React.FC<Props> = ({ variant }) => {
     }));
 
   return (
-    <div className="class1">
-      <div className="class2">
-        <div className="class3 mb-2">
+    <div className="loginRegister__outer">
+      <div className="loginRegister__inner">
+        <div className="loginRegister__window mb-2">
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Username</Form.Label>
@@ -102,7 +102,7 @@ export const LoginRegister: React.FC<Props> = ({ variant }) => {
             </div>
           </Form>
         </div>
-        <div className="class4">
+        <div className="loginRegister__link">
           {variant === "login" ? (
             <Link to="/register">Register</Link>
           ) : (

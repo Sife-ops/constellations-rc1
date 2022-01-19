@@ -50,12 +50,12 @@ export const FilterTable: React.FC<Props> = ({
   }
 
   return (
-    <Table>
+    <table className="table bookmarkTable">
       <tbody>
         {filtered.map((e) => (
           <FilterTableRow key={e.id} bookmark={e} categories={categories} />
         ))}
       </tbody>
-    </Table>
+    </table>
   );
 };

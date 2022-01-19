@@ -14,9 +14,6 @@ interface Props {
   categories: CategoryType[];
 }
 
-// todo: hide cog/trash until hover row
-// todo: ellipsize long links
-// todo: action column less wide
 export const FilterTableRow: React.FC<Props> = ({ bookmark, categories }) => {
   const { dispatchModal } = React.useContext(globalContext);
 
@@ -39,29 +36,36 @@ export const FilterTableRow: React.FC<Props> = ({ bookmark, categories }) => {
       onMouseOut={() => setHover(false)}
     >
       <td>{bookmark.description}</td>
+
       <td>
         <a href={bookmark.url} target="_blank">
           {bookmark.url}
         </a>
       </td>
-      <td>
+
+      <td className="bookmarkRow__category--noMobile">
         {bookmark.categories ? bookmark.categories.map(mapCategoryBadge) : null}
       </td>
-      <td align="right">
-        <i
-          className={
-            "fas fa-cog me-2 " +
-            (hover ? "bookmarkRow__edit--hover" : "bookmarkRow__edit")
-          }
-          onClick={handleEdit}
-        />
-        <i
-          className={
-            "fas fa-trash " +
-            (hover ? "bookmarkRow__delete--hover" : "bookmarkRow__delete")
-          }
-          onClick={handleDelete}
-        />
+
+      {/* todo: exact element width */}
+      <td width={"50px"}>
+        <div className="d-flex justify-content-end">
+          <i
+            className={
+              "fas fa-cog me-2 " +
+              (hover ? "bookmarkRow__edit--hover" : "bookmarkRow__edit")
+            }
+            onClick={handleEdit}
+          />
+
+          <i
+            className={
+              "fas fa-trash " +
+              (hover ? "bookmarkRow__delete--hover" : "bookmarkRow__delete")
+            }
+            onClick={handleDelete}
+          />
+        </div>
       </td>
     </tr>
   );

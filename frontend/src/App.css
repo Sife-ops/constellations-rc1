@@ -1,8 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Twinkle+Star&display=swap");
 
-#id1 {
+#titleNavbar {
   text-align: center;
   font-family: "Twinkle Star", cursive;
+}
+
+.bookmarkTable {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.bookmarkTable td {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bookmarkRow__edit,
@@ -18,14 +28,20 @@
   color: firebrick;
 }
 
-.class1 {
+@media (max-width: 480px) {
+  .bookmarkRow__category--noMobile {
+    display: none;
+  }
+}
+
+.loginRegister__outer {
   /* border: 2px solid red; */
   height: 100vh;
   display: flex;
   justify-content: center;
 }
 
-.class2 {
+.loginRegister__inner {
   /* border: 2px solid green; */
   width: 275px;
   display: flex;
@@ -33,12 +49,12 @@
   justify-content: center;
 }
 
-.class3 {
+.loginRegister__window {
   border: 1px solid lightgray;
   padding: 1rem;
   border-radius: 0.5rem;
 }
 
-.class4 {
+.loginRegister__link {
   text-align: center;
 }

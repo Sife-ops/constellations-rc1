@@ -3,7 +3,7 @@ import React from "react";
 import decode from "jwt-decode";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoadingSpinner } from "./component/loading-spinner";
-import { LoginRegister, LoginRegisterEnum } from "./component/login-register";
+import { LoginRegister } from "./component/login-register";
 import { env } from "./utility/constant";
 import { globalContext } from "./utility/context";
 import { setAccessToken } from "./utility/token";
@@ -38,9 +38,18 @@ export const Main: React.FC = () => {
       <div>
         <BrowserRouter>
           <Routes>
-            <Route path="/login" element={<LoginRegister variant={LoginRegisterEnum.Login} />} />
-            <Route path="/register" element={<LoginRegister variant={LoginRegisterEnum.Register} />} />
-            <Route path="*" element={<Navigate replace to="/login" />} />
+            <Route //
+              path="/login"
+              element={<LoginRegister variant="login" />}
+            />
+            <Route //
+              path="/register"
+              element={<LoginRegister variant="register" />}
+            />
+            <Route //
+              path="*"
+              element={<Navigate replace to="/login" />}
+            />
           </Routes>
         </BrowserRouter>
       </div>

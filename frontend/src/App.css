@@ -27,7 +27,7 @@
 
 .class2 {
   /* border: 2px solid green; */
-  width: 25%;
+  width: 275px;
   display: flex;
   flex-direction: column;
   justify-content: center;

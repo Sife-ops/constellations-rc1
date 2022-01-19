@@ -5,12 +5,12 @@ import { setAccessToken } from "../utility/token";
 import { useLoginMutation, useRegisterMutation } from "../generated/graphql";
 
 export enum LoginRegisterEnum {
-  Login,
-  Register,
+  Login = "login",
+  Register = "register"
 }
 
 interface Props {
-  variant: LoginRegisterEnum;
+  variant: string;
 }
 
 export const LoginRegister: React.FC<Props> = ({ variant }) => {
@@ -33,8 +33,7 @@ export const LoginRegister: React.FC<Props> = ({ variant }) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
-    if (variant === LoginRegisterEnum.Login) {
+    if (variant === "login") {
       const response = await login({
         variables: {
           username,
@@ -44,7 +43,7 @@ export const LoginRegister: React.FC<Props> = ({ variant }) => {
       const accessToken = response?.data?.login?.accessToken;
       if (accessToken) setAccessToken(accessToken);
     } else {
-      const response = await register({
+      await register({
         variables: {
           username,
           password,
@@ -52,7 +51,6 @@ export const LoginRegister: React.FC<Props> = ({ variant }) => {
       });
       navigate("/login");
     }
-
     window.location.reload();
   };
 
@@ -92,7 +90,7 @@ export const LoginRegister: React.FC<Props> = ({ variant }) => {
               />
             </Form.Group>
             <div className="d-grid gap-2">
-              {variant === LoginRegisterEnum.Login ? (
+              {variant === "login" ? (
                 <Button variant="primary" type="submit">
                   Login
                 </Button>
@@ -105,7 +103,7 @@ export const LoginRegister: React.FC<Props> = ({ variant }) => {
           </Form>
         </div>
         <div className="class4">
-          {variant === LoginRegisterEnum.Login ? (
+          {variant === "login" ? (
             <Link to="/register">Register</Link>
           ) : (
             <Link to="/login">Login</Link>

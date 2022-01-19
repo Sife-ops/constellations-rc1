@@ -23,13 +23,16 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
 
   const [updateMutation] = useCategoryUpdateMutation();
   const handleSave = () => {
+    hideModal();
     updateMutation({
       variables: {
         categoryUpdateId: parseInt(category.id),
         name,
       },
+    }).then(() => {
+      dispatchModal(<></>);
+      window.location.reload();
     });
-    handleClose();
   };
 
   const handleClose = () => {

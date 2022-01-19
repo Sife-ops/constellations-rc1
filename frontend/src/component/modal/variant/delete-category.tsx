@@ -10,16 +10,19 @@ interface Props {
 }
 
 export const DeleteCategoryModal: React.FC<Props> = ({ category }) => {
-  const { hideModal } = React.useContext(globalContext);
+  const { hideModal, dispatchModal } = React.useContext(globalContext);
 
   const [deleteMutation] = useCategoryDeleteMutation();
   const handleConfirm = () => {
+    hideModal();
     deleteMutation({
       variables: {
         categoryDeleteId: parseInt(category.id),
       },
+    }).then(() => {
+      dispatchModal(<></>);
+      window.location.reload();
     });
-    handleClose();
   };
 
   const handleClose = () => hideModal();

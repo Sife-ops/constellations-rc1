@@ -95,6 +95,8 @@ export const EditBookmarkModal: React.FC<Props> = ({
   const [mutation] = useBookmarkUpdateMutation();
   const handleSubmit = () => {
     const { description, url } = form;
+
+    hideModal();
     mutation({
       variables: {
         bookmarkUpdateId: parseInt(bookmark.id),
@@ -106,8 +108,10 @@ export const EditBookmarkModal: React.FC<Props> = ({
             .map((e) => parseInt(e.id)),
         },
       },
+    }).then(() => {
+      dispatchModal(<></>);
+      window.location.reload();
     });
-    handleClose();
   };
 
   const handleClose = () => {

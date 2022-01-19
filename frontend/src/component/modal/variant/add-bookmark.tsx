@@ -81,6 +81,7 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
   const handleSubmit = () => {
     const { url, description } = form;
 
+    hideModal();
     mutation({
       variables: {
         options: {
@@ -91,9 +92,10 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
             .map((e) => parseInt(e.id)),
         },
       },
+    }).then(() => {
+      dispatchModal(<></>);
+      window.location.reload();
     });
-
-    handleClose();
   };
 
   const handleClose = () => {

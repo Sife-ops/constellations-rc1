@@ -14,12 +14,15 @@ export const DeleteBookmarkModal: React.FC<Props> = ({ bookmark }) => {
 
   const [mutation] = useBookmarkDeleteMutation();
   const handleConfirm = () => {
+    hideModal();
     mutation({
       variables: {
         bookmarkDeleteId: parseInt(bookmark.id),
       },
+    }).then(() => {
+      dispatchModal(<></>);
+      window.location.reload();
     });
-    handleClose();
   };
 
   const handleClose = () => {

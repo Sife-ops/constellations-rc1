@@ -12,12 +12,15 @@ export const AddCategoryModal: React.FC = () => {
 
   const [mutation] = useCategoryCreateMutation();
   const handleSubmit = () => {
+    hideModal();
     mutation({
       variables: {
         name,
       },
+    }).then(() => {
+      dispatchModal(<></>);
+      window.location.reload();
     });
-    handleClose();
   };
 
   const handleClose = () => {

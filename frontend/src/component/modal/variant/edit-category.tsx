@@ -1,5 +1,5 @@
 import { Button, Form } from "react-bootstrap";
-import { CategoryType } from "../../../utility/type";
+import { Category as CategoryType } from "../../../utility/type";
 import { DeleteCategoryModal } from "./delete-category";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 
 interface EditCategoryModalProps {
   category: CategoryType;
+  setCategories: React.Dispatch<React.SetStateAction<CategoryType[]>>;
 }
 
 export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({

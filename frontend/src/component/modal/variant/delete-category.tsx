@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { CategoryType } from "../../../utility/type";
+import { Category as CategoryType } from "../../../utility/type";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
 import { useCategoryDeleteMutation } from "../../../generated/graphql";

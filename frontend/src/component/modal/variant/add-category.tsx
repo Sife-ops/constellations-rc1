@@ -1,10 +1,15 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
+import { Category as CategoryType } from "../../../utility/type";
 import { ModalWindow } from "../modal";
 import { globalContext } from "../../../utility/context";
 import { useCategoryCreateMutation } from "../../../generated/graphql";
 
-export const AddCategoryModal: React.FC = () => {
+interface Props {
+  setCategories: React.Dispatch<React.SetStateAction<CategoryType[]>>;
+}
+
+export const AddCategoryModal: React.FC<Props> = ({ setCategories }) => {
   const { hideModal, dispatchModal } = React.useContext(globalContext);
 
   const [name, setName] = React.useState<string>("");

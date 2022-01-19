@@ -10,7 +10,10 @@ interface Props {
   setCategories: React.Dispatch<React.SetStateAction<CategoryType[]>>;
 }
 
-export const FilterCategory: React.FC<Props> = ({ categories, setCategories }) => {
+export const FilterCategory: React.FC<Props> = ({
+  categories,
+  setCategories,
+}) => {
   const { dispatchModal } = React.useContext(globalContext);
 
   const [editMode, setEditMode] = React.useState<boolean>(false);
@@ -26,7 +29,9 @@ export const FilterCategory: React.FC<Props> = ({ categories, setCategories }) =
   const mapCategoryButtons = (e1: CategoryType) => {
     const handleSelectCategory = () => {
       if (editMode) {
-        dispatchModal(<EditCategoryModal category={e1} />);
+        dispatchModal(
+          <EditCategoryModal category={e1} setCategories={setCategories} />
+        );
         return;
       }
       setCategories((current) =>
@@ -63,7 +68,8 @@ export const FilterCategory: React.FC<Props> = ({ categories, setCategories }) =
 
   const handleCategoryEdit = () => setEditMode(true);
 
-  const handleAddCategory = () => dispatchModal(<AddCategoryModal />);
+  const handleAddCategory = () =>
+    dispatchModal(<AddCategoryModal setCategories={setCategories} />);
 
   const handleCategoryEditDone = () => setEditMode(false);
 

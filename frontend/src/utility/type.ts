@@ -1,9 +1,9 @@
-export interface BookmarkType {
-  id: string;
-  description: string;
-  url: string;
-  categories: CategoryType[];
-}
+// export interface BookmarkType {
+//   id: string;
+//   description: string;
+//   url: string;
+//   categories: CategoryType[];
+// }
 
 export interface BookmarkAddForm {
   description: string;
@@ -15,12 +15,12 @@ export interface BookmarkEditForm {
   url?: string;
 }
 
-export interface CategoryType {
-  id: string;
-  name: string;
-  count?: number;
-  selected?: boolean;
-}
+// export interface CategoryType {
+//   id: string;
+//   name: string;
+//   count?: number;
+//   selected?: boolean;
+// }
 
 export interface Category {
   __typename?: "Category" | undefined;

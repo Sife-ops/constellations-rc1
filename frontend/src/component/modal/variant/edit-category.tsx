@@ -33,8 +33,21 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
         categoryUpdateId: parseInt(category.id),
         name,
       },
-    }).then(() => {
-      window.location.reload();
+    }).then((e) => {
+      const category = e?.data?.categoryUpdate;
+      if (!e.errors && category) {
+        setCategories((state) =>
+          state.map((e) => {
+            if (e.id === category.id) {
+              return {
+                ...e,
+                name: category.name,
+              };
+            }
+            return e;
+          })
+        );
+      }
     });
   };
 

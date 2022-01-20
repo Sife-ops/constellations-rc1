@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "dev": "DEV=true nodemon --quiet ./dist/index.js",
+    "seed": "DEV=true SEED=true node ./dist/index.js",
     "start": "node ./dist/index.js",
-    "watch": "tsc -w",
-    "dev": "DEV=true nodemon --quiet ./dist/index.js"
+    "watch": "tsc -w"
   },
   "keywords": [],
   "author": "",

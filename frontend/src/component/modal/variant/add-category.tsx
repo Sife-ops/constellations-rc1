@@ -23,12 +23,9 @@ export const AddCategoryModal: React.FC<Props> = ({ setCategories }) => {
         name,
       },
     }).then((e) => {
-      if (!e.errors) {
-        setCategories((state) => {
-          const category = e?.data?.categoryCreate;
-          if (category) return [...state, category];
-          return state;
-        });
+      const category = e?.data?.categoryCreate;
+      if (!e.errors && category) {
+        setCategories((state) => [...state, category]);
       }
     });
   };

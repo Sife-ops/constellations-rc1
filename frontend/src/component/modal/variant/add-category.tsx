@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const AddCategoryModal: React.FC<Props> = ({ setCategories }) => {
-  const { hideModal, dispatchModal } = React.useContext(globalContext);
+  const { hideModal } = React.useContext(globalContext);
 
   const [name, setName] = React.useState<string>("");
   const handleName = (e: any) => setName(e.target.value);
@@ -30,13 +30,12 @@ export const AddCategoryModal: React.FC<Props> = ({ setCategories }) => {
           return state;
         });
       }
-      dispatchModal(<></>);
     });
   };
 
   const handleClose = () => {
-    dispatchModal(<></>);
     hideModal();
+    setName("");
   };
 
   return (

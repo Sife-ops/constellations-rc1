@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const DeleteBookmarkModal: React.FC<Props> = ({ bookmark }) => {
-  const { hideModal, dispatchModal } = React.useContext(globalContext);
+  const { hideModal } = React.useContext(globalContext);
 
   const [mutation] = useBookmarkDeleteMutation();
   const handleConfirm = () => {
@@ -20,15 +20,11 @@ export const DeleteBookmarkModal: React.FC<Props> = ({ bookmark }) => {
         bookmarkDeleteId: parseInt(bookmark.id),
       },
     }).then(() => {
-      dispatchModal(<></>);
       window.location.reload();
     });
   };
 
-  const handleClose = () => {
-    dispatchModal(<></>);
-    hideModal();
-  };
+  const handleClose = () => hideModal();
 
   return (
     <ModalWindow

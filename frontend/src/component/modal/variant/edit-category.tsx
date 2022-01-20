@@ -34,14 +34,13 @@ export const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
         name,
       },
     }).then(() => {
-      dispatchModal(<></>);
       window.location.reload();
     });
   };
 
   const handleClose = () => {
-    dispatchModal(<></>);
     hideModal();
+    setName(category.name);
   };
 
   return (

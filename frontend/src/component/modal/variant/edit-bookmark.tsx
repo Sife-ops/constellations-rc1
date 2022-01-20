@@ -19,7 +19,7 @@ export const EditBookmarkModal: React.FC<Props> = ({
   bookmark,
   categories,
 }) => {
-  const { hideModal, dispatchModal } = React.useContext(globalContext);
+  const { hideModal } = React.useContext(globalContext);
 
   const initialForm: BookmarkEditForm = {
     url: bookmark.url,
@@ -95,7 +95,6 @@ export const EditBookmarkModal: React.FC<Props> = ({
   const [mutation] = useBookmarkUpdateMutation();
   const handleSubmit = () => {
     const { description, url } = form;
-
     hideModal();
     mutation({
       variables: {
@@ -109,14 +108,14 @@ export const EditBookmarkModal: React.FC<Props> = ({
         },
       },
     }).then(() => {
-      dispatchModal(<></>);
       window.location.reload();
     });
   };
 
   const handleClose = () => {
-    dispatchModal(<></>);
     hideModal();
+    setForm(initialForm);
+    setNewCategories(initialNewCategories);
   };
 
   return (

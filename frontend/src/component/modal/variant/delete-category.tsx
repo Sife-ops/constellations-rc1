@@ -14,7 +14,7 @@ export const DeleteCategoryModal: React.FC<Props> = ({
   category,
   setCategories,
 }) => {
-  const { hideModal, dispatchModal } = React.useContext(globalContext);
+  const { hideModal } = React.useContext(globalContext);
 
   const [deleteMutation] = useCategoryDeleteMutation();
   const handleConfirm = () => {
@@ -27,7 +27,6 @@ export const DeleteCategoryModal: React.FC<Props> = ({
       if (!e.errors) {
         setCategories((state) => state.filter((e) => e.id !== category.id));
       }
-      dispatchModal(<></>);
     });
   };
 

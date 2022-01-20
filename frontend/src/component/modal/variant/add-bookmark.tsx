@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
-  const { hideModal, dispatchModal } = React.useContext(globalContext);
+  const { hideModal } = React.useContext(globalContext);
 
   const initialForm: BookmarkAddForm = {
     url: "",
@@ -80,7 +80,6 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
   const [mutation] = useBookmarkCreateMutation();
   const handleSubmit = () => {
     const { url, description } = form;
-
     hideModal();
     mutation({
       variables: {
@@ -93,14 +92,14 @@ export const AddBookmarkModal: React.FC<Props> = ({ categories }) => {
         },
       },
     }).then(() => {
-      dispatchModal(<></>);
       window.location.reload();
     });
   };
 
   const handleClose = () => {
-    dispatchModal(<></>);
     hideModal();
+    setForm(initialForm);
+    setAddCategories((state) => state.map((e) => ({ ...e, selected: false })));
   };
 
   return (
